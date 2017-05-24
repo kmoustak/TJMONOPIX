@@ -4,15 +4,15 @@
 
 typedef struct packed {
     
-    logic [0:447]   COL_PULSE_SEL;
+    logic [447:0]   COL_PULSE_SEL;
     logic [0:0]     INJ_IN_MON_L;
     logic [0:0]     INJ_IN_MON_R;
         
-    logic [0:223]    INJ_ROW;
-    logic [0:447]    MASKV;
-    logic [0:223]    MASKH;
-    logic [0:447]    MASKD;
-    logic [0:447]    DIG_MON_SEL;
+    logic [223:0]    INJ_ROW;
+    logic [447:0]    MASKV;
+    logic [223:0]    MASKH;
+    logic [447:0]    MASKD;
+    logic [447:0]    DIG_MON_SEL;
     
     logic [127:0]    IBIAS;
     logic [127:0]    ITHR;
@@ -47,7 +47,6 @@ typedef struct packed {
     logic  SWCNTL_VL; 
     logic  SWCNTL_VRESET_D;
     logic  SWCNTL_VRESET_P;
-    
     
     logic [3:0] EN_TEST_PATTERN;
     

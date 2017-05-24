@@ -227,6 +227,7 @@ module MONOPIX(
     always_comb begin
         default_conf = '0;
         
+        //TODO: Define configuration here
         default_conf.COL_PULSE_SEL = 0;
 
     end 
@@ -264,105 +265,104 @@ module MONOPIX(
     logic  SWCNTL_VRESET_P;
 
     //monitoring
-    logic [0:111]  DIG_MON_COMP;
-    logic [0:111]  DIG_MON_PMOS_DPW;
-    logic [0:111]  DIG_MON_HV;
-    logic [0:111]  DIG_MON_PMOS;
+    logic [111:0]  DIG_MON_COMP;
+    logic [111:0]  DIG_MON_PMOS_DPW;
+    logic [111:0]  DIG_MON_HV;
+    logic [111:0]  DIG_MON_PMOS;
     
-
 
     logic [127:0]  SET_ICASN;
     logic [127:0]  SET_VRESET_P;
-    logic [0:447]  DIG_MON_SEL;
-    logic [0:223]  INJ_ROW;
+    logic [447:0]  DIG_MON_SEL;
+    logic [223:0]  INJ_ROW;
     logic [127:0]  SET_ITHR;
     logic [127:0]  SET_VRESET_D;
     logic [3:0]  IBUFN_R_SET;
     logic [127:0]  SET_VL;
     logic [127:0]  SET_IDB;
     logic [127:0]  SET_IBIAS;
-    logic [0:223]  MASKH;
-    logic [0:447]  INJ_IN;//PULSING DIGITAL 
+    logic [223:0]  MASKH;
+    logic [447:0]  INJ_IN;//PULSING DIGITAL 
     logic INJ_IN_MON_L; //PULSING extra
     logic INJ_IN_MON_R; //PULSING extra
     
     logic [127:0]  SET_IRESET;
     logic [127:0]  SET_VCASN;
     logic [3:0]  IBUFP_R_SET;
-    logic [0:447]  MASKV;
+    logic [447:0]  MASKV;
     logic [127:0]  SET_VCLIP;
     logic [3:0]  IBUFP_L_SET;
     logic [3:0]  IBUFN_L_SET;
-    logic [0:447]  MASKD;
+    logic [447:0]  MASKD;
     logic [127:0]  SET_VH;
     
     
-    logic [0:1343]  BcidMtx;
+    logic [1343:0]  BcidMtx;
     
-    logic [0:55]  nTOK_COMP;
-    logic [0:55]  FREEZE_COMP;
-    logic [0:55]  Read_COMP;
-    logic [0:1175]  Data_COMP;
+    logic [55:0]  nTOK_COMP;
+    logic [55:0]  FREEZE_COMP;
+    logic [55:0]  Read_COMP;
+    logic [1175:0]  Data_COMP;
     
-    logic [0:55]  nTOK_HV;
-    logic [0:55]  FREEZE_HV;
-    logic [0:55]  Read_HV;
-    logic [0:1175]  Data_HV;
+    logic [55:0]  nTOK_HV;
+    logic [55:0]  FREEZE_HV;
+    logic [55:0]  Read_HV;
+    logic [1175:0]  Data_HV;
     
-    logic [0:55]  nTOK_PMOS;
-    logic [0:55]  Read_PMOS;
-    logic [0:55]  FREEZE_PMOS;
-    logic [0:1175]  Data_PMOS;
+    logic [55:0]  nTOK_PMOS;
+    logic [55:0]  Read_PMOS;
+    logic [55:0]  FREEZE_PMOS;
+    logic [1175:0]  Data_PMOS;
      
-    logic [0:55]  nTOK_PMOS_DPW;
-    logic [0:55]  FREEZE_PMOS_DPW;
-    logic [0:55]  Read_PMOS_DPW;
-    logic [0:1175]  Data_PMOS_DPW;
+    logic [55:0]  nTOK_PMOS_DPW;
+    logic [55:0]  FREEZE_PMOS_DPW;
+    logic [55:0]  Read_PMOS_DPW;
+    logic [1175:0]  Data_PMOS_DPW;
 
     matrix_dac matrix_dac (.*); 
      
     always_comb begin
-        SET_IRESET_BIT = default_conf.IRESET_BIT;
-        SET_ICASN = default_conf.ICASN;
-        SET_VRESET_P = default_conf.VRESET_P;
-        DIG_MON_SEL = default_conf.DIG_MON_SEL;
-        INJ_ROW = default_conf.INJ_ROW;
-        SET_ITHR = default_conf.ITHR;
-        SET_VRESET_D = default_conf.VRESET_D;
-        IBUFN_R_SET = default_conf.IBUFN_R;
-        SET_VL = default_conf.VL;
-        SET_IDB = default_conf.IDB;
-        SET_IBIAS = default_conf.IBIAS;
-        MASKH = default_conf.MASKH;
+        SET_IRESET_BIT = conf.IRESET_BIT;
+        SET_ICASN = conf.ICASN;
+        SET_VRESET_P = conf.VRESET_P;
+        DIG_MON_SEL = conf.DIG_MON_SEL;
+        INJ_ROW = conf.INJ_ROW;
+        SET_ITHR = conf.ITHR;
+        SET_VRESET_D = conf.VRESET_D;
+        IBUFN_R_SET = conf.IBUFN_R;
+        SET_VL = conf.VL;
+        SET_IDB = conf.IDB;
+        SET_IBIAS = conf.IBIAS;
+        MASKH = conf.MASKH;
         
-        INJ_IN = {448{Pulse}} &  default_conf.COL_PULSE_SEL;
-        INJ_IN_MON_L = Pulse &  default_conf.INJ_IN_MON_L;
-        INJ_IN_MON_R = Pulse &  default_conf.INJ_IN_MON_R;
+        INJ_IN = {448{Pulse}} &  conf.COL_PULSE_SEL;
+        INJ_IN_MON_L = Pulse &  conf.INJ_IN_MON_L;
+        INJ_IN_MON_R = Pulse &  conf.INJ_IN_MON_R;
         
-        SET_IRESET = default_conf.IRESET;
-        SET_VCASN = default_conf.VCASN;
-        IBUFP_R_SET  = default_conf.IBUFP_R;
-        MASKV = default_conf.MASKV;
-        SET_VCLIP = default_conf.VCLIP;
-        IBUFP_L_SET  = default_conf.IBUFP_L;
-        IBUFN_L_SET  = default_conf.IBUFN_L;
-        MASKD  = default_conf.MASKD;
-        SET_VH  = default_conf.VH;
+        SET_IRESET = conf.IRESET;
+        SET_VCASN = conf.VCASN;
+        IBUFP_R_SET  = conf.IBUFP_R;
+        MASKV = conf.MASKV;
+        SET_VCLIP = conf.VCLIP;
+        IBUFP_L_SET  = conf.IBUFP_L;
+        IBUFN_L_SET  = conf.IBUFN_L;
+        MASKD  = conf.MASKD;
+        SET_VH  = conf.VH;
         
-        SWCNTL_DACMONI  = default_conf.SWCNTL_DACMONI; 
-        SWCNTL_DACMONV  = default_conf.SWCNTL_DACMONV; 
-        SWCNTL_IBIAS  = default_conf.SWCNTL_IBIAS; 
-        SWCNTL_ICASN  = default_conf.SWCNTL_ICASN;
-        SWCNTL_IDB  = default_conf.SWCNTL_IDB; 
-        SWCNTL_IREF  = default_conf.SWCNTL_IREF; 
-        SWCNTL_IRESET  = default_conf.SWCNTL_IRESET; 
-        SWCNTL_ITHR  = default_conf.SWCNTL_ITHR; 
-        SWCNTL_VCASN  = default_conf.SWCNTL_VCASN;
-        SWCNTL_VCLIP  = default_conf.SWCNTL_VCLIP; 
-        SWCNTL_VH  = default_conf.SWCNTL_VH; 
-        SWCNTL_VL  = default_conf.SWCNTL_VL; 
-        SWCNTL_VRESET_D  = default_conf.SWCNTL_VRESET_D;
-        SWCNTL_VRESET_P  = default_conf.SWCNTL_VRESET_P;
+        SWCNTL_DACMONI  = conf.SWCNTL_DACMONI; 
+        SWCNTL_DACMONV  = conf.SWCNTL_DACMONV; 
+        SWCNTL_IBIAS  = conf.SWCNTL_IBIAS; 
+        SWCNTL_ICASN  = conf.SWCNTL_ICASN;
+        SWCNTL_IDB  = conf.SWCNTL_IDB; 
+        SWCNTL_IREF  = conf.SWCNTL_IREF; 
+        SWCNTL_IRESET  = conf.SWCNTL_IRESET; 
+        SWCNTL_ITHR  = conf.SWCNTL_ITHR; 
+        SWCNTL_VCASN  = conf.SWCNTL_VCASN;
+        SWCNTL_VCLIP  = conf.SWCNTL_VCLIP; 
+        SWCNTL_VH  = conf.SWCNTL_VH; 
+        SWCNTL_VL  = conf.SWCNTL_VL; 
+        SWCNTL_VRESET_D  = conf.SWCNTL_VRESET_D;
+        SWCNTL_VRESET_P  = conf.SWCNTL_VRESET_P;
 
     end
     
