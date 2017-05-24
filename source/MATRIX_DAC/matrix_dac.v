@@ -21,7 +21,6 @@ module matrix_dac ( DIG_MON_COMP, DIG_MON_HV, DIG_MON_PMOS,
      SWCNTL_VCLIP, SWCNTL_VH, SWCNTL_VL, SWCNTL_VRESET_D,
      SWCNTL_VRESET_P, Vpc, nRST );
 
-
 inout DACMON_IBIAS, DACMON_ICASN, DACMON_IDB, DACMON_IRESET,
      DACMON_ITHR, DACMON_VH, DACMON_VL, DACMON_VRESET_P, GNDA,
      GNDA_IDAC, GNDA_VDAC, GNDD, GND_Per, HV_DIODE, PSUB, PWELL, VDDA,
@@ -35,52 +34,51 @@ input INJ_IN_MON_L, INJ_IN_MON_R, SET_IRESET_BIT,
      SWCNTL_VCLIP, SWCNTL_VH, SWCNTL_VL, SWCNTL_VRESET_D,
      SWCNTL_VRESET_P, nRST;
 
-output [0:55]  nTOK_PMOS;
-output [0:1175]  Data_COMP;
-output [0:55]  nTOK_PMOS_DPW;
-output [0:111]  DIG_MON_PMOS;
-inout [0:3]  OUTA_MON_L;
-output [0:1175]  Data_PMOS;
-output [0:1175]  Data_HV;
-output [0:1175]  Data_PMOS_DPW;
-output [0:111]  DIG_MON_COMP;
-output [0:111]  DIG_MON_PMOS_DPW;
-inout [0:3]  OUTA_MON_R;
-output [0:55]  nTOK_HV;
-output [0:55]  nTOK_COMP;
-output [0:111]  DIG_MON_HV;
+output [55:0]  nTOK_PMOS;
+output [1175:0]  Data_COMP;
+output [55:0]  nTOK_PMOS_DPW;
+output [111:0]  DIG_MON_PMOS;
+inout [3:0]  OUTA_MON_L;
+output [1175:0]  Data_PMOS;
+output [1175:0]  Data_HV;
+output [1175:0]  Data_PMOS_DPW;
+output [111:0]  DIG_MON_COMP;
+output [111:0]  DIG_MON_PMOS_DPW;
+inout [3:0]  OUTA_MON_R;
+output [55:0]  nTOK_HV;
+output [55:0]  nTOK_COMP;
+output [111:0]  DIG_MON_HV;
 
 input [127:0]  SET_ICASN;
 input [127:0]  SET_VRESET_P;
-input [0:447]  DIG_MON_SEL;
-input [0:223]  INJ_ROW;
+input [447:0]  DIG_MON_SEL;
+input [223:0]  INJ_ROW;
 input [127:0]  SET_ITHR;
-input [0:55]  FREEZE_COMP;
-input [0:55]  Read_COMP;
-input [0:55]  Read_HV;
+input [55:0]  FREEZE_COMP;
+input [55:0]  Read_COMP;
+input [55:0]  Read_HV;
 input [127:0]  SET_VRESET_D;
-input [0:55]  FREEZE_PMOS_DPW;
-input [0:55]  Read_PMOS;
+input [55:0]  FREEZE_PMOS_DPW;
+input [55:0]  Read_PMOS;
 input [3:0]  IBUFN_R_SET;
 input [127:0]  SET_VL;
 input [127:0]  SET_IDB;
 input [127:0]  SET_IBIAS;
-input [0:223]  MASKH;
-input [0:447]  INJ_IN;
-input [0:55]  FREEZE_HV;
+input [223:0]  MASKH;
+input [447:0]  INJ_IN;
+input [55:0]  FREEZE_HV;
 input [127:0]  SET_IRESET;
 input [127:0]  SET_VCASN;
 input [3:0]  IBUFP_R_SET;
-input [0:447]  MASKV;
+input [447:0]  MASKV;
 input [127:0]  SET_VCLIP;
-input [0:55]  FREEZE_PMOS;
-input [0:1343]  BcidMtx;
+input [55:0]  FREEZE_PMOS;
+input [1343:0]  BcidMtx;
 input [3:0]  IBUFP_L_SET;
 input [3:0]  IBUFN_L_SET;
-input [0:447]  MASKD;
+input [447:0]  MASKD;
 input [127:0]  SET_VH;
-input [0:55]  Read_PMOS_DPW;
-
+input [55:0]  Read_PMOS_DPW;
 
 //TODO: TB logic
 

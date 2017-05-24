@@ -373,10 +373,15 @@ module MONOPIX(
     //
     //   READOUT
     //    
+    logic reset_ff;
+    always_ff@(posedge ClkBx)
+        reset_ff <= ResetBcid;
+    
+    
     logic [5:0] bcid_bin;
     logic [5:0] bcid_gray;
     always_ff@(posedge ClkBx)
-        if(ResetBcid)
+        if(reset_ff)
             bcid_bin <= 0;
         else
             bcid_bin <= bcid_bin +1;
