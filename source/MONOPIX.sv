@@ -265,14 +265,19 @@ module MONOPIX(
 	default_conf.SET_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
 	default_conf.SET_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
 	default_conf.SET_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
-	default_conf.SET_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; // (4.375nA max, 34.2pA LSB, default = 512pA)
-        default_conf.SET_ICASN = {{57{1'b0}},{13{1'b1}},{58{1'b0}}}; // (560nA max, 4.375nA LSB, default = 57nA) VCASN = 570mV
+	default_conf.SET_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; 4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
+        default_conf.SET_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
 	//SET IRESET BIT (1= HIGH LEAKAGE MODE, 0=LOW LEAKAGE MODE)
 	//LOW LEAKAGE -> 43.75pA max, 342fA LSB  HIGH LEAKAGE -> 4.375nA max, 34.2pA LSB
 	default_conf.SET_IRESET_BIT = 1;
 
 	//SET SWCNTL - MONITOR/OVERRIDE
-	//GLOBAL SWCNTL
+	//SWCNTLxx	MONITOR SWCNTL    OPERATION
+	//   0                0           NORMAL
+	//   0		      1           MONITOR
+        //   1                0           OVERRIDE/NORMAL OTHERS
+        //   1                1           OVERRIDE/MONITOR OTHERS
+	//MONITOR SWCNTL
 	default_conf.SWCNTL_DACNMONV = 0;
 	default_conf.SWCNTL_DACNMONI = 0;
 	//SWCNTLxx
