@@ -255,9 +255,9 @@ module MONOPIX(
 	default_conf.SET_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
 	default_conf.SET_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
 	default_conf.SET_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
+        default_conf.SET_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
 	//NOT USED IN MONOPIX
 	default_conf.SET_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
-	default_conf.SET_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
 	default_conf.SET_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
 
 	//SET CURRENT DAC - THERMOMETER ENCODING, START FROM THE MIDDLE
@@ -284,6 +284,7 @@ module MONOPIX(
 	default_conf.SWCNTL_VRESET_P = 0;
 	default_conf.SWCNTL_VH = 0;
 	default_conf.SWCNTL_VL = 0;
+        default_conf.SWCNTL_VCASN = 0;
 	default_conf.SWCNTL_IREF = 0;
 	default_conf.SWCNTL_IBIAS = 0;
 	default_conf.SWCNTL_ITHR = 0;
@@ -292,7 +293,6 @@ module MONOPIX(
 	default_conf.SWCNTL_ICASN = 0;
 	//NOT USED IN MONOPIX
 	default_conf.SWCNTL_VRESET_D = 0;
-	default_conf.SWCNTL_VCASN = 0;
 	default_conf.SWCNTL_VCLIP = 0;
 
     end 
