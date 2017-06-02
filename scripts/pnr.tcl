@@ -37,6 +37,11 @@ globalNetConnect GNDDPER -type pgpin -pin GNDDPER -inst *
 globalNetConnect VDDDPER -type pgpin -pin VDD_Per -inst *
 globalNetConnect GNDDPER -type pgpin -pin GND_Per -inst *
 
+globalNetConnect VDDDPER -type pgpin -pin DVDD -inst *
+globalNetConnect GNDDPER -type pgpin -pin DVSS -inst *
+
+
+
 #floorPlan -site CoreSite -d 18200 9000 10.0 130 10.0 8400
 
 floorPlan -site CoreSite -d 18200 9000 25.0 145 25.0 8500.0
@@ -78,12 +83,14 @@ placeInstance DIGITAL[0].INST_PAD_DVDD 3300.0 0.0 R0
 placeInstance DIGITAL[1].INST_PAD_DVDD 3400.0 0.0 R0
 placeInstance DIGITAL[2].INST_PAD_DVDD 3500.0 0.0 R0
 placeInstance DIGITAL[3].INST_PAD_DVDD 3600.0 0.0 R0
-
+placeInstance DIGITAL[0].INST_PAD_DVSS 3700.0 0.0 R0
+placeInstance DIGITAL[1].INST_PAD_DVSS 3800.0 0.0 R0
+placeInstance DIGITAL[2].INST_PAD_DVSS 3900.0 0.0 R0
+placeInstance DIGITAL[3].INST_PAD_DVSS 4000.0 0.0 R0
 
 setNanoRouteMode -quiet -dbSkipAnalog true
 
-
-set topPinPatts {DEF_CONF_PAD CLK_CONF_PAD LD_CONF_PAD SI_CONF_PAD RST_N_PAD CLK_BX_PAD CLK_OUT_PAD RESET_BCID_PAD READ_PMOS_PAD READ_PMOS_DPW_PAD READ_COMP_PAD READ_HV_PAD FREEZE_PMOS_PAD FREEZE_PMOS_DPW_PAD FREEZE_COMP_PAD FREEZE_HV_PAD PULSE_PAD DACMON_IBIAS_PAD DACMON_ICASN_PAD DACMON_IDB_PAD DACMON_IRESET_PAD DACMON_ITHR_PAD DACMON_VH_PAD DACMON_VL_PAD DACMON_VRESET_P_PAD BIAS_SF_PAD VPS_PAD OUTA_MON_L_PAD[0] OUTA_MON_L_PAD[1] OUTA_MON_L_PAD[2] OUTA_MON_L_PAD[3] OUTA_MON_R_PAD[0] OUTA_MON_R_PAD[1] OUTA_MON_R_PAD[2] OUTA_MON_R_PAD[3] VDD_PER GND_PER AVDD_DAC AVSS_DAC DVDD DVSS AVDD AVSS SUB PWELL HV_DIODE SO_CONF_PAD TOKEN_PMOS_PAD TOKEN_PMOS_DPW_PAD TOKEN_COMP_PAD TOKEN_HV_PAD OUT_PMOS_PAD OUT_PMOS_DPW_PAD OUT_COMP_PAD OUT_HV_PAD HIT_OR_PAD[3] HIT_OR_PAD[2] HIT_OR_PAD[1] HIT_OR_PAD[0] DACMON_IBIAS_PAD DACMON_ICASN_PAD DACMON_IDB_PAD DACMON_IRESET_PAD DACMON_ITHR_PAD DACMON_VH_PAD DACMON_VL_PAD DACMON_VRESET_P_PAD BIAS_SF_PAD VDD_PER GND_PER AVDD_DAC AVSS_DAC DVDD DVSS AVDD AVSS SUB PWELL HV_DIODE}
+set topPinPatts { DEF_CONF_PAD CLK_CONF_PAD LD_CONF_PAD SI_CONF_PAD RST_N_PAD CLK_BX_PAD CLK_OUT_PAD RESET_BCID_PAD READ_PMOS_PAD READ_PMOS_DPW_PAD READ_COMP_PAD READ_HV_PAD FREEZE_PMOS_PAD FREEZE_PMOS_DPW_PAD FREEZE_COMP_PAD FREEZE_HV_PAD PULSE_PAD DACMON_IBIAS DACMON_ICASN DACMON_IDB DACMON_IRESET DACMON_ITHR DACMON_VH DACMON_VL DACMON_VRESET_P BIAS_SF Vpc OUTA_MON_L[0] OUTA_MON_L[1] OUTA_MON_L[2] OUTA_MON_L[3] OUTA_MON_R[0] OUTA_MON_R[1] OUTA_MON_R[2] OUTA_MON_R[3] VDD_PER GND_PER AVDD_DAC AVSS_DAC DVDD DVSS AVDD AVSS SUB PWELL HV_DIODE SO_CONF_PAD TOKEN_PMOS_PAD TOKEN_PMOS_DPW_PAD TOKEN_COMP_PAD TOKEN_HV_PAD OUT_PMOS_PAD OUT_PMOS_DPW_PAD OUT_COMP_PAD OUT_HV_PAD HIT_OR_PAD[3] HIT_OR_PAD[2] HIT_OR_PAD[1] HIT_OR_PAD[0] DACMON_IBIAS DACMON_ICASN DACMON_IDB DACMON_IRESET DACMON_ITHR DACMON_VH DACMON_VL DACMON_VRESET_P BIAS_SF VDD_PER GND_PER AVDD_DAC AVSS_DAC DVDD DVSS AVDD AVSS SUB PWELL HV_DIODE}
 
 foreach topPinPatt $topPinPatts {
     set topPinPtrs [dbGet -p top.terms.name $topPinPatt]
@@ -99,12 +106,6 @@ foreach topPinPatt $topPinPatts {
             set pin_name [dbget $pin.name]
             set pin_pt [dbGet $termPtr.pt]
             set pin_layer [dbGet $termPtr.layer.name]
-            #if {$pin_layer== "M10"} {
-            #    set pin_layer 10
-            #}
-            #if {$pin_layer== "M0"} {
-            #    set pin_layer 1
-            #}
 
             puts "Top-level pin $pin_name will be moved to INST pin $termName location and fixed in place"
             editPin -fixedPin 1 -layer $pin_layer -pin $pin_name -assign $pin_pt -snap MGRID -pinDepth 0.25 -pinWidth 0.25 -side inside -fixOverlap 0 -honorConstraint 0 
@@ -129,7 +130,6 @@ sroute -connect {corePin} -nets { GNDDPER VDDDPER }  -layerChangeRange { M1 M5 }
 sroute -connect { blockPin } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { GNDDPER VDDDPER } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
 
 placeDesign
-
 routeDesign
 
 

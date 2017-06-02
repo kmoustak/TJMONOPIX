@@ -4,13 +4,13 @@
 `include "DIGITAL/cnfg_reg.v"
 
 `include "MATRIX_DAC/matrix_dac.v"
-`include "PADS/PAD_ANALOG.v"
-`include "PADS/PAD_AVDD.v"
-`include "PADS/PAD_AVSS.v"
+//`include "PADS/PAD_ANALOG.v"
+//`include "PADS/PAD_AVDD.v"
+//`include "PADS/PAD_AVSS.v"
 `include "PADS/PAD_DVDD.v"
 `include "PADS/PAD_DVSS.v"
-`include "PADS/PAD_PWELL.v"
-`include "PADS/PAD_SUB.v"
+//`include "PADS/PAD_PWELL.v"
+//`include "PADS/PAD_SUB.v"
 
 module MONOPIX(
     
@@ -34,19 +34,19 @@ module MONOPIX(
     output [3:0] HIT_OR_PAD,
     
     // analog
-    inout DACMON_IBIAS_PAD,
-    inout DACMON_ICASN_PAD, 
-    inout DACMON_IDB_PAD, 
-    inout DACMON_IRESET_PAD,
-    inout DACMON_ITHR_PAD, 
-    inout DACMON_VH_PAD, 
-    inout DACMON_VL_PAD, 
-    inout DACMON_VRESET_P_PAD, 
+    inout DACMON_IBIAS,
+    inout DACMON_ICASN, 
+    inout DACMON_IDB, 
+    inout DACMON_IRESET,
+    inout DACMON_ITHR, 
+    inout DACMON_VH, 
+    inout DACMON_VL, 
+    inout DACMON_VRESET_P, 
     
-    inout BIAS_SF_PAD,
-    input VPS_PAD, 
-    input [0:3]  OUTA_MON_L_PAD,  //ANALOG PAD -> INOUT
-    input [0:3]  OUTA_MON_R_PAD,  //ANALOG PAD -> INOUT
+    inout BIAS_SF,
+    input Vpc, 
+    input [0:3]  OUTA_MON_L,  //ANALOG PAD -> INOUT
+    input [0:3]  OUTA_MON_R,  //ANALOG PAD -> INOUT
     
     // power nets
     inout       VDD_PER,
@@ -88,20 +88,6 @@ module MONOPIX(
     
     logic [3:0] HitOr;
     
-    //analog
-    //DACMON -> ANALOG PADS
-    wire DACMON_IBIAS; 
-    wire DACMON_ICASN; 
-    wire DACMON_IDB; 
-    wire DACMON_IRESET;
-    wire DACMON_ITHR; 
-    wire DACMON_VH; 
-    wire DACMON_VL; 
-    wire DACMON_VRESET_P; 
-    
-    wire BiasSF, Vpc;  //ANALOG PAD -> INOUT
-    wire [0:3]  OUTA_MON_L;  //ANALOG PAD -> INOUT
-    wire [0:3]  OUTA_MON_R;  //ANALOG PAD -> INOUT
     
     wire HV_DIODE; 
     wire PSUB; 
@@ -160,34 +146,10 @@ module MONOPIX(
     Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(HIT_OR_PAD[2]), .SUB(SUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) );
     Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(HIT_OR_PAD[3]), .SUB(SUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) );
         
-
-    PAD_ANALOG PAD_DACMON_IBIAS ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_IBIAS), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_IBIAS_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_ICASN ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_ICASN), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_ICASN_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_IDB ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_IDB), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_IDB_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_IRESET ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_IRESET), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_IRESET_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_ITHR ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_ITHR), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_ITHR_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_VH ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_VH), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_VH_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_VL ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_VL), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_VL_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_DACMON_VRESET_P ( .AVDD(VDDA), .AVSS(GNDA), .CIN(DACMON_VRESET_P), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DACMON_VRESET_P_PAD), .SUB(SUB) );
-    
-    PAD_ANALOG PAD_BIAS_SF ( .AVDD(VDDA), .AVSS(GNDA), .CIN(BiasSF), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(BIAS_SF_PAD), .SUB(SUB) );
-    PAD_ANALOG PAD_VPS ( .AVDD(VDDA), .AVSS(GNDA), .CIN(Vpc), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(VPS_PAD), .SUB(SUB) );
-    
-    PAD_ANALOG PAD_OUTA_MON_L0 ( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_L[0]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_L_PAD[0]), .SUB(SUB) );
-    PAD_ANALOG PAD_OUTA_MON_L1( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_L[1]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_L_PAD[1]), .SUB(SUB) );
-    PAD_ANALOG PAD_OUTA_MON_L2 ( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_L[2]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_L_PAD[2]), .SUB(SUB) );
-    PAD_ANALOG PAD_OUTA_MON_L3 ( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_L[3]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_L_PAD[3]), .SUB(SUB) );
-    
-    PAD_ANALOG PAD_OUTA_MON_R0 ( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_R[0]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_R_PAD[0]), .SUB(SUB) );
-    PAD_ANALOG PAD_OUTA_MON_R1( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_R[1]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_R_PAD[1]), .SUB(SUB) );
-    PAD_ANALOG PAD_OUTA_MON_R2 ( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_R[2]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_R_PAD[2]), .SUB(SUB) );
-    PAD_ANALOG PAD_OUTA_MON_R3 ( .AVDD(VDDA), .AVSS(GNDA), .CIN(OUTA_MON_R[3]), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUTA_MON_R_PAD[3]), .SUB(SUB) );
-    
     localparam DVDD_POWER_PADS = 4;
-    localparam SUB_PADS = 4;
     localparam AVDD_POWER_PADS = 4;
     
-    PAD_PWELL PAD_PWELL ( .AVDD ( AVDD ), .AVSS ( AVSS ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ), .PWELL(PWELL) );  
+    //PAD_PWELL PAD_PWELL ( .AVDD ( AVDD ), .AVSS ( AVSS ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ), .PWELL(PWELL) );  
     
     genvar i;
     generate 
@@ -206,12 +168,6 @@ module MONOPIX(
         end
    endgenerate
 
-   generate 
-      for (i=0;i<SUB_PADS;i=i+1)
-        begin : SUBSTRATE
-           PAD_SUB         INST_PAD_SUB (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) );
-        end
-   endgenerate
     
    //TODO: HV_DIODE
    //TODO: DIGITAL_MATRIX
@@ -447,7 +403,7 @@ module MONOPIX(
             bcid_bin <= bcid_bin +1;
     assign bcid_gray = (bcid_bin >> 1) ^ bcid_bin;
 
-    wire [3:0][0:335] bcid_matrix_type;
+    wire [3:0][335:0] bcid_matrix_type;
     assign BcidMtx = bcid_matrix_type;
         
     readout readout_PMOS

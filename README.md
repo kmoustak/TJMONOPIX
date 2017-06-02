@@ -15,7 +15,7 @@ genus -legacy_ui -f ../scripts/syn.tcl
 ```
 
 ```bash
-innovus -init ../scripts/par.tcl
+innovus -init ../scripts/pnr.tcl
 ```
 
 
