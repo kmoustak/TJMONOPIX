@@ -15,17 +15,18 @@ typedef struct packed {
     logic [447:0]    DIG_MON_SEL;
     
     logic [127:0]    SET_IBIAS;
-    logic [127:0]    SET_ITHR;
     logic [127:0]    SET_IDB;
+    logic [127:0]    SET_ITHR;
     logic [127:0]    SET_IRESET;
     logic [127:0]    SET_ICASN;
     
+    logic [127:0]    SET_VRESET_P;
+    logic [127:0]    SET_VH;
+    logic [127:0]    SET_VL;
     logic [127:0]    SET_VCASN;
     logic [127:0]    SET_VRESET_D;
-    logic [127:0]    SET_VL;
-    logic [127:0]    SET_VH;
     logic [127:0]    SET_VCLIP;
-    logic [127:0]    SET_VRESET_P;
+
     logic [0:0]      SET_IRESET_BIT;
     
     logic [3:0]  SET_IBUFN_R;
@@ -59,6 +60,5 @@ typedef struct packed {
     logic [3:0] EN_OUT;
     
 } t_conf;
-
 
 `endif // DEFINES_SV
