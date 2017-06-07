@@ -22,15 +22,14 @@ module MONOPIX(
     input LD_CONF_PAD,
     input SI_CONF_PAD,
     output SO_CONF_PAD,
-    
     input RST_N_PAD,
     input CLK_BX_PAD, 
     input CLK_OUT_PAD,
     input RESET_BCID_PAD,
-    input READ_PMOS_PAD, READ_PMOS_DPW_PAD, READ_COMP_PAD, READ_HV_PAD,
-    input FREEZE_PMOS_PAD, FREEZE_PMOS_DPW_PAD, FREEZE_COMP_PAD, FREEZE_HV_PAD,
-    output TOKEN_PMOS_PAD, TOKEN_PMOS_DPW_PAD, TOKEN_COMP_PAD, TOKEN_HV_PAD,
-    output OUT_PMOS_PAD, OUT_PMOS_DPW_PAD, OUT_COMP_PAD, OUT_HV_PAD,
+    input READ_PMOS_NOSF_PAD, READ_PMOS_PAD, READ_COMP_PAD, READ_HV_PAD,
+    input FREEZE_PMOS_NOSF_PAD, FREEZE_PMOS_PAD, FREEZE_COMP_PAD, FREEZE_HV_PAD,
+    output TOKEN_PMOS_NOSF_PAD, TOKEN_PMOS_PAD, TOKEN_COMP_PAD, TOKEN_HV_PAD,
+    output OUT_PMOS_NOSF_PAD, OUT_PMOS_PAD, OUT_COMP_PAD, OUT_HV_PAD,
     
     input PULSE_PAD,
     output [3:0] HIT_OR_PAD,
@@ -51,19 +50,19 @@ module MONOPIX(
     input [0:3]  OUTA_MON_R,  //ANALOG PAD -> INOUT
     
     // power nets
-    inout       VDD_PER,
-    inout       GND_PER,
+    inout       PVDD,
+    inout       PGND,
     
-    inout       AVDD_DAC, // DAC analog Supply
-    inout       AVSS_DAC, // DAC Analog Ground
+    inout       VDDA_DAC, // DAC analog Supply
+    inout       GNDA_DAC, // DAC Analog Ground
 
-    inout       DVDD, // Digital Supply
-    inout       DVSS, // Digital Ground
+    inout       VDDD, // Digital Supply
+    inout       GNDD, // Digital Ground
 
-    inout       AVDD, // Analog Supply
-    inout       AVSS, // Analog Ground
+    inout       VDDA, // Analog Supply
+    inout       GNDA, // Analog Ground
 
-    inout       SUB,   // Die substrate bias
+    inout       PSUB,   // Die substrate bias
     inout       PWELL,  // Die substrate bias under the pixel matrix
     
     inout       HV_DIODE
@@ -80,10 +79,10 @@ module MONOPIX(
     //Readout
     wire ClkBx, ClkOut;
     wire ResetBcid;
-    wire ReadPmos, ReadPmosDpw, ReadComp, ReadHv;
-    wire FreezePmos, FreezePmosDpw, FreezeComp, FreezeHv;
-    wire OutPmos, OutPmosDpw, OutComp, OutHv;
-    wire TokenPmos, TokenPmosDpw, TokenComp, TokenHv;
+    wire ReadPMOS_NOSF, ReadPMOS_NOSF, ReadComp, ReadHv;
+    wire FreezePMOS_NOSF, FreezePMOS_NOSF, FreezeComp, FreezeHv;
+    wire OutPMOS_NOSF, OutPMOS_NOSF, OutComp, OutHv;
+    wire TokenPMOS_NOSF, TokenPMOS_NOSF, TokenComp, TokenHv;
     //
     wire nRST;
     wire Pulse;
@@ -107,60 +106,60 @@ module MONOPIX(
     wire VDDD;
     wire GNDD; 
     
-    //wire VDD_PER;
-    //wire GND_PER;
+    wire VDDP;
+    wire GNDP;
     
 
-    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DEF_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(CLK_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(LD_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(SI_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(SO_CONF_PAD), .SUB(SUB), .DOUT(SoConf), .OEN(1'b1) );
+    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
+    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(SUB), .DOUT(SoConf), .OEN(1'b1) );
         
-    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(RST_N_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(CLK_BX_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(CLK_OUT_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(RESET_BCID_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(PULSE_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
+    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
+    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
     
-    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPmos), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(READ_PMOS_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePmos), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(FREEZE_PMOS_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(TOKEN_PMOS_PAD), .SUB(SUB), .DOUT(TokenPmos), .OEN(conf.EN_OUT[0]) );
-    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUT_PMOS_PAD), .SUB(SUB), .DOUT(OutPmos), .OEN(conf.EN_OUT[0]) );
+    Pulldown_pol_IO PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(SUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
+    Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(SUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
     
-    Pulldown_pol_IO PAD_READ_PMOS_DPW ( .CIN(ReadPmosDpw), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(READ_PMOS_DPW_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS_DPW ( .CIN(FreezePmosDpw), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(FREEZE_PMOS_DPW_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS_DPW ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(TOKEN_PMOS_DPW_PAD), .SUB(SUB), .DOUT(TokenPmosDpw), .OEN(conf.EN_OUT[1]) );
-    Pulldown_pol_IO PAD_OUT_PMOS_DPW ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUT_PMOS_DPW_PAD), .SUB(SUB), .DOUT(OutPmosDpw), .OEN(conf.EN_OUT[1]) );
+    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(SUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
+    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(SUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
     
-    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadComp), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(READ_COMP_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeComp), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(FREEZE_COMP_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(TOKEN_COMP_PAD), .SUB(SUB), .DOUT(TokenComp), .OEN(conf.EN_OUT[2]) );
-    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUT_COMP_PAD), .SUB(SUB), .DOUT(OutComp), .OEN(conf.EN_OUT[2]) );
+    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadComp), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeComp), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(SUB), .DOUT(TokenComp), .OEN(conf.EN_OUT[2]) );
+    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(SUB), .DOUT(OutComp), .OEN(conf.EN_OUT[2]) );
     
-    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHv), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(READ_HV_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHv), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(FREEZE_HV_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(TOKEN_HV_PAD), .SUB(SUB), .DOUT(TokenHv), .OEN(conf.EN_OUT[3]) );
-    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(OUT_HV_PAD), .SUB(SUB), .DOUT(OutHv), .OEN(conf.EN_OUT[3]) );
+    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHv), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHv), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(SUB), .DOUT(TokenHv), .OEN(conf.EN_OUT[3]) );
+    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(SUB), .DOUT(OutHv), .OEN(conf.EN_OUT[3]) );
     
-    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(HIT_OR_PAD[0]), .SUB(SUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) );
-    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(HIT_OR_PAD[1]), .SUB(SUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) );
-    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(HIT_OR_PAD[2]), .SUB(SUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) );
-    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(HIT_OR_PAD[3]), .SUB(SUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) );
+    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(SUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) );
+    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(SUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) );
+    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(SUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) );
+    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(SUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) );
         
     localparam DVDD_POWER_PADS = 4;
     localparam AVDD_POWER_PADS = 4;
     
-    //PAD_PWELL PAD_PWELL ( .AVDD ( AVDD ), .AVSS ( AVSS ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ), .PWELL(PWELL) );  
+    //PAD_PWELL PAD_PWELL ( .AVDD ( AVDD ), .AVSS ( AVSS ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( SUB ), .PWELL(PWELL) );  
     
     genvar i;
     generate 
         for (i=0;i<DVDD_POWER_PADS;i=i+1)
         begin : DIGITAL
-           PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA )/*, .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) */);
-           PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA )/*, .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) */);
-           //PAD_DVDD        INST_PAD_DVDD (/*.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB )*/ );
-           //PAD_DVSS        INST_PAD_DVSS ( /*.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB )*/ );
+           PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA )/*, .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( SUB ) */);
+           PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA )/*, .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( SUB ) */);
+           //PAD_DVDD        INST_PAD_DVDD (/*.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( SUB )*/ );
+           //PAD_DVSS        INST_PAD_DVSS ( /*.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( SUB )*/ );
         
         end
    endgenerate
@@ -191,11 +190,11 @@ module MONOPIX(
         //---------4-bit DAC-----------//
         //Value=16/(binary_to_decimal)*max current
         //1st stage
-        default_conf.IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
-        default_conf.IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+        default_conf.SET_IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+        default_conf.SET_IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
         //2nd stage - Driver
-        default_conf.IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
-        default_conf.IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+        default_conf.SET_IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+        default_conf.SET_IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
 
         //------------DAC-------------//
         //SET VOLTAGE DAC - ONE HOT ENCODING
@@ -203,24 +202,24 @@ module MONOPIX(
         //Source follower buffer for VRESETx, VH,VL. VRESET level shift=555mV, VL,VH level shift=385mV
         //VRESETxx max = #88 (1.25V + 0.55V), VH,VL max = #100 (1.415V+0.385V), VH,VL min = #36 (0.515V + 0.385V), VH>VL
         //Value = 1.8/127 * (#SET LINE (0 to 127) + S.F level shift), MAX=1.8V, LSB=14.17mV, MIN=S.F level shift
-        default_conf.SWCNTL_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
-        default_conf.SWCNTL_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
-        default_conf.SWCNTL_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
-        default_conf.SWCNTL_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
+        default_conf.SET_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
+        default_conf.SET_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
+        default_conf.SET_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
+        default_conf.SET_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
         //NOT USED IN MONOPIX
-        default_conf.SWCNTL_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
-        default_conf.SWCNTL_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
+        default_conf.SET_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
+        default_conf.SET_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
 
         //SET CURRENT DAC - THERMOMETER ENCODING, START FROM THE MIDDLE
         //Value = 128/(#lines active)*max current
-        default_conf.SWCNTL_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
-        default_conf.SWCNTL_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
-        default_conf.SWCNTL_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
-        default_conf.SWCNTL_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
-        default_conf.SWCNTL_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
+        default_conf.SET_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
+        default_conf.SET_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
+        default_conf.SET_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
+        default_conf.SET_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
+        default_conf.SET_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
         //SET IRESET BIT (1= HIGH LEAKAGE MODE, 0=LOW LEAKAGE MODE)
         //LOW LEAKAGE -> 43.75pA max, 342fA LSB  HIGH LEAKAGE -> 4.375nA max, 34.2pA LSB
-        default_conf.IRESET_BIT = 1;
+        default_conf.SET_IRESET_BIT = 1;
 
         //SET SWCNTL - MONITOR/OVERRIDE
         //SWCNTLxx    MONITOR SWCNTL    OPERATION
@@ -229,19 +228,19 @@ module MONOPIX(
             //   1                0           OVERRIDE/NORMAL OTHERS
             //   1                1           OVERRIDE/MONITOR OTHERS
         //MONITOR SWCNTL
-        //default_conf.SWCNTL_DACNMONV = 0;
-        //default_conf.SWCNTL_DACNMONI = 0;
-        //SWCNTLxx
-        //default_conf.SWCNTL_VCASN = 0;
+        default_conf.SWCNTL_DACNMONV = 0;
+        default_conf.SWCNTL_DACNMONI = 0;
+        SWCNTLxx
+        default_conf.SWCNTL_VCASN = 0;
         default_conf.SWCNTL_IREF = 0;
-        //default_conf.SWCNTL_IBIAS = 0;
-        //default_conf.SWCNTL_ITHR = 0;
-        //default_conf.SWCNTL_IDB = 0;
-        //default_conf.SWCNTL_IRESET = 0;
-        //default_conf.SWCNTL_ICASN = 0;
+        default_conf.SWCNTL_IBIAS = 0;
+        default_conf.SWCNTL_ITHR = 0;
+        default_conf.SWCNTL_IDB = 0;
+        default_conf.SWCNTL_IRESET = 0;
+        default_conf.SWCNTL_ICASN = 0;
         //NOT USED IN MONOPIX
-        //default_conf.SWCNTL_VRESET_D = 0;
-        //default_conf.SWCNTL_VCLIP = 0;
+        default_conf.SWCNTL_VRESET_D = 0;
+        default_conf.SWCNTL_VCLIP = 0;
 
     end 
 
@@ -280,9 +279,9 @@ module MONOPIX(
 
     //monitoring
     logic [111:0]  DIG_MON_COMP;
-    logic [111:0]  DIG_MON_PMOS_DPW;
-    logic [111:0]  DIG_MON_HV;
     logic [111:0]  DIG_MON_PMOS;
+    logic [111:0]  DIG_MON_HV;
+    logic [111:0]  DIG_MON_PMOS_NOSF;
     
 
     logic [127:0]  SET_ICASN;
@@ -323,15 +322,15 @@ module MONOPIX(
     logic [55:0]  Read_HV;
     logic [1175:0]  Data_HV;
     
-    logic [55:0]  nTOK_PMOS;
-    logic [55:0]  Read_PMOS;
-    logic [55:0]  FREEZE_PMOS;
-    logic [1175:0]  Data_PMOS;
+    logic [55:0]  nTOK_PMOS_NOSF;
+    logic [55:0]  Read_PMOS_NOSF;
+    logic [55:0]  FREEZE_PMOS_NOSF;
+    logic [1175:0]  Data_PMOS_NOSF;
      
-    logic [55:0]  nTOK_PMOS_DPW;
-    logic [55:0]  FREEZE_PMOS_DPW;
-    logic [55:0]  Read_PMOS_DPW;
-    logic [1175:0]  Data_PMOS_DPW;
+    logic [55:0]  nTOK_PMOS;
+    logic [55:0]  FREEZE_PMOS;
+    logic [55:0]  Read_PMOS;
+    logic [1175:0]  Data_PMOS;
 
     matrix_dac matrix_dac (.*); 
      
@@ -380,8 +379,6 @@ module MONOPIX(
 
     end
     
-    assign VDD_Per = VDD_PER;
-    assign GND_Per = GND_PER;
     //TODO: PSUB
 
     //
@@ -404,39 +401,39 @@ module MONOPIX(
     wire [3:0][335:0] bcid_matrix_type;
     assign BcidMtx = bcid_matrix_type;
         
+    readout readout_PMOS_NOSF
+    (
+        .ClkBx(ClkBx), 
+        .ClkOut(ClkOut), 
+        .Read(ReadPMOS_NOSF),
+        .Freeze(FreezePMOS_NOSF), 
+        .Bcid(bcid_gray),
+        .EnTestPattern(conf.EN_TEST_PATTERN[0]),
+        .Enable(conf.EN_PMOS_NOSF),
+        .DataOut(DataOutPMOS_NOSF),
+        .TokenOut(TokenPMOS_NOSF),
+        .TokColB(nTOK_PMOS_NOSF),
+        .DataCol(Data_PMOS_NOSF),
+        .ReadCol(Read_PMOS_NOSF),
+        .FreezeCol(FREEZE_PMOS_NOSF),
+        .BcidCol(bcid_matrix_type[0])
+    );
+    
     readout readout_PMOS
     (
         .ClkBx(ClkBx), 
         .ClkOut(ClkOut), 
-        .Read(ReadPmos),
-        .Freeze(FreezePmos), 
+        .Read(ReadPMOS_NOSF),
+        .Freeze(FreezePMOS_NOSF), 
         .Bcid(bcid_gray),
-        .EnTestPattern(conf.EN_TEST_PATTERN[0]),
+        .EnTestPattern(conf.EN_TEST_PATTERN[1]),
         .Enable(conf.EN_PMOS),
-        .DataOut(DataOutPmos),
-        .TokenOut(TokenPmos),
+        .DataOut(DataOutPMOS_NOSF),
+        .TokenOut(TokenPMOS_NOSF),
         .TokColB(nTOK_PMOS),
         .DataCol(Data_PMOS),
         .ReadCol(Read_PMOS),
         .FreezeCol(FREEZE_PMOS),
-        .BcidCol(bcid_matrix_type[0])
-    );
-    
-    readout readout_PMOS_DPW
-    (
-        .ClkBx(ClkBx), 
-        .ClkOut(ClkOut), 
-        .Read(ReadPmosDpw),
-        .Freeze(FreezePmosDpw), 
-        .Bcid(bcid_gray),
-        .EnTestPattern(conf.EN_TEST_PATTERN[1]),
-        .Enable(conf.EN_PMOS_DPW),
-        .DataOut(DataOutPmosDpw),
-        .TokenOut(TokenPmosDpw),
-        .TokColB(nTOK_PMOS_DPW),
-        .DataCol(Data_PMOS_DPW),
-        .ReadCol(Read_PMOS_DPW),
-        .FreezeCol(FREEZE_PMOS_DPW),
         .BcidCol(bcid_matrix_type[1])
     );
     
@@ -477,8 +474,8 @@ module MONOPIX(
     );
     
     always_comb begin
-        HitOr[0] = |DIG_MON_PMOS;
-        HitOr[1] = |DIG_MON_PMOS_DPW;
+        HitOr[0] = |DIG_MON_PMOS_NOSF;
+        HitOr[1] = |DIG_MON_PMOS;
         HitOr[2] = |DIG_MON_COMP;
         HitOr[3] = |DIG_MON_HV;
     end

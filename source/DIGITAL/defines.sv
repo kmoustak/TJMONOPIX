@@ -14,24 +14,24 @@ typedef struct packed {
     logic [447:0]    MASKD;
     logic [447:0]    DIG_MON_SEL;
     
-    logic [127:0]    IBIAS;
-    logic [127:0]    ITHR;
-    logic [127:0]    IDB;
-    logic [127:0]    IRESET;
-    logic [127:0]    ICASN;
+    logic [127:0]    SET_IBIAS;
+    logic [127:0]    SET_ITHR;
+    logic [127:0]    SET_IDB;
+    logic [127:0]    SET_IRESET;
+    logic [127:0]    SET_ICASN;
     
-    logic [127:0]    VCASN;
-    logic [127:0]    VRESET_D;
-    logic [127:0]    VL;
-    logic [127:0]    VH;
-    logic [127:0]    VCLIP;
-    logic [127:0]    VRESET_P;
-    logic [0:0]      IRESET_BIT;
+    logic [127:0]    SET_VCASN;
+    logic [127:0]    SET_VRESET_D;
+    logic [127:0]    SET_VL;
+    logic [127:0]    SET_VH;
+    logic [127:0]    SET_VCLIP;
+    logic [127:0]    SET_VRESET_P;
+    logic [0:0]      SET_IRESET_BIT;
     
-    logic [3:0]  IBUFN_R;
-    logic [3:0]  IBUFP_R;
-    logic [3:0]  IBUFP_L;
-    logic [3:0]  IBUFN_L;
+    logic [3:0]  SET_IBUFN_R;
+    logic [3:0]  SET_IBUFP_R;
+    logic [3:0]  SET_IBUFP_L;
+    logic [3:0]  SET_IBUFN_L;
     
     logic  SWCNTL_DACMONI; 
     logic  SWCNTL_DACMONV; 
@@ -50,8 +50,8 @@ typedef struct packed {
     
     logic [3:0] EN_TEST_PATTERN;
     
+    logic [55:0] EN_PMOS_NOSF;
     logic [55:0] EN_PMOS;
-    logic [55:0] EN_PMOS_DPW;
     logic [55:0] EN_COMP;
     logic [55:0] EN_HV;
     
