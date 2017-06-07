@@ -11,11 +11,11 @@ module readout
     output logic DataOut,
     output logic TokenOut,
     
-    input logic [0:55] TokColB,
-    input logic [0:1175] DataCol,
-    output logic [0:55] ReadCol,
-    output logic [0:55] FreezeCol,
-    output logic [0:335] BcidCol,
+    input logic [55:0] TokColB,
+    input logic [1175:0] DataCol,
+    output logic [55:0] ReadCol,
+    output logic [55:0] FreezeCol,
+    output logic [335:0] BcidCol
 );
 
     logic [56:0] token_chip;
@@ -58,7 +58,7 @@ module readout
                 .ColData(col_data[col_i]),
 
                 .Bcid(local_bcid),
-                .BcidCol(col_bcid),
+                .BcidCol(col_bcid[col_i]),
 
                 .Enable(Enable[col_i])
             );

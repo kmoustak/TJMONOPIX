@@ -18,4 +18,8 @@ genus -legacy_ui -f ../scripts/syn.tcl
 innovus -init ../scripts/pnr.tcl
 ```
 
+### Simulation:
 
+```bash
+vsim -do ../scripts/vsim.tcl
+```

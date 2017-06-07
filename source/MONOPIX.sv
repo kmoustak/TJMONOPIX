@@ -11,6 +11,8 @@
 `include "PADS/PAD_DVSS.v"
 //`include "PADS/PAD_PWELL.v"
 //`include "PADS/PAD_SUB.v"
+`include "PADS/PAD_DVSS.v"
+`include "PADS/Pulldown_pol_IO.v"
 
 module MONOPIX(
     
@@ -43,7 +45,7 @@ module MONOPIX(
     inout DACMON_VL, 
     inout DACMON_VRESET_P, 
     
-    inout BIAS_SF,
+    inout BiasSF,
     input Vpc, 
     input [0:3]  OUTA_MON_L,  //ANALOG PAD -> INOUT
     input [0:3]  OUTA_MON_R,  //ANALOG PAD -> INOUT
@@ -89,9 +91,9 @@ module MONOPIX(
     logic [3:0] HitOr;
     
     
-    wire HV_DIODE; 
+    //wire HV_DIODE; 
     wire PSUB; 
-    wire PWELL; 
+    //wire PWELL; 
     
     wire GNDA_IDAC; 
     wire VDDA_IDAC; 
@@ -105,8 +107,8 @@ module MONOPIX(
     wire VDDD;
     wire GNDD; 
     
-    wire VDD_PER;
-    wire GND_PER;
+    //wire VDD_PER;
+    //wire GND_PER;
     
 
     Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDD_PER), .DVSS(GND_PER), .PAD(DEF_CONF_PAD), .SUB(SUB), .DOUT(), .OEN(1'b0) ); 
@@ -155,16 +157,11 @@ module MONOPIX(
     generate 
         for (i=0;i<DVDD_POWER_PADS;i=i+1)
         begin : DIGITAL
-           PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) );
-           PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) );
-        end
-   endgenerate
-
-   generate 
-        for (i=0;i<AVDD_POWER_PADS;i=i+1)
-        begin : DIGITAL
-           PAD_AVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) );
-           PAD_AVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) );
+           PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA )/*, .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) */);
+           PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA )/*, .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB ) */);
+           //PAD_DVDD        INST_PAD_DVDD (/*.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB )*/ );
+           //PAD_DVSS        INST_PAD_DVSS ( /*.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDD_PER ), .DVSS ( GND_PER ), .SUB ( SUB )*/ );
+        
         end
    endgenerate
 
@@ -179,72 +176,72 @@ module MONOPIX(
     
     t_conf default_conf;
     always_comb begin
-        default_conf = '0;
+        //default_conf = '0;
         
-    //****DEFAULT CONFIGURATION****//
-    //----------PULSING------------//
-    default_conf.COL_PULSE_SEL = 0;
-    default_conf.INJ_IN_MON_L = 0;
-    default_conf.INJ_IN_MON_R = 0;
-    default_conf.INJ_ROW = 0;
-    //----------MASKING------------//
-    default_conf.MASKV = 1;
-    default_conf.MASKH = 1;  //(nMASKH=HITOR_SEL_ROW)
-    default_conf.MASKD = 1;
-    //---------4-bit DAC-----------//
-    //Value=16/(binary_to_decimal)*max current
-    //1st stage
-    default_conf.IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
-    default_conf.IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
-    //2nd stage - Driver
-    default_conf.IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
-    default_conf.IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+        //****DEFAULT CONFIGURATION****//
+        //----------PULSING------------//
+        default_conf.COL_PULSE_SEL = 0;
+        default_conf.INJ_IN_MON_L = 0;
+        default_conf.INJ_IN_MON_R = 0;
+        default_conf.INJ_ROW = 0;
+        //----------MASKING------------//
+        default_conf.MASKV = 1;
+        default_conf.MASKH = 1;  //(nMASKH=HITOR_SEL_ROW)
+        default_conf.MASKD = 1;
+        //---------4-bit DAC-----------//
+        //Value=16/(binary_to_decimal)*max current
+        //1st stage
+        default_conf.IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+        default_conf.IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+        //2nd stage - Driver
+        default_conf.IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+        default_conf.IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
 
-    //------------DAC-------------//
-    //SET VOLTAGE DAC - ONE HOT ENCODING
-    //VCASN, VCLIP no buffer
-    //Source follower buffer for VRESETx, VH,VL. VRESET level shift=555mV, VL,VH level shift=385mV
-    //VRESETxx max = #88 (1.25V + 0.55V), VH,VL max = #100 (1.415V+0.385V), VH,VL min = #36 (0.515V + 0.385V), VH>VL
-    //Value = 1.8/127 * (#SET LINE (0 to 127) + S.F level shift), MAX=1.8V, LSB=14.17mV, MIN=S.F level shift
-    default_conf.SWCNTL_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
-    default_conf.SWCNTL_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
-    default_conf.SWCNTL_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
-    default_conf.SWCNTL_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
-    //NOT USED IN MONOPIX
-    default_conf.SWCNTL_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
-    default_conf.SWCNTL_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
+        //------------DAC-------------//
+        //SET VOLTAGE DAC - ONE HOT ENCODING
+        //VCASN, VCLIP no buffer
+        //Source follower buffer for VRESETx, VH,VL. VRESET level shift=555mV, VL,VH level shift=385mV
+        //VRESETxx max = #88 (1.25V + 0.55V), VH,VL max = #100 (1.415V+0.385V), VH,VL min = #36 (0.515V + 0.385V), VH>VL
+        //Value = 1.8/127 * (#SET LINE (0 to 127) + S.F level shift), MAX=1.8V, LSB=14.17mV, MIN=S.F level shift
+        default_conf.SWCNTL_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
+        default_conf.SWCNTL_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
+        default_conf.SWCNTL_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
+        default_conf.SWCNTL_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
+        //NOT USED IN MONOPIX
+        default_conf.SWCNTL_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
+        default_conf.SWCNTL_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
 
-    //SET CURRENT DAC - THERMOMETER ENCODING, START FROM THE MIDDLE
-    //Value = 128/(#lines active)*max current
-    default_conf.SWCNTL_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
-    default_conf.SWCNTL_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
-    default_conf.SWCNTL_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
-    default_conf.SWCNTL_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
-    default_conf.SWCNTL_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
-    //SET IRESET BIT (1= HIGH LEAKAGE MODE, 0=LOW LEAKAGE MODE)
-    //LOW LEAKAGE -> 43.75pA max, 342fA LSB  HIGH LEAKAGE -> 4.375nA max, 34.2pA LSB
-    default_conf.IRESET_BIT = 1;
+        //SET CURRENT DAC - THERMOMETER ENCODING, START FROM THE MIDDLE
+        //Value = 128/(#lines active)*max current
+        default_conf.SWCNTL_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
+        default_conf.SWCNTL_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
+        default_conf.SWCNTL_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
+        default_conf.SWCNTL_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
+        default_conf.SWCNTL_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
+        //SET IRESET BIT (1= HIGH LEAKAGE MODE, 0=LOW LEAKAGE MODE)
+        //LOW LEAKAGE -> 43.75pA max, 342fA LSB  HIGH LEAKAGE -> 4.375nA max, 34.2pA LSB
+        default_conf.IRESET_BIT = 1;
 
-    //SET SWCNTL - MONITOR/OVERRIDE
-    //SWCNTLxx    MONITOR SWCNTL    OPERATION
-    //   0                0           NORMAL
-    //   0              1           MONITOR
-        //   1                0           OVERRIDE/NORMAL OTHERS
-        //   1                1           OVERRIDE/MONITOR OTHERS
-    //MONITOR SWCNTL
-    //default_conf.SWCNTL_DACNMONV = 0;
-    //default_conf.SWCNTL_DACNMONI = 0;
-    //SWCNTLxx
-    //default_conf.SWCNTL_VCASN = 0;
-    default_conf.SWCNTL_IREF = 0;
-    //default_conf.SWCNTL_IBIAS = 0;
-    //default_conf.SWCNTL_ITHR = 0;
-    //default_conf.SWCNTL_IDB = 0;
-    //default_conf.SWCNTL_IRESET = 0;
-    //default_conf.SWCNTL_ICASN = 0;
-    //NOT USED IN MONOPIX
-    //default_conf.SWCNTL_VRESET_D = 0;
-    //default_conf.SWCNTL_VCLIP = 0;
+        //SET SWCNTL - MONITOR/OVERRIDE
+        //SWCNTLxx    MONITOR SWCNTL    OPERATION
+        //   0                0           NORMAL
+        //   0              1           MONITOR
+            //   1                0           OVERRIDE/NORMAL OTHERS
+            //   1                1           OVERRIDE/MONITOR OTHERS
+        //MONITOR SWCNTL
+        //default_conf.SWCNTL_DACNMONV = 0;
+        //default_conf.SWCNTL_DACNMONI = 0;
+        //SWCNTLxx
+        //default_conf.SWCNTL_VCASN = 0;
+        default_conf.SWCNTL_IREF = 0;
+        //default_conf.SWCNTL_IBIAS = 0;
+        //default_conf.SWCNTL_ITHR = 0;
+        //default_conf.SWCNTL_IDB = 0;
+        //default_conf.SWCNTL_IRESET = 0;
+        //default_conf.SWCNTL_ICASN = 0;
+        //NOT USED IN MONOPIX
+        //default_conf.SWCNTL_VRESET_D = 0;
+        //default_conf.SWCNTL_VCLIP = 0;
 
     end 
 
@@ -256,7 +253,8 @@ module MONOPIX(
             .si(SiConf), 
             .so(SoConf),
             .DefVal(default_conf), 
-            .Out(conf)
+            .Out(conf),
+            .OutSr()
          );
 
     //
