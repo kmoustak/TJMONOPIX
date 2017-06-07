@@ -43,8 +43,8 @@ module MONOPIX(
     inout DACMON_VH;  // Analog PAD IANALOG
     inout DACMON_VCASN_DAC;  // Analog PAD IANALOG
     
-    inout [0:3]  OUTA_MON_L, //Analog PAD ANALOG
-    inout [0:3]  OUTA_MON_R, //Analog PAD ANALOG
+    inout [3:0]  OUTA_MON_L, //Analog PAD ANALOG
+    inout [3:0]  OUTA_MON_R, //Analog PAD ANALOG
     inout VCASN_MON_L,       //Analog PAD ANALOG
     inout VCASN_DAC_MON_L,   //Analog PAD ANALOG
     inout VCASN_MON_R,       //Analog PAD ANALOG
