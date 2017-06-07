@@ -230,7 +230,7 @@ module MONOPIX(
         //MONITOR SWCNTL
         default_conf.SWCNTL_DACNMONV = 0;
         default_conf.SWCNTL_DACNMONI = 0;
-        SWCNTLxx
+        //SWCNTLxx
         default_conf.SWCNTL_VCASN = 0;
         default_conf.SWCNTL_IREF = 0;
         default_conf.SWCNTL_IBIAS = 0;
