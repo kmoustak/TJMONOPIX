@@ -17,7 +17,7 @@ module monopix_tb();
     
     initial begin
         conf_in = '0;
-        conf_in.IBUFP_L = 4'h5;
+        conf_in.SET_IBUFP_L = 4'h5;
     end
    
     MONOPIX dut (

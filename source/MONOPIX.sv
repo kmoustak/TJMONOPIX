@@ -32,16 +32,16 @@ module MONOPIX(
     inout VPC,     // Analog Pad ANALOG
     inout VPCNOSF, // Analog Pad NORES
 
-    inout DACMON_IBIAS; // Analog PAD IANALOG
-    inout DACMON_IDB;   // Analog PAD IANALOG
-    inout DACMON_ITHR;  // Analog PAD IANALOG
-    inout DACMON_IRESET; // Analog PAD IANALOG
-    inout DACMON_ICASN;  // Analog PAD IANALOG
+    inout DACMON_IBIAS, // Analog PAD IANALOG
+    inout DACMON_IDB,   // Analog PAD IANALOG
+    inout DACMON_ITHR,  // Analog PAD IANALOG
+    inout DACMON_IRESET, // Analog PAD IANALOG
+    inout DACMON_ICASN,  // Analog PAD IANALOG
 
-    inout DACMON_VRESET_P;  // Analog PAD IANALOG
-    inout DACMON_VL;  // Analog PAD IANALOG
-    inout DACMON_VH;  // Analog PAD IANALOG
-    inout DACMON_VCASN_DAC;  // Analog PAD IANALOG
+    inout DACMON_VRESET_P,  // Analog PAD IANALOG
+    inout DACMON_VL,  // Analog PAD IANALOG
+    inout DACMON_VH,  // Analog PAD IANALOG
+    inout DACMON_VCASN_DAC,  // Analog PAD IANALOG
     
     inout [3:0]  OUTA_MON_L, //Analog PAD ANALOG
     inout [3:0]  OUTA_MON_R, //Analog PAD ANALOG
@@ -64,8 +64,8 @@ module MONOPIX(
     inout       VDDA_VDAC, // IDAC analog Supply
     inout       GNDA_VDAC, // IDAC Analog Ground
 
-    inout       PVDD,  // Periphery Digital Supply
-    inout       PGND,  // Periphery Digital Ground
+    inout       VDDP,  // Periphery Digital Supply
+    inout       GNDP,  // Periphery Digital Ground
     
     inout       PSUB,   // Die PSUBstrate bias
     inout       PWELL,  // Die PSUBstrate bias under the pixel matrix
@@ -95,59 +95,59 @@ module MONOPIX(
     logic [3:0] HitOr;
 
 
-    wire PSUB; 
-    
-    wire GNDA_IDAC; 
-    wire VDDA_IDAC; 
-    
-    wire VDDA_VDAC;
-    wire GNDA_VDAC; 
-    
-    wire VDDA;
-    wire GNDA;
-    
-    wire VDDD;
-    wire GNDD; 
-    
-    wire VDDP;
-    wire GNDP;
+//    wire PSUB; 
+//    
+//    wire GNDA_IDAC; 
+//    wire VDDA_IDAC; 
+//    
+//    wire VDDA_VDAC;
+//    wire GNDA_VDAC; 
+//    
+//    wire VDDA;
+//    wire GNDA;
+//    
+//    wire VDDD;
+//    wire GNDD; 
+//    
+//    wire VDDP;
+//    wire GNDP;
 
-    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .PSUB(PSUB), .DOUT(SoConf), .OEN(1'b1) );
+    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
+    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(PSUB), .DOUT(SoConf), .OEN(1'b1) );
         
-    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
+    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
+    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
     
-    Pulldown_pol_IO PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .PSUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
-    Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .PSUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
+    Pulldown_pol_IO PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
+    Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
     
-    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .PSUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
-    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .PSUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
+    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
+    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
     
-    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .PSUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) );
-    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .PSUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) );
+    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) );
+    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) );
     
-    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .PSUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .PSUB(PSUB), .DOUT(TokenHV), .OEN(conf.EN_OUT[3]) );
-    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .PSUB(PSUB), .DOUT(OutHV), .OEN(conf.EN_OUT[3]) );
+    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(TokenHV), .OEN(conf.EN_OUT[3]) );
+    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(OutHV), .OEN(conf.EN_OUT[3]) );
     
-    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .PSUB(PSUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) );
-    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .PSUB(PSUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) );
-    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .PSUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) );
-    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .PSUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) );
+    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) );
+    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) );
+    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) );
+    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) );
         
     localparam DVDD_POWER_PADS = 4;
     localparam AVDD_POWER_PADS = 4;
@@ -157,8 +157,8 @@ module MONOPIX(
     generate 
         for (i=0;i<DVDD_POWER_PADS;i=i+1)
         begin : DIGITAL
-           PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDDP ), .DVSS ( GNDP ), .PSUB ( PSUB ));
-           PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDDP ), .DVSS ( GNDP ), .PSUB ( PSUB ));
+           PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
+           PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDA ), .AVSS ( GNDA ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
         end
    endgenerate
 
@@ -187,11 +187,11 @@ module MONOPIX(
         //---------4-bit DAC-----------//
         //Value=16/(binary_to_decimal)*max current
         //1st stage
-        default_conf.IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
-        default_conf.IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+        default_conf.SET_IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+        default_conf.SET_IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
         //2nd stage - Driver
-        default_conf.IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
-        default_conf.IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+        default_conf.SET_IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+        default_conf.SET_IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
 
         //------------DAC-------------//
         //SET VOLTAGE DAC - ONE HOT ENCODING
@@ -199,24 +199,24 @@ module MONOPIX(
         //Source follower buffer for VRESETx, VH,VL. VRESET level shift=555mV, VL,VH level shift=385mV
         //VRESETxx max = #88 (1.25V + 0.55V), VH,VL max = #100 (1.415V+0.385V), VH,VL min = #36 (0.515V + 0.385V), VH>VL
         //Value = 1.8/127 * (#SET LINE (0 to 127) + S.F level shift), MAX=1.8V, LSB=14.17mV, MIN=S.F level shift
-        default_conf.VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
-        default_conf.VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
-        default_conf.VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
-        default_conf.VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
+        default_conf.SET_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
+        default_conf.SET_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
+        default_conf.SET_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
+        default_conf.SET_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
         //NOT USED IN MONOPIX
-        default_conf.VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
-        default_conf.VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
+        default_conf.SET_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
+        default_conf.SET_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
 
         //SET CURRENT DAC - THERMOMETER ENCODING, START FROM THE MIDDLE
         //Value = 128/(#lines active)*max current
-        default_conf.IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
-        default_conf.IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
-        default_conf.ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
-        default_conf.IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
-        default_conf.ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
+        default_conf.SET_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
+        default_conf.SET_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
+        default_conf.SET_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
+        default_conf.SET_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
+        default_conf.SET_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
         //SET IRESET BIT (1= HIGH LEAKAGE MODE, 0=LOW LEAKAGE MODE)
         //LOW LEAKAGE -> 43.75pA max, 342fA LSB  HIGH LEAKAGE -> 4.375nA max, 34.2pA LSB
-        default_conf.IRESET_BIT = 1;
+        default_conf.SET_IRESET_BIT = 1;
 
         //SET SWCNTL - MONITOR/OVERRIDE
         //SWCNTLxx    MONITOR SWCNTL    OPERATION
@@ -225,8 +225,8 @@ module MONOPIX(
         //   1                0           OVERRIDE/NORMAL OTHERS
         //   1                1           OVERRIDE/MONITOR OTHERS
         //MONITOR SWCNTL
-        default_conf.SWCNTL_DACNMONI = 0;
-        default_conf.SWCNTL_DACNMONV = 0;
+        default_conf.SWCNTL_DACMONI = 0;
+        default_conf.SWCNTL_DACMONV = 0;
         //SWCNTLxx
         default_conf.SWCNTL_VRESET_P = 0;
         default_conf.SWCNTL_VH = 0;
@@ -345,52 +345,52 @@ module MONOPIX(
      
     always_comb begin
         //DAC
-        SET_VRESET_P = conf.VRESET_P;
-        SET_VH  = conf.VH;
-        SET_VL = conf.VL;
-        SET_VCASN = conf.VCASN;
-        SET_VRESET_D = conf.VRESET_D;
-        SET_VCLIP = conf.VCLIP;
+        SET_VRESET_P = default_conf.SET_VRESET_P;
+        SET_VH  = default_conf.SET_VH;
+        SET_VL = default_conf.SET_VL;
+        SET_VCASN = default_conf.SET_VCASN;
+        SET_VRESET_D = default_conf.SET_VRESET_D;
+        SET_VCLIP = default_conf.SET_VCLIP;
 
-        SET_IBIAS = conf.IBIAS;
-        SET_IDB = conf.IDB;
-        SET_ITHR = conf.ITHR;
-        SET_IRESET = conf.IRESET;
-        SET_ICASN = conf.ICASN;
+        SET_IBIAS = default_conf.SET_IBIAS;
+        SET_IDB = default_conf.SET_IDB;
+        SET_ITHR = default_conf.SET_ITHR;
+        SET_IRESET = default_conf.SET_IRESET;
+        SET_ICASN = default_conf.SET_ICASN;
 
-        SET_IRESET_BIT = conf.IRESET_BIT;
+        SET_IRESET_BIT = default_conf.SET_IRESET_BIT;
 
-        SET_IBUFN_L  = conf.IBUFN_L;
-        SET_IBUFN_R = conf.IBUFN_R;
-        SET_IBUFP_L  = conf.IBUFP_L;
-        SET_IBUFP_R  = conf.IBUFP_R;
+        SET_IBUFN_L  = default_conf.SET_IBUFN_L;
+        SET_IBUFN_R = default_conf.SET_IBUFN_R;
+        SET_IBUFP_L  = default_conf.SET_IBUFP_L;
+        SET_IBUFP_R  = default_conf.SET_IBUFP_R;
         
-        SWCNTL_DACMONI  = conf.SWCNTL_DACMONI; 
-        SWCNTL_DACMONV  = conf.SWCNTL_DACMONV; 
-        SWCNTL_IBIAS  = conf.SWCNTL_IBIAS; 
-        SWCNTL_ICASN  = conf.SWCNTL_ICASN;
-        SWCNTL_IDB  = conf.SWCNTL_IDB; 
-        SWCNTL_IREF  = conf.SWCNTL_IREF; 
-        SWCNTL_IRESET  = conf.SWCNTL_IRESET; 
-        SWCNTL_ITHR  = conf.SWCNTL_ITHR; 
-        SWCNTL_VCASN  = conf.SWCNTL_VCASN;
-        SWCNTL_VCLIP  = conf.SWCNTL_VCLIP; 
-        SWCNTL_VH  = conf.SWCNTL_VH; 
-        SWCNTL_VL  = conf.SWCNTL_VL; 
-        SWCNTL_VRESET_D  = conf.SWCNTL_VRESET_D;
-        SWCNTL_VRESET_P  = conf.SWCNTL_VRESET_P;
+        SWCNTL_DACMONI  = default_conf.SWCNTL_DACMONI; 
+        SWCNTL_DACMONV  = default_conf.SWCNTL_DACMONV; 
+        SWCNTL_IBIAS  = default_conf.SWCNTL_IBIAS; 
+        SWCNTL_ICASN  = default_conf.SWCNTL_ICASN;
+        SWCNTL_IDB  = default_conf.SWCNTL_IDB; 
+        SWCNTL_IREF  = default_conf.SWCNTL_IREF; 
+        SWCNTL_IRESET  = default_conf.SWCNTL_IRESET; 
+        SWCNTL_ITHR  = default_conf.SWCNTL_ITHR; 
+        SWCNTL_VCASN  = default_conf.SWCNTL_VCASN;
+        SWCNTL_VCLIP  = default_conf.SWCNTL_VCLIP; 
+        SWCNTL_VH  = default_conf.SWCNTL_VH; 
+        SWCNTL_VL  = default_conf.SWCNTL_VL; 
+        SWCNTL_VRESET_D  = default_conf.SWCNTL_VRESET_D;
+        SWCNTL_VRESET_P  = default_conf.SWCNTL_VRESET_P;
        
         //Matrix
-        MASKV = conf.MASKV;
-        MASKH = conf.MASKH;
-        MASKD  = conf.MASKD;
-        INJ_ROW = conf.INJ_ROW;
-        DIG_MON_SEL = conf.DIG_MON_SEL;
+        MASKV = default_conf.MASKV;
+        MASKH = default_conf.MASKH;
+        MASKD  = default_conf.MASKD;
+        INJ_ROW = default_conf.INJ_ROW;
+        DIG_MON_SEL = default_conf.DIG_MON_SEL;
         
         //Pulsing
-        INJ_IN = {448{Pulse}} &  conf.COL_PULSE_SEL;
-        INJ_IN_MON_L = Pulse &  conf.INJ_IN_MON_L;
-        INJ_IN_MON_R = Pulse &  conf.INJ_IN_MON_R;
+        INJ_IN = {448{Pulse}} &  default_conf.COL_PULSE_SEL;
+        INJ_IN_MON_L = Pulse &  default_conf.INJ_IN_MON_L;
+        INJ_IN_MON_R = Pulse &  default_conf.INJ_IN_MON_R;
     end
     
 
