@@ -186,7 +186,7 @@ placeInstance DIGITAL_G[53].INST_PAD_DVSS 17671.9 0.0 R0
 placeInstance PAD_HIT_OR3 17791.9 0.0 R0
 placeInstance DIGITAL_P[54].INST_PAD_DVDD 17911.9 0.0 R0
 placeInstance PAD_nHIT_OR3 18031.9 0.0 R0
-placeInstance DIGITAL_G[].INST_PAD_DVSS 18151.9 0.0 R0
+placeInstance DIGITAL_G[54].INST_PAD_DVSS 18151.9 0.0 R0
 
 ############################ FILLER PLACEMENT ##################################
 
