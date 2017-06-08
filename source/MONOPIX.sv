@@ -175,6 +175,14 @@ module MONOPIX(
         //default_conf = '0;
         
         //****DEFAULT CONFIGURATION****//
+        //----------READOUT ENABLE-----//
+        default_conf.EN_PMOS_NOSF = 1;
+        default_conf.EN_PMOS = 1;
+        default_conf.EN_COMP = 1;
+        default_conf.EN_HV = 1;
+        default_conf.EN_OUT = 1;
+        //--------HITOR OUT ENABLE-----//
+        default_conf.EN_HITOR_OUT = 0;
         //----------PULSING------------//
         default_conf.COL_PULSE_SEL = 0;
         default_conf.INJ_IN_MON_L = 0;
@@ -184,6 +192,8 @@ module MONOPIX(
         default_conf.MASKV = 1;
         default_conf.MASKH = 1;  //(nMASKH=HITOR_SEL_ROW)
         default_conf.MASKD = 1;
+        //------HIT_OR_COLUMN_ENABLE---//
+        default_conf.DIG_MON_SEL = 0;
         //---------4-bit DAC-----------//
         //Value=16/(binary_to_decimal)*max current
         //1st stage
@@ -386,7 +396,17 @@ module MONOPIX(
         MASKD  = default_conf.MASKD;
         INJ_ROW = default_conf.INJ_ROW;
         DIG_MON_SEL = default_conf.DIG_MON_SEL;
-        
+
+        //Readout
+        EN_PMOS_NOSF = default_conf.EN_PMOS_NOSF;
+        EN_PMOS = default_conf.EN_PMOS;
+        EN_COMP = default_conf.EN_COMP;
+        EN_HV = default_conf.HV;
+        EN_OUT = default_conf.EN_OUT;
+
+        //HITOR
+        EN_HITOR_OUT = default_conf.EN_HITOR_OUT;
+
         //Pulsing
         INJ_IN = {448{Pulse}} &  default_conf.COL_PULSE_SEL;
         INJ_IN_MON_L = Pulse &  default_conf.INJ_IN_MON_L;
