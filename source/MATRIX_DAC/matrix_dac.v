@@ -1,5 +1,6 @@
 //Verilog HDL for "TJ_Monopix_01", "matrix_dac" "functional"
 
+//`include "../sim/mono_pixel.sv"
 
 module matrix_dac ( DIG_MON_COMP, DIG_MON_HV, DIG_MON_PMOS, DIG_MON_PMOS_NOSF,
 Data_COMP, Data_HV, Data_PMOS, Data_PMOS_NOSF, nTOK_COMP, nTOK_HV, nTOK_PMOS,
@@ -135,4 +136,21 @@ SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
   output  [1175:0] Data_PMOS;
   output  [1175:0] Data_COMP;
   output  [1175:0] Data_HV;
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 endmodule

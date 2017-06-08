@@ -129,8 +129,6 @@ sroute -connect {corePin} -nets { GNDP VDDP }  -layerChangeRange { M1 M5 }
 
 sroute -connect { blockPin } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { GNDP VDDP } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
 
-stop
-
 placeDesign
 routeDesign
 

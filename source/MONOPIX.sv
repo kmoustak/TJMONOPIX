@@ -86,7 +86,7 @@ module MONOPIX(
     wire ResetBcid;
     wire ReadPMOS_NOSF, ReadPMOS, ReadCOMP, ReadHV;
     wire FreezePMOS_NOSF, FreezePMOS, FreezeCOMP, FreezeHV;
-    wire OutPMOS_NOSF, OutPMOS, OutCOMP, OutHv;
+    wire OutPMOS_NOSF, OutPMOS, OutCOMP, OutHV;
     wire TokenPMOS_NOSF, TokenPMOS, TokenCOMP, TokenHV;
     //
     wire nRST;
@@ -111,10 +111,10 @@ module MONOPIX(
     Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
     Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
     
-    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
-    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[1]) );
+    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
+    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS), .OEN(conf.EN_OUT[1]) );
+    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS), .OEN(conf.EN_OUT[1]) );
     
     Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
     Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
@@ -415,7 +415,7 @@ module MONOPIX(
         .Bcid(bcid_gray),
         .EnTestPattern(conf.EN_TEST_PATTERN[0]),
         .Enable(conf.EN_PMOS_NOSF),
-        .DataOut(DataOutPMOS_NOSF),
+        .DataOut(OutPMOS_NOSF),
         .TokenOut(TokenPMOS_NOSF),
         .TokColB(nTOK_PMOS_NOSF),
         .DataCol(Data_PMOS_NOSF),
@@ -433,7 +433,7 @@ module MONOPIX(
         .Bcid(bcid_gray),
         .EnTestPattern(conf.EN_TEST_PATTERN[1]),
         .Enable(conf.EN_PMOS),
-        .DataOut(DataOutPMOS),
+        .DataOut(OutPMOS),
         .TokenOut(TokenPMOS),
         .TokColB(nTOK_PMOS),
         .DataCol(Data_PMOS),
@@ -451,7 +451,7 @@ module MONOPIX(
         .Bcid(bcid_gray),
         .EnTestPattern(conf.EN_TEST_PATTERN[2]),
         .Enable(conf.EN_COMP),
-        .DataOut(DataOutCOMP),
+        .DataOut(OutCOMP),
         .TokenOut(TokenCOMP),
         .TokColB(nTOK_COMP),
         .DataCol(Data_COMP),
@@ -469,7 +469,7 @@ module MONOPIX(
         .Bcid(bcid_gray),
         .EnTestPattern(conf.EN_TEST_PATTERN[3]),
         .Enable(conf.EN_HV),
-        .DataOut(DataOutHV),
+        .DataOut(OutHV),
         .TokenOut(TokenHV),
         .TokColB(nTOK_HV),
         .DataCol(Data_HV),
@@ -477,6 +477,8 @@ module MONOPIX(
         .FreezeCol(FREEZE_HV),
         .BcidCol(bcid_matrix_type[3])
     );
+    
+    
     
     always_comb begin
         HitOr[0] = |DIG_MON_PMOS_NOSF;
