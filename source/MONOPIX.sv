@@ -189,9 +189,9 @@ module MONOPIX(
         default_conf.INJ_IN_MON_R = 0;
         default_conf.INJ_ROW = 0;
         //----------MASKING------------//
-        default_conf.MASKV = 1;
-        default_conf.MASKH = 1;  //(nMASKH=HITOR_SEL_ROW)
-        default_conf.MASKD = 1;
+        default_conf.MASKV = '1;
+        default_conf.MASKH = '1;  //(nMASKH=HITOR_SEL_ROW)
+        default_conf.MASKD = '1;
         //------HIT_OR_COLUMN_ENABLE---//
         default_conf.DIG_MON_SEL = 0;
         //---------4-bit DAC-----------//
@@ -355,62 +355,52 @@ module MONOPIX(
      
     always_comb begin
         //DAC
-        SET_VRESET_P = default_conf.SET_VRESET_P;
-        SET_VH  = default_conf.SET_VH;
-        SET_VL = default_conf.SET_VL;
-        SET_VCASN = default_conf.SET_VCASN;
-        SET_VRESET_D = default_conf.SET_VRESET_D;
-        SET_VCLIP = default_conf.SET_VCLIP;
+        SET_VRESET_P = conf.SET_VRESET_P;
+        SET_VH  = conf.SET_VH;
+        SET_VL = conf.SET_VL;
+        SET_VCASN = conf.SET_VCASN;
+        SET_VRESET_D = conf.SET_VRESET_D;
+        SET_VCLIP = conf.SET_VCLIP;
 
-        SET_IBIAS = default_conf.SET_IBIAS;
-        SET_IDB = default_conf.SET_IDB;
-        SET_ITHR = default_conf.SET_ITHR;
-        SET_IRESET = default_conf.SET_IRESET;
-        SET_ICASN = default_conf.SET_ICASN;
+        SET_IBIAS = conf.SET_IBIAS;
+        SET_IDB = conf.SET_IDB;
+        SET_ITHR = conf.SET_ITHR;
+        SET_IRESET = conf.SET_IRESET;
+        SET_ICASN = conf.SET_ICASN;
 
-        SET_IRESET_BIT = default_conf.SET_IRESET_BIT;
+        SET_IRESET_BIT = conf.SET_IRESET_BIT;
 
-        SET_IBUFN_L  = default_conf.SET_IBUFN_L;
-        SET_IBUFN_R = default_conf.SET_IBUFN_R;
-        SET_IBUFP_L  = default_conf.SET_IBUFP_L;
-        SET_IBUFP_R  = default_conf.SET_IBUFP_R;
+        SET_IBUFN_L  = conf.SET_IBUFN_L;
+        SET_IBUFN_R = conf.SET_IBUFN_R;
+        SET_IBUFP_L  = conf.SET_IBUFP_L;
+        SET_IBUFP_R  = conf.SET_IBUFP_R;
         
-        SWCNTL_DACMONI  = default_conf.SWCNTL_DACMONI; 
-        SWCNTL_DACMONV  = default_conf.SWCNTL_DACMONV; 
-        SWCNTL_IBIAS  = default_conf.SWCNTL_IBIAS; 
-        SWCNTL_ICASN  = default_conf.SWCNTL_ICASN;
-        SWCNTL_IDB  = default_conf.SWCNTL_IDB; 
-        SWCNTL_IREF  = default_conf.SWCNTL_IREF; 
-        SWCNTL_IRESET  = default_conf.SWCNTL_IRESET; 
-        SWCNTL_ITHR  = default_conf.SWCNTL_ITHR; 
-        SWCNTL_VCASN  = default_conf.SWCNTL_VCASN;
-        SWCNTL_VCLIP  = default_conf.SWCNTL_VCLIP; 
-        SWCNTL_VH  = default_conf.SWCNTL_VH; 
-        SWCNTL_VL  = default_conf.SWCNTL_VL; 
-        SWCNTL_VRESET_D  = default_conf.SWCNTL_VRESET_D;
-        SWCNTL_VRESET_P  = default_conf.SWCNTL_VRESET_P;
+        SWCNTL_DACMONI  = conf.SWCNTL_DACMONI; 
+        SWCNTL_DACMONV  = conf.SWCNTL_DACMONV; 
+        SWCNTL_IBIAS  = conf.SWCNTL_IBIAS; 
+        SWCNTL_ICASN  = conf.SWCNTL_ICASN;
+        SWCNTL_IDB  = conf.SWCNTL_IDB; 
+        SWCNTL_IREF  = conf.SWCNTL_IREF; 
+        SWCNTL_IRESET  = conf.SWCNTL_IRESET; 
+        SWCNTL_ITHR  = conf.SWCNTL_ITHR; 
+        SWCNTL_VCASN  = conf.SWCNTL_VCASN;
+        SWCNTL_VCLIP  = conf.SWCNTL_VCLIP; 
+        SWCNTL_VH  = conf.SWCNTL_VH; 
+        SWCNTL_VL  = conf.SWCNTL_VL; 
+        SWCNTL_VRESET_D  = conf.SWCNTL_VRESET_D;
+        SWCNTL_VRESET_P  = conf.SWCNTL_VRESET_P;
        
         //Matrix
-        MASKV = default_conf.MASKV;
-        MASKH = default_conf.MASKH;
-        MASKD  = default_conf.MASKD;
-        INJ_ROW = default_conf.INJ_ROW;
-        DIG_MON_SEL = default_conf.DIG_MON_SEL;
-
-        //Readout
-        EN_PMOS_NOSF = default_conf.EN_PMOS_NOSF;
-        EN_PMOS = default_conf.EN_PMOS;
-        EN_COMP = default_conf.EN_COMP;
-        EN_HV = default_conf.HV;
-        EN_OUT = default_conf.EN_OUT;
-
-        //HITOR
-        EN_HITOR_OUT = default_conf.EN_HITOR_OUT;
+        MASKV = conf.MASKV;
+        MASKH = conf.MASKH;
+        MASKD  = conf.MASKD;
+        INJ_ROW = conf.INJ_ROW;
+        DIG_MON_SEL = conf.DIG_MON_SEL;
 
         //Pulsing
-        INJ_IN = {448{Pulse}} &  default_conf.COL_PULSE_SEL;
-        INJ_IN_MON_L = Pulse &  default_conf.INJ_IN_MON_L;
-        INJ_IN_MON_R = Pulse &  default_conf.INJ_IN_MON_R;
+        INJ_IN = {448{Pulse}} &  conf.COL_PULSE_SEL;
+        INJ_IN_MON_L = Pulse &  conf.INJ_IN_MON_L;
+        INJ_IN_MON_R = Pulse &  conf.INJ_IN_MON_R;
     end
     
 
