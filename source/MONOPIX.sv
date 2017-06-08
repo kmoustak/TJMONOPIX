@@ -23,7 +23,7 @@ module MONOPIX(
     input FREEZE_PMOS_NOSF_PAD, FREEZE_PMOS_PAD, FREEZE_COMP_PAD, FREEZE_HV_PAD, //IO Pulldown PAD
     output TOKEN_PMOS_NOSF_PAD, TOKEN_PMOS_PAD, TOKEN_COMP_PAD, TOKEN_HV_PAD, //IO Pulldown PAD
     output OUT_PMOS_NOSF_PAD, OUT_PMOS_PAD, OUT_COMP_PAD, OUT_HV_PAD, //IO Pulldown PAD
-    
+   
     input PULSE_PAD, //IO Pulldown PAD
     output [3:0] HIT_OR_PAD, //IO Pulldown PAD
     
