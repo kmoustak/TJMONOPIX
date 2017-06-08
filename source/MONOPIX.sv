@@ -157,10 +157,10 @@ module MONOPIX(
         
 
     
-// POWER PADS IN PERIPHERY GENERATED IN DIGITAL FLOW?? OR NOT??? HOW MANY?
-    localparam DVDD_POWER_PADS = 4;
-    localparam AVDD_POWER_PADS = 4;
-    localparam DECOUPLING_CAP_FILLERS = 4;
+// POWER PADS IN PERIPHERY GENERATED IN DIGITAL FLOW
+    localparam DVDD_POWER_PADS = 55;
+    localparam AVDD_POWER_PADS = 55;
+    localparam DECOUPLING_CAP_FILLERS = 152;
 
     genvar i;
     generate 
@@ -171,11 +171,12 @@ module MONOPIX(
         end
    endgenerate
 
+// DECOUPLING FILLERS IN PERIPHERY GENERATED IN DIGITAL FLOW
     genvar j;
     generate 
         for (j=0;j<DECOUPLING_CAP_FILLERS;j=j+1)
         begin : FILLER
-           decoupling_cap_filler  INST_PAD_DVDD (.AVDD ( VDDD ), .AVSS ( GNDD ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
+           decoupling_cap_filler  INST_decoupling_cap_filler (.AVDD ( VDDD ), .AVSS ( GNDD ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
         end
    endgenerate
 
