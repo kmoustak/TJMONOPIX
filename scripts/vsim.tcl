@@ -1,5 +1,3 @@
-
-
 vlog -sv ../sim/monopix_tb.sv -lint +incdir+../source
 vsim monopix_tb -novopt
 add wave -group tb sim:/monopix_tb/*
