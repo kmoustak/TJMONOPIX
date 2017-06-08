@@ -24,21 +24,8 @@ set report_inactive_arcs_format {from to when arc_type sense reason}
 set tso_post_client_restore_command {update_timing ; write_eco_opt_db ;}
 init_design
 
-
-
-globalNetConnect VDDP -type pgpin -pin VDD -inst *
-globalNetConnect GNDP -type pgpin -pin VSS -inst *
-
 globalNetConnect VDDP -type pgpin -pin VDDP -inst *
 globalNetConnect GNDP -type pgpin -pin GNDP -inst *
-
-globalNetConnect VDDP -type pgpin -pin VDD_Per -inst *
-globalNetConnect GNDP -type pgpin -pin GND_Per -inst *
-
-globalNetConnect VDDP -type pgpin -pin DVDD -inst *
-globalNetConnect GNDP -type pgpin -pin DVSS -inst *
-
-
 
 #floorPlan -site CoreSite -d 18200 9000 10.0 130 10.0 8400
 

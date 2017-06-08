@@ -165,7 +165,7 @@ module MONOPIX(
     genvar i;
     generate 
         for (i=0;i<DVDD_POWER_PADS;i=i+1)
-        begin : DIGITAL_G
+        begin : DIGITAL_P
            PAD_DVDD        INST_PAD_DVDD (.AVDD ( VDDD ), .AVSS ( GNDD ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
         end
    endgenerate
@@ -173,7 +173,7 @@ module MONOPIX(
     genvar j;
     generate 
         for (j=0;j<DVSS_POWER_PADS;j=j+1)
-        begin : DIGITAL_P
+        begin : DIGITAL_G
            PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDD ), .AVSS ( GNDD ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
         end
    endgenerate
