@@ -172,7 +172,7 @@ module MONOPIX(
 
     genvar j;
     generate 
-        for (j=0;j<DVSS_POWER_PADS;j=i+1)
+        for (j=0;j<DVSS_POWER_PADS;j=j+1)
         begin : DIGITAL_P
            PAD_DVSS        INST_PAD_DVSS (.AVDD ( VDDD ), .AVSS ( GNDD ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
         end
@@ -182,7 +182,7 @@ module MONOPIX(
 // DECOUPLING FILLERS IN PERIPHERY GENERATED IN DIGITAL FLOW
     genvar k;
     generate 
-        for (k=0;k<DECOUPLING_CAP_FILLERS;k=j+1)
+        for (k=0;k<DECOUPLING_CAP_FILLERS;k=k+1)
         begin : FILLER
            decoupling_cap_filler  INST_decoupling_cap_filler (.AVDD ( VDDD ), .AVSS ( GNDD ), .DVDD ( VDDP ), .DVSS ( GNDP ), .SUB ( PSUB ));
         end
