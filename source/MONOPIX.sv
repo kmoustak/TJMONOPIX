@@ -179,9 +179,6 @@ module MONOPIX(
         end
    endgenerate
 
-
-
-   //TODO: DIGITAL_MATRIX ????
     
     //
     //   CONFIGURATION
@@ -189,8 +186,7 @@ module MONOPIX(
     
     t_conf default_conf;
     always_comb begin
-        //default_conf = '0;
-        
+
         //****DEFAULT CONFIGURATION****//
         //----------TEST PATTERN-------//
         default_conf.EN_TEST_PATTERN = '1;
