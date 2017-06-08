@@ -14,10 +14,10 @@ set distributed_client_message_echo 1
 set distributed_mmmc_disable_reports_auto_redirection 0
 set floorplan_default_site CoreSite
 set fpIsMaxIoHeight 0
-set init_gnd_net GNDDPER
+set init_gnd_net GNDP
 set init_lef_file {/cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/cds/lef/tsl18_6lm_tech.lef /cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/cds/lef/tsl18fs120.lef ../libs/matrix_dac.lef ../libs/PAD_DVDD.lef ../libs/PAD_DVSS.lef ../libs/Pulldown_pol_IO.lef}
 set init_oa_search_lib {}
-set init_pwr_net {VDDDPER }
+set init_pwr_net {VDDP }
 set init_verilog output/r2g.v
 set latch_time_borrow_mode max_borrow
 set pegDefaultResScaleFactor 1
@@ -28,17 +28,17 @@ init_design
 
 
 
-globalNetConnect VDDDPER -type pgpin -pin VDD -inst *
-globalNetConnect GNDDPER -type pgpin -pin VSS -inst *
+globalNetConnect VDDP -type pgpin -pin VDD -inst *
+globalNetConnect GNDP -type pgpin -pin VSS -inst *
 
-globalNetConnect VDDDPER -type pgpin -pin VDDDPER -inst *
-globalNetConnect GNDDPER -type pgpin -pin GNDDPER -inst *
+globalNetConnect VDDP -type pgpin -pin VDDP -inst *
+globalNetConnect GNDP -type pgpin -pin GNDP -inst *
 
-globalNetConnect VDDDPER -type pgpin -pin VDD_Per -inst *
-globalNetConnect GNDDPER -type pgpin -pin GND_Per -inst *
+globalNetConnect VDDP -type pgpin -pin VDD_Per -inst *
+globalNetConnect GNDP -type pgpin -pin GND_Per -inst *
 
-globalNetConnect VDDDPER -type pgpin -pin DVDD -inst *
-globalNetConnect GNDDPER -type pgpin -pin DVSS -inst *
+globalNetConnect VDDP -type pgpin -pin DVDD -inst *
+globalNetConnect GNDP -type pgpin -pin DVSS -inst *
 
 
 
@@ -49,44 +49,44 @@ floorPlan -site CoreSite -d 18200 9000 25.0 145 25.0 8500.0
 placeInstance matrix_dac 20.0 520.0 R0
 
 
-placeInstance PAD_TOKEN_PMOS_DPW 100.0 0.0 R0
-placeInstance PAD_TOKEN_PMOS 200.0 0.0 R0
-placeInstance PAD_TOKEN_HV 300.0 0.0 R0
-placeInstance PAD_CLK_BX 400.0 0.0 R0
-placeInstance PAD_CLK_CONF 500.0 0.0 R0
-placeInstance PAD_CLK_OUT 600.0 0.0 R0
-placeInstance PAD_DEF_CONF 700.0 0.0 R0
-placeInstance PAD_FREEZE_COMP 800.0 0.0 R0
-placeInstance PAD_FREEZE_HV 900.0 0.0 R0
-placeInstance PAD_FREEZE_PMOS 1000.0 0.0 R0
-placeInstance PAD_FREEZE_PMOS_DPW 1200.0 0.0 R0
-placeInstance PAD_HIT_OR0 1300.0 0.0 R0
-placeInstance PAD_HIT_OR1 1400.0 0.0 R0
-placeInstance PAD_HIT_OR2 1500.0 0.0 R0
-placeInstance PAD_HIT_OR3 1600.0 0.0 R0
-placeInstance PAD_LD_CONF 1700.0 0.0 R0
-placeInstance PAD_OUT_COMP 1800.0 0.0 R0
-placeInstance PAD_OUT_HV 2000.0 0.0 R0
-placeInstance PAD_OUT_PMOS 2100.0 0.0 R0
-placeInstance PAD_OUT_PMOS_DPW 2200.0 0.0 R0
-placeInstance PAD_PULSE 2300.0 0.0 R0
-placeInstance PAD_READ_COMP 2400.0 0.0 R0
-placeInstance PAD_READ_HV 2500.0 0.0 R0
-placeInstance PAD_READ_PMOS 2600.0 0.0 R0
-placeInstance PAD_READ_PMOS_DPW 2700.0 0.0 R0
-placeInstance PAD_RESET_BCID 2800.0 0.0 R0
-placeInstance PAD_RST_N 2900.0 0.0 R0
-placeInstance PAD_SI_CONF 3000.0 0.0 R0
-placeInstance PAD_SO_CONF 3100.0 0.0 R0
-placeInstance PAD_TOKEN_COMP 3200.0 0.0 R0
-placeInstance DIGITAL[0].INST_PAD_DVDD 3300.0 0.0 R0
-placeInstance DIGITAL[1].INST_PAD_DVDD 3400.0 0.0 R0
-placeInstance DIGITAL[2].INST_PAD_DVDD 3500.0 0.0 R0
-placeInstance DIGITAL[3].INST_PAD_DVDD 3600.0 0.0 R0
-placeInstance DIGITAL[0].INST_PAD_DVSS 3700.0 0.0 R0
-placeInstance DIGITAL[1].INST_PAD_DVSS 3800.0 0.0 R0
-placeInstance DIGITAL[2].INST_PAD_DVSS 3900.0 0.0 R0
-placeInstance DIGITAL[3].INST_PAD_DVSS 4000.0 0.0 R0
+#placeInstance PAD_TOKEN_PMOS_DPW 100.0 0.0 R0
+#placeInstance PAD_TOKEN_PMOS 200.0 0.0 R0
+#placeInstance PAD_TOKEN_HV 300.0 0.0 R0
+#placeInstance PAD_CLK_BX 400.0 0.0 R0
+#placeInstance PAD_CLK_CONF 500.0 0.0 R0
+#placeInstance PAD_CLK_OUT 600.0 0.0 R0
+#placeInstance PAD_DEF_CONF 700.0 0.0 R0
+#placeInstance PAD_FREEZE_COMP 800.0 0.0 R0
+#placeInstance PAD_FREEZE_HV 900.0 0.0 R0
+#placeInstance PAD_FREEZE_PMOS 1000.0 0.0 R0
+#placeInstance PAD_FREEZE_PMOS_DPW 1200.0 0.0 R0
+#placeInstance PAD_HIT_OR0 1300.0 0.0 R0
+#placeInstance PAD_HIT_OR1 1400.0 0.0 R0
+#placeInstance PAD_HIT_OR2 1500.0 0.0 R0
+#placeInstance PAD_HIT_OR3 1600.0 0.0 R0
+#placeInstance PAD_LD_CONF 1700.0 0.0 R0
+#placeInstance PAD_OUT_COMP 1800.0 0.0 R0
+#placeInstance PAD_OUT_HV 2000.0 0.0 R0
+#placeInstance PAD_OUT_PMOS 2100.0 0.0 R0
+#placeInstance PAD_OUT_PMOS_DPW 2200.0 0.0 R0
+#placeInstance PAD_PULSE 2300.0 0.0 R0
+#placeInstance PAD_READ_COMP 2400.0 0.0 R0
+#placeInstance PAD_READ_HV 2500.0 0.0 R0
+#placeInstance PAD_READ_PMOS 2600.0 0.0 R0
+#placeInstance PAD_READ_PMOS_DPW 2700.0 0.0 R0
+#placeInstance PAD_RESET_BCID 2800.0 0.0 R0
+#placeInstance PAD_RST_N 2900.0 0.0 R0
+#placeInstance PAD_SI_CONF 3000.0 0.0 R0
+#placeInstance PAD_SO_CONF 3100.0 0.0 R0
+#placeInstance PAD_TOKEN_COMP 3200.0 0.0 R0
+#placeInstance DIGITAL[0].INST_PAD_DVDD 3300.0 0.0 R0
+#placeInstance DIGITAL[1].INST_PAD_DVDD 3400.0 0.0 R0
+#placeInstance DIGITAL[2].INST_PAD_DVDD 3500.0 0.0 R0
+#placeInstance DIGITAL[3].INST_PAD_DVDD 3600.0 0.0 R0
+#placeInstance DIGITAL[0].INST_PAD_DVSS 3700.0 0.0 R0
+#placeInstance DIGITAL[1].INST_PAD_DVSS 3800.0 0.0 R0
+#placeInstance DIGITAL[2].INST_PAD_DVSS 3900.0 0.0 R0
+#placeInstance DIGITAL[3].INST_PAD_DVSS 4000.0 0.0 R0
 
 setNanoRouteMode -quiet -dbSkipAnalog true
 
@@ -115,19 +115,19 @@ foreach topPinPatt $topPinPatts {
 }
 
 
-#addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -stacked_via_top_layer TOP_M -type core_rings -jog_distance 0.56 -threshold 0.56 -nets {VDDDPER GNDDPER} -follow core -stacked_via_bottom_layer M1 -layer {bottom M5 top M5 right M4 left M4} -width 5 -spacing 0.28 -offset 2 
+#addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -stacked_via_top_layer TOP_M -type core_rings -jog_distance 0.56 -threshold 0.56 -nets {VDDP GNDP} -follow core -stacked_via_bottom_layer M1 -layer {bottom M5 top M5 right M4 left M4} -width 5 -spacing 0.28 -offset 2 
 
-addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -center 1 -stacked_via_top_layer TOP_M -user_defined_region {20 140 20 505 18175 505 18175 140} -type core_rings -around user_defined -jog_distance 0.56 -threshold 0.56 -nets {VDDDPER GNDDPER} -follow core -stacked_via_bottom_layer M1 -layer {bottom TOP_M top TOP_M right M5 left M5} -width 5 -spacing 1 -offset 0.56 
+addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -center 1 -stacked_via_top_layer TOP_M -user_defined_region {20 140 20 505 18175 505 18175 140} -type core_rings -around user_defined -jog_distance 0.56 -threshold 0.56 -nets {VDDP GNDP} -follow core -stacked_via_bottom_layer M1 -layer {bottom TOP_M top TOP_M right M5 left M5} -width 5 -spacing 1 -offset 0.56 
 
-addStripe -skip_via_on_wire_shape Noshape -block_ring_top_layer_limit M1 -max_same_layer_jog_length 0.88 -padcore_ring_bottom_layer_limit M1 -set_to_set_distance 25 -skip_via_on_pin Standardcell -stacked_via_top_layer TOP_M -padcore_ring_top_layer_limit M1 -spacing 0.46 -merge_stripes_value 0.56 -layer M5 -block_ring_bottom_layer_limit M1 -stop_x 0 -stop_y 0 -width 5 -area {} -nets {VDDDPER GNDDPER} -start_x 0 -stacked_via_bottom_layer M1 -start_y 0
+addStripe -skip_via_on_wire_shape Noshape -block_ring_top_layer_limit M1 -max_same_layer_jog_length 0.88 -padcore_ring_bottom_layer_limit M1 -set_to_set_distance 25 -skip_via_on_pin Standardcell -stacked_via_top_layer TOP_M -padcore_ring_top_layer_limit M1 -spacing 0.46 -merge_stripes_value 0.56 -layer M5 -block_ring_bottom_layer_limit M1 -stop_x 0 -stop_y 0 -width 5 -area {} -nets {VDDP GNDP} -start_x 0 -stacked_via_bottom_layer M1 -start_y 0
 
-addStripe -skip_via_on_wire_shape Noshape -block_ring_top_layer_limit M1 -max_same_layer_jog_length 0.88 -padcore_ring_bottom_layer_limit M1 -set_to_set_distance 25 -skip_via_on_pin Standardcell -stacked_via_top_layer TOP_M -padcore_ring_top_layer_limit M1 -spacing 0.28 -merge_stripes_value 0.56 -direction horizontal -layer TOP_M -block_ring_bottom_layer_limit M1 -stop_x 0 -stop_y 0 -width 5 -area {} -nets {VDDDPER GNDDPER} -start_x 0 -stacked_via_bottom_layer M1 -start_y 0
+addStripe -skip_via_on_wire_shape Noshape -block_ring_top_layer_limit M1 -max_same_layer_jog_length 0.88 -padcore_ring_bottom_layer_limit M1 -set_to_set_distance 25 -skip_via_on_pin Standardcell -stacked_via_top_layer TOP_M -padcore_ring_top_layer_limit M1 -spacing 0.28 -merge_stripes_value 0.56 -direction horizontal -layer TOP_M -block_ring_bottom_layer_limit M1 -stop_x 0 -stop_y 0 -width 5 -area {} -nets {VDDP GNDP} -start_x 0 -stacked_via_bottom_layer M1 -start_y 0
 
-#sroute -connect { blockPin padPin padRing corePin floatingStripe } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -padPinPortConnect { allPort oneGeom } -padPinTarget { nearestTarget } -corePinTarget { firstAfterRowEnd } -floatingStripeTarget { blockring padring ring stripe ringpin blockpin followpin } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { VDDDPER GNDDPER } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
+#sroute -connect { blockPin padPin padRing corePin floatingStripe } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -padPinPortConnect { allPort oneGeom } -padPinTarget { nearestTarget } -corePinTarget { firstAfterRowEnd } -floatingStripeTarget { blockring padring ring stripe ringpin blockpin followpin } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { VDDP GNDP } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
 
-sroute -connect {corePin} -nets { GNDDPER VDDDPER }  -layerChangeRange { M1 M5 }   
+sroute -connect {corePin} -nets { GNDP VDDP }  -layerChangeRange { M1 M5 }   
 
-sroute -connect { blockPin } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { GNDDPER VDDDPER } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
+sroute -connect { blockPin } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { GNDP VDDP } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
 
 stop
 
