@@ -137,20 +137,4 @@ SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
   output  [1175:0] Data_COMP;
   output  [1175:0] Data_HV;
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 endmodule
