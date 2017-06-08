@@ -94,24 +94,6 @@ module MONOPIX(
     
     logic [3:0] HitOr;
 
-
-//    wire PSUB; 
-//    
-//    wire GNDA_IDAC; 
-//    wire VDDA_IDAC; 
-//    
-//    wire VDDA_VDAC;
-//    wire GNDA_VDAC; 
-//    
-//    wire VDDA;
-//    wire GNDA;
-//    
-//    wire VDDD;
-//    wire GNDD; 
-//    
-//    wire VDDP;
-//    wire GNDP;
-
     Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
     Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
     Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
@@ -176,24 +158,24 @@ module MONOPIX(
         
         //****DEFAULT CONFIGURATION****//
         //----------READOUT ENABLE-----//
-        default_conf.EN_PMOS_NOSF = 1;
-        default_conf.EN_PMOS = 1;
-        default_conf.EN_COMP = 1;
-        default_conf.EN_HV = 1;
-        default_conf.EN_OUT = 1;
+        default_conf.EN_PMOS_NOSF = '1;
+        default_conf.EN_PMOS = '1;
+        default_conf.EN_COMP = '1;
+        default_conf.EN_HV = '1;
+        default_conf.EN_OUT = '1;
         //--------HITOR OUT ENABLE-----//
-        default_conf.EN_HITOR_OUT = 0;
+        default_conf.EN_HITOR_OUT = '0;
         //----------PULSING------------//
-        default_conf.COL_PULSE_SEL = 0;
+        default_conf.COL_PULSE_SEL = '0;
         default_conf.INJ_IN_MON_L = 0;
         default_conf.INJ_IN_MON_R = 0;
-        default_conf.INJ_ROW = 0;
+        default_conf.INJ_ROW = '0;
         //----------MASKING------------//
         default_conf.MASKV = '1;
         default_conf.MASKH = '1;  //(nMASKH=HITOR_SEL_ROW)
         default_conf.MASKD = '1;
         //------HIT_OR_COLUMN_ENABLE---//
-        default_conf.DIG_MON_SEL = 0;
+        default_conf.DIG_MON_SEL = '0;
         //---------4-bit DAC-----------//
         //Value=16/(binary_to_decimal)*max current
         //1st stage
