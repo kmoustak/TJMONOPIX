@@ -56,9 +56,10 @@ typedef struct packed {
     logic [55:0] EN_COMP;
     logic [55:0] EN_HV;
     
-    logic [3:0] EN_HITOR_OUT;
     logic [3:0] EN_OUT;
-    
+    logic [3:0] nEN_OUT;
+    logic [3:0] EN_HITOR_OUT;
+    logic [3:0] nEN_HITOR_OUT;
 } t_conf;
 
 `endif // DEFINES_SV

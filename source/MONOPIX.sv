@@ -88,53 +88,79 @@ module MONOPIX(
     wire FreezePMOS_NOSF, FreezePMOS, FreezeCOMP, FreezeHV;
     wire OutPMOS_NOSF, OutPMOS, OutCOMP, OutHV;
     wire TokenPMOS_NOSF, TokenPMOS, TokenCOMP, TokenHV;
-    //
+
     wire nRST;
     wire Pulse;
     
     logic [3:0] HitOr;
 
-    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(PSUB), .DOUT(SoConf), .OEN(1'b1) );
+// SHIFT REGISTER CONFIGURATION
+    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) );    //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) );    //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(PSUB), .DOUT(SoConf), .OEN(1'b0) );    //TRANSMITTER (OEN=0 in the new PAD)
+
+// CLK, RESET, PULSE 
+    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+
+// FLAVOR 1 (PMOS_NOSF) I/O    
+    Pulldown_pol_IO PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) ); //TRANSMITTER (Default=enabled=0)
+//Diff PADS
+    Pulldown_pol_IO PAD_nTOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(~TokenPMOS_NOSF), .OEN(conf.nEN_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nOUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(~OutPMOS_NOSF), .OEN(conf.nEN_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+
+// FLAVOR 2 (PMOS) I/O     
+    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS), .OEN(conf.EN_OUT[1]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS), .OEN(conf.EN_OUT[1]) ); //TRANSMITTER (Default=enabled=0)
+//Diff PADS
+    Pulldown_pol_IO PAD_nTOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(~TokenPMOS), .OEN(conf.nEN_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nOUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(~OutPMOS), .OEN(conf.nEN_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+
+// FLAVOR 3 (COMP) I/O       
+    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
+//Diff PADS
+    Pulldown_pol_IO PAD_nTOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(~TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nOUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(~OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+
+// FLAVOR 4 (HV) I/O   
+    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(TokenHV), .OEN(conf.EN_OUT[3]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(OutHV), .OEN(conf.EN_OUT[3]) ); //TRANSMITTER (Default=enabled=0)
+//Diff PADS
+    Pulldown_pol_IO PAD_nTOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(~TokenHV), .OEN(conf.nEN_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nOUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(~OutHV), .OEN(conf.nEN_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+
+// HITOR    
+    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+//Diff PADS
+    Pulldown_pol_IO PAD_nHIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(~HitOr[0]), .OEN(conf.nEN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nHIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(~HitOr[1]), .OEN(conf.nEN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nHIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(~HitOr[2]), .OEN(conf.nEN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO PAD_nHIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(~HitOr[3]), .OEN(conf.nEN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
         
-    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) ); 
-    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    
-    Pulldown_pol_IO PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
-    Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) );
-    
-    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS), .OEN(conf.EN_OUT[1]) );
-    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS), .OEN(conf.EN_OUT[1]) );
-    
-    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) );
-    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) );
-    
-    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHV), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b0) );
-    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(TokenHV), .OEN(conf.EN_OUT[3]) );
-    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(OutHV), .OEN(conf.EN_OUT[3]) );
-    
-    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) );
-    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) );
-    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) );
-    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDA), .AVSS(GNDA), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) );
-        
-    localparam DVDD_POWER_PADS = 4;
-    localparam AVDD_POWER_PADS = 4;
+
     
 // POWER PADS IN PERIPHERY GENERATED IN DIGITAL FLOW?? OR NOT??? HOW MANY?
+    localparam DVDD_POWER_PADS = 4;
+    localparam AVDD_POWER_PADS = 4;
+
     genvar i;
     generate 
         for (i=0;i<DVDD_POWER_PADS;i=i+1)
@@ -158,15 +184,17 @@ module MONOPIX(
         
         //****DEFAULT CONFIGURATION****//
         //----------TEST PATTERN-------//
-        default_conf.EN_TEST_PATTERN = '0;
+        default_conf.EN_TEST_PATTERN = '1;
         //----------READOUT ENABLE-----//
-        default_conf.EN_PMOS_NOSF = '1;
-        default_conf.EN_PMOS = '1;
-        default_conf.EN_COMP = '1;
-        default_conf.EN_HV = '1;
-        default_conf.EN_OUT = '1;
+        default_conf.EN_PMOS_NOSF = '0;
+        default_conf.EN_PMOS = '0;
+        default_conf.EN_COMP = '0;
+        default_conf.EN_HV = '0;
+        default_conf.EN_OUT = '0;
+        default_conf.nEN_OUT = '1;
         //--------HITOR OUT ENABLE-----//
-        default_conf.EN_HITOR_OUT = '0;
+        default_conf.EN_HITOR_OUT = '1;
+        default_conf.nEN_HITOR_OUT = '1;
         //----------PULSING------------//
         default_conf.COL_PULSE_SEL = '0;
         default_conf.INJ_IN_MON_L = 0;
