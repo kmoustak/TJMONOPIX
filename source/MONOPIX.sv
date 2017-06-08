@@ -157,6 +157,8 @@ module MONOPIX(
         //default_conf = '0;
         
         //****DEFAULT CONFIGURATION****//
+        //----------TEST PATTERN-------//
+        default_conf.EN_TEST_PATTERN = '0;
         //----------READOUT ENABLE-----//
         default_conf.EN_PMOS_NOSF = '1;
         default_conf.EN_PMOS = '1;
