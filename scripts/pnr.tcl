@@ -13,7 +13,8 @@ set distributed_mmmc_disable_reports_auto_redirection 0
 set floorplan_default_site CoreSite
 set fpIsMaxIoHeight 0
 set init_gnd_net GNDP
-set init_lef_file {/cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/cds/lef/tsl18_6lm_tech.lef /cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/cds/lef/tsl18fs120.lef ../libs/matrix_dac.lef ../libs/PAD_DVDD.lef ../libs/PAD_DVSS.lef ../libs/Pulldown_pol_IO.lef ../libs/decoupling_cap_filler.lef}
+#set init_lef_file {/cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/cds/lef/tsl18_6lm_tech.lef /cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/St#d_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/cds/lef/tsl18fs120.lef ../libs/matrix_dac.lef ../libs/PAD_DVDD.lef ../libs/PAD_DVSS.lef ../libs/Pulldown_pol_IO.lef ../libs/decoupling_cap_filler.lef}
+set init_lef_file {/faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev_2015.08/tech/lef/6M1L/tsl180l6.lef /faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev_2015.08/lib/lef/tsl18fs120.lef ../libs/matrix_dac.lef ../libs/PAD_DVDD.lef ../libs/PAD_DVSS.lef ../libs/Pulldown_pol_IO.lef ../libs/decoupling_cap_filler.lef}
 set init_oa_search_lib {}
 set init_pwr_net {VDDP }
 set init_verilog output/r2g.v
@@ -22,6 +23,7 @@ set pegDefaultResScaleFactor 1
 set pegDetailResScaleFactor 1
 set report_inactive_arcs_format {from to when arc_type sense reason}
 set tso_post_client_restore_command {update_timing ; write_eco_opt_db ;}
+
 init_design
 
 globalNetConnect VDDP -type pgpin -pin VDD -inst *
@@ -30,8 +32,8 @@ globalNetConnect GNDP -type pgpin -pin VSS -inst *
 globalNetConnect VDDP -type pgpin -pin VDDP -inst *
 globalNetConnect GNDP -type pgpin -pin GNDP -inst *
 
-#globalNetConnect VDDP -type pgpin -pin VDD_Per -inst *
-#globalNetConnect GNDP -type pgpin -pin GND_Per -inst *
+globalNetConnect VDDP -type pgpin -pin VDD_Per -inst *
+globalNetConnect GNDP -type pgpin -pin GND_Per -inst *
 
 globalNetConnect VDDP -type pgpin -pin DVDD -inst *
 globalNetConnect GNDP -type pgpin -pin DVSS -inst *
@@ -395,5 +397,6 @@ sroute -connect {corePin} -nets { GNDP VDDP }  -layerChangeRange { M1 M5 }
 
 sroute -connect { blockPin } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { GNDP VDDP } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
 
+setMultiCpuUsage -localCpu max
 placeDesign
 routeDesign
