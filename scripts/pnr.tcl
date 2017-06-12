@@ -5,6 +5,9 @@ getDrawView
 loadWorkspace -name Physical
 win
 
+setDesignMode -process 180
+setMultiCpuUsage -localCpu max
+
 set ::TimeLib::tsgMarkCellLatchConstructFlag 1
 set defHierChar /
 set delaycal_input_transition_delay 0.1ps
@@ -23,6 +26,7 @@ set pegDefaultResScaleFactor 1
 set pegDetailResScaleFactor 1
 set report_inactive_arcs_format {from to when arc_type sense reason}
 set tso_post_client_restore_command {update_timing ; write_eco_opt_db ;}
+set init_mmmc_file ../scripts/mmmc.view 
 
 init_design
 
@@ -397,6 +401,7 @@ sroute -connect {corePin} -nets { GNDP VDDP }  -layerChangeRange { M1 M5 }
 
 sroute -connect { blockPin } -layerChangeRange { M1(1) TOP_M(6) } -blockPinTarget { nearestTarget } -allowJogging 1 -crossoverViaLayerRange { M1(1) TOP_M(6) } -nets { GNDP VDDP } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) TOP_M(6) } 
 
-setMultiCpuUsage -localCpu max
 placeDesign
 routeDesign
+
+
