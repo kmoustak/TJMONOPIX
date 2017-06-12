@@ -14,7 +14,7 @@ set_attribute lib_search_path "/faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev
 
 #set_attribute library "tsl18fs120_max.lib"
 
-set_attribute library "tsl18fs120_tt_1p8v_25c.lib ../libs/Pulldown_pol_IO.lib"
+set_attribute library "tsl18fs120_ss_1p62v_125c.lib ../libs/Pulldown_pol_IO.lib"
 
 #lef & captbl
 #set_attribute lef_library $ec::LEFLIB /
