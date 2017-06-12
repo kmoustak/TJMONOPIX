@@ -1,0 +1,104 @@
+
+
+library(Pulldown_pol_IO_lowcap_EN) {
+
+   delay_model : table_lookup ;
+   date        : ""
+   comment     : ""
+   revision    : "1.0" ;
+
+   capacitive_load_unit (1,pf) ;
+   voltage_unit             : "1V" ;
+   current_unit             : "1mA" ;
+   time_unit                : "1ns" ;
+   pulling_resistance_unit  : "1kohm";
+   leakage_power_unit       : "1uW"
+
+   nom_process      : 1 ;
+   nom_temperature  : 25 ;
+   nom_voltage      : 1.8 ;
+
+   voltage_map(SUB, 0.0) ;
+   voltage_map(DVDD, 0.0) ;
+   voltage_map(AVDD,  1.8) ;
+   voltage_map(AVSS,  0.0) ;
+   voltage_map(DVSS,  1.8) ;
+
+
+
+cell(Pulldown_pol_IO_lowcap_EN) {
+
+ 
+   dont_touch : true ;
+   dont_use   : true ;
+
+
+   pin(PAD) {
+      direction : inout ;
+      is_pad : true;
+   }
+
+   pin(OEN) {
+      direction : input ;
+      capacitance : 1;
+   }
+
+   pin(DOUT) {
+      direction : input ;
+      capacitance : 1;
+      function : "EXT_CMD_CLK"; 
+   }
+
+   pin(CIN) {
+        direction : output;
+        function : "PAD";
+        max_capacitance : 0.5;
+        timing () {
+            related_pin : "PAD" ;
+            timing_sense : positive_unate;
+            timing_type : combinational;
+            cell_rise(scalar) { values("0");}
+            rise_transition(scalar) { values("0");}
+            cell_fall(scalar) { values("0");}
+            fall_transition(scalar) { values("0");} 
+        }
+   }
+
+   pg_pin(SUB) { 
+      voltage_name : SUB ; 
+      pg_type : primary_ground ; 
+   }
+
+
+   pg_pin(DVSS) { 
+      voltage_name : DVSS ; 
+      pg_type : primary_ground ; 
+   }
+
+
+   pg_pin(DVDD) { 
+      voltage_name : DVDD ; 
+      pg_type : primary_power ; 
+   }
+
+   pg_pin(AVSS) { 
+      voltage_name : AVSS ; 
+      pg_type : primary_ground ; 
+   }
+   
+
+   pg_pin(AVDD) { 
+      voltage_name : AVDD ; 
+      pg_type : primary_power ; 
+   }
+
+
+
+} /* end cell */
+
+
+
+} /* end library */
+
+
+  

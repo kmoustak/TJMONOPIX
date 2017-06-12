@@ -1,7 +1,7 @@
 # Version:1.0 MMMC View Definition File
 # Do Not Remove Above Line
-# create_library_set -name max -timing {/cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/synopsys/2004.12/models/tsl18fs120_max.lib ../libs/Pulldown_pol_IO.lib}
-create_library_set -name ss_1p62v_125c -timing {/faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev_2015.08/lib/liberty/tsl18fs120_ss_1p62v_125c.lib ../libs/Pulldown_pol_IO.lib}
+# create_library_set -name max -timing {/cadence/kits/TOWER/ts18is/std_cells_TOWER_Cds6_Iphc/SRC/Std_cells/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/synopsys/2004.12/models/tsl18fs120_max.lib ../libs/Pulldown_pol_IO_loowcap_EN.lib}
+create_library_set -name ss_1p62v_125c -timing {/faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev_2015.08/lib/liberty/tsl18fs120_ss_1p62v_125c.lib ../libs/Pulldown_pol_IO_lowcap_EN.lib}
 create_constraint_mode -name default -sdc_files {output/r2g.sdc}
 #create_delay_corner -name dc_max -library_set {max}
 create_delay_corner -name dc_ss_1p62v_125c -library_set {ss_1p62v_125c}

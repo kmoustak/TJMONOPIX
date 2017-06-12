@@ -4,7 +4,7 @@
 `include "MATRIX_DAC/matrix_dac.v"
 `include "PADS/PAD_DVDD.v"
 `include "PADS/PAD_DVSS.v"
-`include "PADS/Pulldown_pol_IO.v"
+`include "PADS/Pulldown_pol_IO_lowcap_EN.v"
 `include "PADS/decoupling_cap_filler.v"
 
 module MONOPIX(
@@ -95,65 +95,65 @@ module MONOPIX(
     logic [3:0] HitOr;
 
 // SHIFT REGISTER CONFIGURATION
-    Pulldown_pol_IO PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) );    //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) );    //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_SO_CONF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(PSUB), .DOUT(SoConf), .OEN(1'b0) );    //TRANSMITTER (OEN=0 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_DEF_CONF ( .CIN(DefConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(DEF_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_CLK_CONF ( .CIN(ClkConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_LD_CONF ( .CIN(LdConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(LD_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) );    //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_SI_CONF ( .CIN(SiConf), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(SI_CONF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) );    //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_SO_CONF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(PSUB), .DOUT(SoConf), .OEN(1'b0) );    //TRANSMITTER (OEN=0 in the new PAD)
 
 // CLK, RESET, PULSE 
-    Pulldown_pol_IO PAD_RST_N ( .CIN(nRST), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_PULSE ( .CIN(Pulse), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_RST_N ( .CIN(nRST), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_PULSE ( .CIN(Pulse), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(PULSE_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
 
 // FLAVOR 1 (PMOS_NOSF) I/O    
-    Pulldown_pol_IO PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) ); //TRANSMITTER (Default=enabled=0)
-    Pulldown_pol_IO PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_READ_PMOS_NOSF ( .CIN(ReadPMOS_NOSF), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_FREEZE_PMOS_NOSF ( .CIN(FreezePMOS_NOSF), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_TOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(TokenPMOS_NOSF), .OEN(conf.EN_OUT[0]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_OUT_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(OutPMOS_NOSF), .OEN(conf.EN_OUT[0]) ); //TRANSMITTER (Default=enabled=0)
 //Diff PADS
-    Pulldown_pol_IO PAD_nTOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(~TokenPMOS_NOSF), .OEN(conf.nEN_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nOUT_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(~OutPMOS_NOSF), .OEN(conf.nEN_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nTOKEN_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(~TokenPMOS_NOSF), .OEN(conf.nEN_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nOUT_PMOS_NOSF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_NOSF_PAD), .SUB(PSUB), .DOUT(~OutPMOS_NOSF), .OEN(conf.nEN_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
 
 // FLAVOR 2 (PMOS) I/O     
-    Pulldown_pol_IO PAD_READ_PMOS ( .CIN(ReadPMOS), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_FREEZE_PMOS ( .CIN(FreezePMOS), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS), .OEN(conf.EN_OUT[1]) ); //TRANSMITTER (Default=enabled=0)
-    Pulldown_pol_IO PAD_OUT_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS), .OEN(conf.EN_OUT[1]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_READ_PMOS ( .CIN(ReadPMOS), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_FREEZE_PMOS ( .CIN(FreezePMOS), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_PMOS_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_TOKEN_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(TokenPMOS), .OEN(conf.EN_OUT[1]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_OUT_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(OutPMOS), .OEN(conf.EN_OUT[1]) ); //TRANSMITTER (Default=enabled=0)
 //Diff PADS
-    Pulldown_pol_IO PAD_nTOKEN_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(~TokenPMOS), .OEN(conf.nEN_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nOUT_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(~OutPMOS), .OEN(conf.nEN_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nTOKEN_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_PMOS_PAD), .SUB(PSUB), .DOUT(~TokenPMOS), .OEN(conf.nEN_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nOUT_PMOS ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_PMOS_PAD), .SUB(PSUB), .DOUT(~OutPMOS), .OEN(conf.nEN_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
 
 // FLAVOR 3 (COMP) I/O       
-    Pulldown_pol_IO PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
-    Pulldown_pol_IO PAD_OUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_READ_COMP ( .CIN(ReadCOMP), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_FREEZE_COMP ( .CIN(FreezeCOMP), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_COMP_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_OUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
 //Diff PADS
-    Pulldown_pol_IO PAD_nTOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(~TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nOUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(~OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nTOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(~TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nOUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(~OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
 
 // FLAVOR 4 (HV) I/O   
-    Pulldown_pol_IO PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_FREEZE_HV ( .CIN(FreezeHV), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
-    Pulldown_pol_IO PAD_TOKEN_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(TokenHV), .OEN(conf.EN_OUT[3]) ); //TRANSMITTER (Default=enabled=0)
-    Pulldown_pol_IO PAD_OUT_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(OutHV), .OEN(conf.EN_OUT[3]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_FREEZE_HV ( .CIN(FreezeHV), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(FREEZE_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_TOKEN_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(TokenHV), .OEN(conf.EN_OUT[3]) ); //TRANSMITTER (Default=enabled=0)
+    Pulldown_pol_IO_lowcap_EN PAD_OUT_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(OutHV), .OEN(conf.EN_OUT[3]) ); //TRANSMITTER (Default=enabled=0)
 //Diff PADS
-    Pulldown_pol_IO PAD_nTOKEN_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(~TokenHV), .OEN(conf.nEN_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nOUT_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(~OutHV), .OEN(conf.nEN_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nTOKEN_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_HV_PAD), .SUB(PSUB), .DOUT(~TokenHV), .OEN(conf.nEN_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nOUT_HV ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_HV_PAD), .SUB(PSUB), .DOUT(~OutHV), .OEN(conf.nEN_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
 
 // HITOR    
-    Pulldown_pol_IO PAD_HIT_OR0 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_HIT_OR1 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_HIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_HIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_HIT_OR0 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(HitOr[0]), .OEN(conf.EN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_HIT_OR1 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(HitOr[1]), .OEN(conf.EN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_HIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_HIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
 //Diff PADS
-    Pulldown_pol_IO PAD_nHIT_OR0 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(~HitOr[0]), .OEN(conf.nEN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nHIT_OR1 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(~HitOr[1]), .OEN(conf.nEN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nHIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(~HitOr[2]), .OEN(conf.nEN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO PAD_nHIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(~HitOr[3]), .OEN(conf.nEN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR0 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(~HitOr[0]), .OEN(conf.nEN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR1 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(~HitOr[1]), .OEN(conf.nEN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(~HitOr[2]), .OEN(conf.nEN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(~HitOr[3]), .OEN(conf.nEN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
         
 
     
