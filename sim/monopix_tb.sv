@@ -9,7 +9,7 @@ module monopix_tb();
     logic ld_conf;
     logic si_conf;
     logic so_conf;
-    
+    logic en_conf_clk;
     
     t_conf conf_in;
     logic [$bits(conf_in)-1:0] conf_reg;
@@ -17,12 +17,15 @@ module monopix_tb();
     
     initial begin
         conf_in = '0;
+        conf_in.COL_PULSE_SEL[447] = 1;
+        conf_in.nEN_HITOR_OUT = 4'b0101;
+        
         conf_in.SET_IBUFP_L = 4'h5;
     end
    
     MONOPIX dut (
         .DEF_CONF_PAD(def_conf),
-        .CLK_CONF_PAD(clk_conf),
+        .CLK_CONF_PAD(clk_conf & en_conf_clk),
         .LD_CONF_PAD(ld_conf),
         .SI_CONF_PAD(si_conf),
         .SO_CONF_PAD(so_conf)
@@ -39,11 +42,16 @@ module monopix_tb();
         shif_cnt = 0;
         ld_conf = 0;
         def_conf = 1;
+        en_conf_clk = 1;
+        
         forever begin
             @(negedge clk_conf)
         
             if(shif_cnt < $bits(conf_in)) 
-                si_conf <= conf_reg[shif_cnt];
+                si_conf <= conf_reg[$bits(conf_in) - 1 - shif_cnt];
+            
+            if(shif_cnt == $bits(conf_in))
+                en_conf_clk <= 0;
             
             if(shif_cnt == $bits(conf_in) + 1)
                 ld_conf <= 1;
