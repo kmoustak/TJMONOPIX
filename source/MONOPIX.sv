@@ -88,7 +88,8 @@ module MONOPIX(
     wire FreezePMOS_NOSF, FreezePMOS, FreezeCOMP, FreezeHV;
     wire OutPMOS_NOSF, OutPMOS, OutCOMP, OutHV;
     wire TokenPMOS_NOSF, TokenPMOS, TokenCOMP, TokenHV;
-
+    
+    
     wire nRST;
     wire Pulse;
     
@@ -102,7 +103,7 @@ module MONOPIX(
     Pulldown_pol_IO_lowcap_EN PAD_SO_CONF ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(SO_CONF_PAD), .SUB(PSUB), .DOUT(SoConf), .OEN(1'b0) );    //TRANSMITTER (OEN=0 in the new PAD)
 
 // CLK, RESET, PULSE 
-    Pulldown_pol_IO_lowcap_EN PAD_RST_N ( .CIN(nRST), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
+    Pulldown_pol_IO_lowcap_EN PAD_RST_N ( .CIN(nRST_EXT), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RST_N_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
     Pulldown_pol_IO_lowcap_EN PAD_CLK_BX ( .CIN(ClkBx), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_BX_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
     Pulldown_pol_IO_lowcap_EN PAD_CLK_OUT ( .CIN(ClkOut), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(CLK_OUT_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
     Pulldown_pol_IO_lowcap_EN PAD_RESET_BCID ( .CIN(ResetBcid), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(RESET_BCID_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)
@@ -377,8 +378,100 @@ module MONOPIX(
     logic [1175:0]  Data_HV;
     
 
-    matrix_dac matrix_dac (.*); 
-     
+    matrix_dac matrix_dac ( 
+	.DIG_MON_COMP ( DIG_MON_COMP ),
+	.DIG_MON_HV ( DIG_MON_HV ),
+	.DIG_MON_PMOS ( DIG_MON_PMOS ),
+	.DIG_MON_PMOS_NOSF ( DIG_MON_PMOS_NOSF ),
+	.Data_COMP ( Data_COMP ),
+	.Data_HV ( Data_HV ),
+	.Data_PMOS ( Data_PMOS ),
+	.Data_PMOS_NOSF ( Data_PMOS_NOSF ),
+	.nTOK_COMP ( nTOK_COMP ),
+	.nTOK_HV ( nTOK_HV ),
+	.nTOK_PMOS ( nTOK_PMOS ),
+	.nTOK_PMOS_NOSF ( nTOK_PMOS_NOSF ),
+	.BiasSF ( BiasSF ),
+	.DACMON_IBIAS ( DACMON_IBIAS ),
+	.DACMON_ICASN ( DACMON_ICASN ),
+	.DACMON_IDB ( DACMON_IDB ),
+	.DACMON_IRESET ( DACMON_IRESET ),
+	.DACMON_ITHR ( DACMON_ITHR ),
+	.DACMON_VCASN_DAC ( DACMON_VCASN_DAC ),
+	.DACMON_VH ( DACMON_VH ),
+	.DACMON_VL ( DACMON_VL ),
+	.DACMON_VRESET_P ( DACMON_VRESET_P ),
+	.GNDA ( GNDA ),
+	.GNDA_IDAC ( GNDA_IDAC ),
+	.GNDA_VDAC ( GNDA_VDAC ),
+	.GNDD ( GNDD ),
+	.GNDP ( GNDP ),
+	.HV_DIODE ( HV_DIODE ),
+	.OUTA_MON_L ( OUTA_MON_L ),
+	.OUTA_MON_R ( OUTA_MON_R ),
+	.PSUB ( PSUB ),
+	.PWELL ( PWELL ),
+	.VCASN_DAC_MON_L ( VCASN_DAC_MON_L ),
+	.VCASN_DAC_MON_R ( VCASN_DAC_MON_R ),
+	.VCASN_MON_L ( VCASN_MON_L ),
+	.VCASN_MON_R ( VCASN_MON_R ),
+	.VDDA ( VDDA ),
+	.VDDA_IDAC ( VDDA_IDAC ),
+	.VDDA_VDAC ( VDDA_VDAC ),
+	.VDDD ( VDDD ),
+	.VDDP ( VDDP ),
+	.VPC ( VPC ),
+	.VPCNOSF ( VPCNOSF ),
+	.BcidMtx ( BcidMtx ),
+	.DIG_MON_SEL ( DIG_MON_SEL ),
+	.FREEZE_COMP ( FREEZE_COMP ),
+	.FREEZE_HV ( FREEZE_HV ),
+	.FREEZE_PMOS ( FREEZE_PMOS ),
+	.FREEZE_PMOS_NOSF ( FREEZE_PMOS_NOSF ),
+	.INJ_IN ( INJ_IN ),
+	.INJ_IN_MON_L ( INJ_IN_MON_L ),
+	.INJ_IN_MON_R ( INJ_IN_MON_R ),
+	.INJ_ROW ( INJ_ROW ),
+	.MASKD ( MASKD ),
+	.MASKH ( MASKH ),
+	.MASKV ( MASKV ),
+	.Read_COMP ( Read_COMP ),
+	.Read_HV ( Read_HV ),
+	.Read_PMOS ( Read_PMOS ),
+	.Read_PMOS_NOSF ( Read_PMOS_NOSF ),
+	.SET_IBIAS ( SET_IBIAS ),
+	.SET_IBUFN_L ( SET_IBUFN_L ),
+	.SET_IBUFN_R ( SET_IBUFN_R ),
+	.SET_IBUFP_L ( SET_IBUFP_L ),
+	.SET_IBUFP_R ( SET_IBUFP_R ),
+	.SET_ICASN ( SET_ICASN ),
+	.SET_IDB ( SET_IDB ),
+	.SET_IRESET ( SET_IRESET ),
+	.SET_IRESET_BIT ( SET_IRESET_BIT ),
+	.SET_ITHR ( SET_ITHR ),
+	.SET_VCASN ( SET_VCASN ),
+	.SET_VCLIP ( SET_VCLIP ),
+	.SET_VH ( SET_VH ),
+	.SET_VL ( SET_VL ),
+	.SET_VRESET_D ( SET_VRESET_D ),
+	.SET_VRESET_P ( SET_VRESET_P ),
+	.SWCNTL_DACMONI ( SWCNTL_DACMONI ),
+	.SWCNTL_DACMONV ( SWCNTL_DACMONV ),
+	.SWCNTL_IBIAS ( SWCNTL_IBIAS ),
+	.SWCNTL_ICASN ( SWCNTL_ICASN ),
+	.SWCNTL_IDB ( SWCNTL_IDB ),
+	.SWCNTL_IREF ( SWCNTL_IREF ),
+	.SWCNTL_IRESET ( SWCNTL_IRESET ),
+	.SWCNTL_ITHR ( SWCNTL_ITHR ),
+	.SWCNTL_VCASN ( SWCNTL_VCASN ),
+	.SWCNTL_VCLIP ( SWCNTL_VCLIP ),
+	.SWCNTL_VH ( SWCNTL_VH ),
+	.SWCNTL_VL ( SWCNTL_VL ),
+	.SWCNTL_VRESET_D ( SWCNTL_VRESET_D ),
+	.SWCNTL_VRESET_P ( SWCNTL_VRESET_P ),
+	.nRST ( {224{nRST_EXT}} ));
+
+
     always_comb begin
         //DAC
         SET_VRESET_P = conf.SET_VRESET_P;

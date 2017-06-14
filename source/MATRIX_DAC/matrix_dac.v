@@ -109,7 +109,7 @@ SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
   input INJ_IN_MON_R;
 
   //Readout
-  input nRST;
+  input  [223:0] nRST;
   input  [1343:0] BcidMtx;
   input  [55:0] Read_PMOS_NOSF;
   input  [55:0] Read_PMOS;
