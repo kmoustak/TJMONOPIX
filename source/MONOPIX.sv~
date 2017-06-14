@@ -91,7 +91,7 @@ module MONOPIX(
     
     wire nRST_EXT;
     wire [223:0] nRST;
-    assign nRST = {224{nRST_EXT}};
+    assign nRST = {223{nRST_EXT}};
     wire Pulse;
     
     logic [3:0] HitOr;
