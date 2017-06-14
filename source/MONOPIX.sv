@@ -89,8 +89,9 @@ module MONOPIX(
     wire OutPMOS_NOSF, OutPMOS, OutCOMP, OutHV;
     wire TokenPMOS_NOSF, TokenPMOS, TokenCOMP, TokenHV;
     
-    
-    wire nRST;
+    wire nRST_EXT;
+    wire [223:0] nRST;
+    assign nRST = {448{nRST_EXT}};
     wire Pulse;
     
     logic [3:0] HitOr;
@@ -469,7 +470,7 @@ module MONOPIX(
 	.SWCNTL_VL ( SWCNTL_VL ),
 	.SWCNTL_VRESET_D ( SWCNTL_VRESET_D ),
 	.SWCNTL_VRESET_P ( SWCNTL_VRESET_P ),
-	.nRST ( {224{nRST_EXT}} ));
+	.nRST ( nRST ));
 
 
     always_comb begin
