@@ -27,8 +27,8 @@ vsim -do ../scripts/vsim.tcl
 
 # CAM synthesis flow
 
-##RTL Compiler RC14.11 - v14.10-s012_1
-##RTL Compiler RC14.11 - v14.10-s012_1
+## RTL Compiler RC14.11 - v14.10-s012_1
+## Encounter 14.10
 
 ### Synthesis & P&R:
 
