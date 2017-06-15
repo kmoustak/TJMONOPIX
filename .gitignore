@@ -6,6 +6,11 @@ sim/*/*.wlf
 sim/*/*.mpf
 sim/*/*.mti
 sim/bdaq53/*/*.do
+MONOPIX_CAM_FLOW/pnr/work/
+MONOPIX_CAM_FLOW/pnr/report/
+MONOPIX_CAM_FLOW/syn/work/
+MONOPIX_CAM_FLOW/syn/report/
+
 # 
 sim/Top
 
