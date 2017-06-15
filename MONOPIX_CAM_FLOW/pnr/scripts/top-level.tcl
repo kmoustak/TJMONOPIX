@@ -75,7 +75,7 @@ set init_oa_ref_lib {tsl18fs120_tech tsl18fs120 TJ_Monopix_01  TJ_Monopix_4bit_D
 set init_oa_search_lib {}
 set init_pwr_net {VDDP}
 set init_top_cell  "$DESIGN"
-set init_verilog "${PROJECT_DIR}/syn/out/${DESIGN}_GATE.v"
+set init_verilog "${PROJECT_DIR}/MONOPIX_CAM_FLOW/syn/out/${DESIGN}_GATE.v"
 set lsgOCPGainMult 1.000000
 set pegDefaultResScaleFactor 1.000000
 set pegDetailResScaleFactor 1.000000

@@ -79,7 +79,7 @@ set_attribute merge_combinational_hier_instances false ;
 get_attribute number_of_routing_layer /designs/*
 set_attribute number_of_routing_layers 6 /designs/*
 
-read_sdc ../../source/MONOPIX.sdc
+read_sdc ../../../source/MONOPIX.sdc
 # check that the design is OK so far
 check_design $DESIGN -unresolved
 #### power estimate at rtl level

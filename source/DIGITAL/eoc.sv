@@ -1,5 +1,5 @@
 
-module eoc #(parameter ADDR)  (
+module eoc #(parameter ADDR=0)  (
             input wire TokInChip, TokInCol, Read,
             output wire  TokOutChip, ReadCol,
 
