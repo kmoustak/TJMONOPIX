@@ -162,7 +162,7 @@ module MONOPIX(
 // POWER PADS IN PERIPHERY GENERATED IN DIGITAL FLOW
     localparam DVDD_POWER_PADS = 55;
     localparam DVSS_POWER_PADS = 54;
-    localparam DECOUPLING_CAP_FILLERS = 152;
+    localparam DECOUPLING_CAP_FILLERS = 150;
 
     genvar i;
     generate 
