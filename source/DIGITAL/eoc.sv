@@ -35,7 +35,7 @@ if(!Read)
 wire this_col_read;
 assign this_col_read = (beeze_prev_int==0 && beeze_col_int==1);
 
-assign ReadCol = this_col_read & Read; 
+assign ReadCol = this_col_read & Read & Enable; 
 
 reg this_token_save;
 always@(posedge Read) 

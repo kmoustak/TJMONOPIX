@@ -7,7 +7,7 @@ module readout
     input logic ClkBx, ClkOut, Read, Freeze, 
     input logic [5:0] Bcid,
     input EnTestPattern,
-    input [0:55] Enable,
+    input [55:0] Enable,
     output logic DataOut,
     output logic TokenOut,
     
@@ -20,16 +20,18 @@ module readout
 
     logic [56:0] token_chip;
     logic [5:0] col_addr [56:0];
-    logic [20:0] chip_col_data [56:0];
+    logic [56:0][20:0] chip_col_data ;
     logic [55:0][20:0] col_data;
     logic [55:0][5:0] col_bcid;
     
     assign token_chip[0] = 0;
     assign col_addr[0] = 0;
+    assign chip_col_data[0] = 0;
+    
     assign col_data = DataCol;
     assign BcidCol = col_bcid;
     
-    assign FreezeCol = {56{Freeze}};
+    assign FreezeCol = {56{Freeze}} & Enable;
     assign TokenOut = token_chip[56];
     
     
@@ -71,7 +73,7 @@ module readout
         .ClkOut(ClkOut), 
         .Read(Read), 
         .EnTestPattern(EnTestPattern),
-        .DataIn({chip_col_data[56], col_addr[56]}),
+        .DataIn({col_addr[56], chip_col_data[56]}),
         .DataOut(DataOut)
     );
 
