@@ -8,15 +8,19 @@
 #                                                     
 #######################################################
 
-set PROJECT_DIR "/projects/TOWER180/ALICEITS/IS_OA_5096/workAreas/camarin/ALICEITS_OA/work_libs/user/cds/digital/MONOPIX"
+set PROJECT_DIR "../../.."
+
+set TSL_LIB_PATH $::env(TSL_LIB_PATH) 
+set TSL_PDK_PATH $::env(TSL_PDK_PATH) 
 
 set script      ../scripts
 set METAL_TOP 6
 source $script/variables.tcl
 source $script/files_path.tcl
 setMultiCpuUsage -reset
-setMultiCpuUsage -localCpu 1 -cpuPerRemoteHost 1 -remoteHost 6 -keepLicense true
-setDistributeHost -sge -queue generic.q -args {-pe smp 6} -resource h_vmem=30G 
+setMultiCpuUsage -localCpu 8 
+#-cpuPerRemoteHost 1 -remoteHost 6 -keepLicense true
+#setDistributeHost -sge -queue generic.q -args {-pe smp 6} -resource h_vmem=30G 
 #-custom -custom_script { qsub -l "h_vmem=30G" -pe smp 6 }
 #Flags that drive the script behavior (can be changed )
 #ADD_STRIPES (0 | 1)

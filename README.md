@@ -30,6 +30,11 @@ vsim -do ../scripts/vsim.tcl
 #### RTL Compiler RC14.11 - v14.10-s012_1
 #### Encounter 14.10
 
+```bash
+export TSL_LIB_PATH= ... /tsl18fs120_Rev_2015.08
+export TSL_PDK_PATH= ... /ts18is_6M1L_5p3
+```
+
 ### Synthesis & P&R:
 
 ```bash

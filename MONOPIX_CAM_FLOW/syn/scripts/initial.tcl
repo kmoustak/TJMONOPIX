@@ -16,9 +16,10 @@
 #####################################################################
 # RTL Files & language
 #####################################################################
-set RTL_PATH 	"/projects/TOWER180/ALICEITS/IS_OA_5096/workAreas/camarin/ALICEITS_OA/work_libs/user/cds/digital/MONOPIX/source"
-#set RTL_PATH 	"/projects/TOWER180/ALICEITS/IS_OA_5096/workAreas/camarin/ALICEITS_OA/work_libs/user/cds/Atlas/Buffer/syn/out"
+set RTL_PATH 	"../../../source"
 set VERILOG_LIST    { MONOPIX.sv }
+
+set SDC_FILE "../../../source/MONOPIX.sdc"
 
 # Name of the top-level entity
 #* Set up
@@ -30,29 +31,17 @@ set CUSTOM 0
 # Working Library & Operational Conditions
 #####################################################################
 
-if { $WORKING_LIBRARY==1 } {
-set LIBRARY         { tsl18fs120_tt_1p8v_25c.lib } ; 
-set OP_COND  tt_1p8v_25c
-}
-
-if { $WORKING_LIBRARY==2 } {
-set LIBRARY         { tsl18fs120_ff_1p98v_m40c.lib }
-set OP_COND ff_1p98v_m40c
-}
-if { $WORKING_LIBRARY==3 } {
-set LIBRARY         { tsl18fs120_ss_1p62v_125c.lib  } ;
+set LIBRARY { tsl18fs120_ss_1p62v_125c.lib Pulldown_pol_IO_lowcap_EN.lib } ;
 set OP_COND ss_1p62v_125c
-}
 
 # Target technology library folder
-set LIB_PATH  "/vlsicad/micsoft/TOWER180/digital_libs/STD_CELLS/tsl18fs120_Rev_2014.12/lib/liberty"
+set LIB_PATH  "$env(TSL_LIB_PATH)/lib/liberty ../../../libs"
 # Target technology library     
 
-set LEFLIB "/vlsicad/micsoft/TOWER180/digital_libs/STD_CELLS/tsl18fs120_Rev_2014.12/tech/lef/6M1L/tsl180l6.lef \
-                 /vlsicad/micsoft/TOWER180/digital_libs/STD_CELLS/tsl18fs120_Rev_2014.12/lib/lef/tsl18fs120.lef     "
+set LEFLIB "$env(TSL_LIB_PATH)/tech/lef/6M1L/tsl180l6.lef  $env(TSL_LIB_PATH)/lib/lef/tsl18fs120.lef"
 
 
-set CAPTABLE "/projects/TOWER180/ALICEITS/IS_OA_5096/workAreas/camarin/ALICEITS_OA/work_libs/user/cds/digital/techgen/TSL6ML_TC.CapTbl"
+#set CAPTABLE "/projects/TOWER180/ALICEITS/IS_OA_5096/workAreas/camarin/ALICEITS_OA/work_libs/user/cds/digital/techgen/TSL6ML_TC.CapTbl"
 
 #####################################################################
 # Preset global variables and attributes
@@ -125,7 +114,7 @@ set_attribute lib_search_path $LIB_PATH
 
 # lef libraries
 set_attribute lef_library $LEFLIB
-set_attribute cap_table_file $CAPTABLE
+#set_attribute cap_table_file $CAPTABLE
 # timing libraries
 # Select target technology library
 set_attribute library $LIBRARY

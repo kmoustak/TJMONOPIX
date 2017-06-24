@@ -6,10 +6,7 @@
 # by Cesar Marin "CeMaTo" email : camarin@cern.ch
 #######################################################
 
-if {[file exists /proc/cpuinfo]} {
-  sh grep "model name" /proc/cpuinfo
-  sh grep "cpu MHz"    /proc/cpuinfo
-}
+
 # start timer
 puts "Start at: [clock format [clock seconds] -format {%x %X}]"
 set start [clock seconds]
@@ -24,12 +21,7 @@ set INCR_EFFORT     high 	;# Synthesis Incremental EFFORT
 
 ###################################################
 #Flags that drive the script behavior (can be changed )
-# WORKING LIBRARY 
-# 1 Typical - TSL18FS120_typ.lib
-# 2 Minimum - TSL18FS120_min.lib 
-# 3 Maximum - TSL18FS120_max.lib
-# Operating conditions (_nominal_ is an alias for the actual unique operating condition for the selected library)
-set WORKING_LIBRARY 1
+
 set AREA 	1 ; # Timing Optimization by AREA = 0 or Timing =1
 set SYN_SPAT 	0 ; # Synthesis Spatial
 set SYN_INCR 	1 ; # Synthesis Incremental
@@ -59,7 +51,6 @@ puts "\nEC INFO: Elaborate.\n"
 
 elaborate $DESIGN
 
-
 # GAR forcing not to merge the equivalent FFs (protect TMR)
 set_attribute optimize_merge_flops false /
 
@@ -79,7 +70,7 @@ set_attribute merge_combinational_hier_instances false ;
 get_attribute number_of_routing_layer /designs/*
 set_attribute number_of_routing_layers 6 /designs/*
 
-read_sdc ../../../source/MONOPIX.sdc
+read_sdc $SDC_FILE
 # check that the design is OK so far
 check_design $DESIGN -unresolved
 #### power estimate at rtl level
