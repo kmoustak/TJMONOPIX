@@ -1,0 +1,526 @@
+
+library(matrix_dac) {
+
+   delay_model : table_lookup ;
+   date        : ""
+   comment     : ""
+   revision    : "1.0" ;
+
+   capacitive_load_unit (1,pf) ;
+   voltage_unit             : "1V" ;
+   current_unit             : "1mA" ;
+   time_unit                : "1ns" ;
+   pulling_resistance_unit  : "1kohm";
+   leakage_power_unit       : "1uW"
+
+   default_fanout_load : 1;
+   default_max_transition : 1.0;
+   default_output_pin_cap : 1.0;
+   default_input_pin_cap : 1.0;
+   default_max_capacitance : 1.1 ;
+  
+   nom_process      : 1 ;
+   nom_temperature  : 25 ;
+   nom_voltage      : 1.8 ;
+
+   voltage_map(VDDP,  1.8) ;
+   voltage_map(GNDP,  0.0) ;
+
+  type (bus_3_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 4;
+    bit_from  : 3;
+    bit_to    : 0;
+    downto    : true;
+  } 
+  
+  type (bus_127_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 128;
+    bit_from  : 127;
+    bit_to    : 0;
+    downto    : true;
+  } 
+  
+  type (bus_55_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 56;
+    bit_from  : 55;
+    bit_to    : 0;
+    downto    : true;
+  } 
+  
+  type (bus_223_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 224;
+    bit_from  : 223;
+    bit_to    : 0;
+    downto    : true;
+  } 
+  
+  
+  type (bus_447_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 448;
+    bit_from  : 447;
+    bit_to    : 0;
+    downto    : true;
+  } 
+  
+    type (bus_111_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 112;
+    bit_from  : 111;
+    bit_to    : 0;
+    downto    : true;
+  }
+  
+  type (bus_1175_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 1176;
+    bit_from  : 1175;
+    bit_to    : 0;
+    downto    : true;
+  }
+  
+  type (bus_1343_0) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 1344;
+    bit_from  : 1343;
+    bit_to    : 0;
+    downto    : true;
+  }
+  
+  
+  
+  
+  
+cell(matrix_dac) {
+
+
+   dont_touch : true ;
+   dont_use   : true ;
+
+   pg_pin(VDDP) { 
+      voltage_name : VDDP ; 
+      pg_type : primary_ground ; 
+   }
+   
+   pg_pin(GNDP) { 
+      voltage_name : GNDP ; 
+      pg_type : primary_power ; 
+   }
+   
+   
+   pin(VDDA) {
+      direction : inout;
+      is_analog : true;
+   }
+
+   pin(VDDA_IDAC) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(VDDA_VDAC) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(VDDD) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(HV_DIODE) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(GNDA) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(GNDA_IDAC) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(GNDA_VDAC) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(GNDD) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(PSUB) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(PWELL) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+
+  
+   pin(BiasSF) {
+      direction : inout;
+      is_analog : true;
+   }
+
+   pin(VPC) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(VPCNOSF) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   bus (OUTA_MON_L) {
+        bus_type : bus_3_0;
+        direction : inout;
+        is_analog : true;
+   }
+
+
+  bus (OUTA_MON_R) {
+        bus_type : bus_3_0;
+        direction : inout;
+        is_analog : true;
+  }
+
+  
+   pin(VCASN_DAC_MON_L) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(VCASN_DAC_MON_R) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(VCASN_MON_L) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(VCASN_MON_R) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+    
+   pin(DACMON_IBIAS) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_IDB) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_ITHR) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_IRESET) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_ICASN) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_VRESET_P) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_VL) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_VH) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   pin(DACMON_VCASN_DAC) {
+      direction : inout;
+      is_analog : true;
+   }
+   
+   
+  
+   bus (SET_VRESET_P) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_VH) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_VL) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_VCASN) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_VRESET_D) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_VCLIP) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_IBIAS) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_IDB) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_ITHR) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+   bus (SET_IRESET) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+   
+    bus (SET_ICASN) {
+        bus_type : bus_127_0;
+        direction : input;
+   }
+
+    bus (SET_IBUFN_L) {
+        bus_type : bus_3_0;
+        direction : input;
+   }
+    bus (SET_IBUFN_R) {
+        bus_type : bus_3_0;
+        direction : input;
+   }
+    bus (SET_IBUFP_L) {
+        bus_type : bus_3_0;
+        direction : input;
+   }
+   bus (SET_IBUFP_R) {
+        bus_type : bus_3_0;
+        direction : input;
+   }
+
+   pin(SET_IRESET_BIT) {
+      direction : input;
+   }
+   pin(SWCNTL_DACMONI) {
+      direction : input;
+   }
+   pin(SWCNTL_DACMONV) {
+      direction : input;
+   }
+   pin(SWCNTL_IBIAS) {
+      direction : input;
+   }
+   pin(SWCNTL_ICASN) {
+      direction : input;
+   }
+   pin(SWCNTL_IDB) {
+      direction : input;
+   }
+   pin(SWCNTL_IREF) {
+      direction : input;
+   }
+   pin(SWCNTL_IRESET) {
+      direction : input;
+   }
+   pin(SWCNTL_ITHR) {
+      direction : input;
+   }
+   pin(SWCNTL_VCASN) {
+      direction : input;
+   }
+   pin(SWCNTL_VCLIP) {
+      direction : input;
+   }
+   pin(SWCNTL_VH) {
+      direction : input;
+   }
+   pin(SWCNTL_VL) {
+      direction : input;
+   }
+   pin(SWCNTL_VRESET_D) {
+      direction : input;
+   }
+   pin(SWCNTL_VRESET_P) {
+      direction : input;
+   }
+  
+   bus (MASKV) {
+        bus_type : bus_447_0;
+        direction : input;
+   }
+   bus (MASKH) {
+        bus_type : bus_223_0;
+        direction : input;
+   }
+   bus (MASKD) {
+        bus_type : bus_447_0;
+        direction : input;
+   }
+   bus (INJ_ROW) {
+        bus_type : bus_223_0;
+        direction : input;
+   }
+   bus (DIG_MON_SEL) {
+        bus_type : bus_447_0;
+        direction : input;
+   }
+
+   
+  
+   bus (INJ_IN) {
+        bus_type : bus_447_0;
+        direction : input;
+   }
+   pin(INJ_IN_MON_L) {
+      direction : input;
+   }
+   pin(INJ_IN_MON_R) {
+      direction : input;
+   }
+   bus (nRST) {
+        bus_type : bus_223_0;
+        direction : input;
+   }
+   bus (BcidMtx) {
+        bus_type : bus_1343_0;
+        direction : input;
+   }
+   bus (Read_PMOS_NOSF) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (Read_PMOS) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (Read_COMP) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (Read_HV) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (FREEZE_PMOS_NOSF) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (FREEZE_PMOS) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (FREEZE_COMP) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   bus (FREEZE_HV) {
+        bus_type : bus_55_0;
+        direction : input;
+   }
+   
+   bus (DIG_MON_PMOS_NOSF) {
+        bus_type : bus_111_0;
+        direction : output;
+   }
+   bus (DIG_MON_PMOS) {
+        bus_type : bus_111_0;
+        direction : output;
+   }
+   bus (DIG_MON_COMP) {
+        bus_type : bus_111_0;
+        direction : output;
+   }
+   bus (DIG_MON_HV) {
+        bus_type : bus_111_0;
+        direction : output;
+   }
+   bus (nTOK_PMOS_NOSF) {
+        bus_type : bus_55_0;
+        direction : output;
+   }
+   bus (nTOK_PMOS) {
+        bus_type : bus_55_0;
+        direction : output;
+   }
+   bus (nTOK_COMP) {
+        bus_type : bus_55_0;
+        direction : output;
+   }
+   bus (nTOK_HV) {
+        bus_type : bus_55_0;
+        direction : output;
+   }
+   bus (Data_PMOS_NOSF) {
+        bus_type : bus_1175_0;
+        direction : output;
+   }
+   bus (Data_PMOS) {
+        bus_type : bus_1175_0;
+        direction : output;
+   }
+   bus (Data_COMP) {
+        bus_type : bus_1175_0;
+        direction : output;
+   }
+   bus (Data_HV) {
+        bus_type : bus_1175_0;
+        direction : output;
+   }
+   
+  
+} /* end cell */
+
+
+
+} /* end library */
+
+
+    

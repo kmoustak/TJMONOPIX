@@ -1,0 +1,25 @@
+#                          Technology and LEF layer map
+
+# Technology and LEF layers are mapped automatically by encounter.
+# If a user needs customised mapping, specify a layermap file. Layermap file
+# is specified using command "setExtractRCMode -lefTechFileMap <layermapFile>".
+#
+
+# Mapping of layers are from <lefLayer> to <techLayer>
+
+extraction_setup \
+	-technology_layer_map \
+		GC           poly \
+		CS           CS_poly1 \
+		M1           m1 \
+		V1         V1 \
+		M2           m2 \
+		V2         V2 \
+		M3           m3 \
+		V3         V3 \
+		M4           m4 \
+		V4         V4 \
+		M5           m5 \
+		V5          VI5_no_stk \
+		TOP_M           ml \
+		TOP_V         topvia_mx 

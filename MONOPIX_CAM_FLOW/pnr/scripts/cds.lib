@@ -1,0 +1,10 @@
+
+DEFINE ts018_prim $TSL_PDK_PATH/HOTCODE/amslibs/cds_oa/cdslibs/ts18sl/devices/ts018_oa_compana_6M1L/rev5.4/ref_libs/ts018_prim
+DEFINE tsl18fs120_dig $TSL_LIB_PATH/tech/oa/ts18sl/6M1L/tsl18fs120_dig
+DEFINE tsl18fs120 $TSL_LIB_PATH/lib/oa/tsl18fs120
+
+DEFINE TJ_Monopix_01 $TJ_MONOPIX_LIBS/TJ_Monopix_01
+DEFINE TJ_Monopix_DAC $TJ_MONOPIX_LIBS/TJ_Monopix_DAC
+DEFINE TJ_Monopix_4bit_DAC $TJ_MONOPIX_LIBS/TJ_Monopix_4bit_DAC
+DEFINE TJ_Monopix_PADS $TJ_MONOPIX_LIBS/TJ_Monopix_PADS
+
