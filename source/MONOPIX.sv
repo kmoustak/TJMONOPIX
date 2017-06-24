@@ -29,7 +29,7 @@ module MONOPIX(
     
    
     input PULSE_PAD, //IO Pulldown PAD
-    output [3:0] HIT_OR_PAD, //IO Pulldown PAD
+    output [3:0] HIT_OR_PAD, HIT_OR_N_PAD, //IO Pulldown PAD
     
     // Analog -> Analog Pads
     inout BiasSF,  // Analog Pad IBIAS
@@ -156,10 +156,10 @@ module MONOPIX(
     Pulldown_pol_IO_lowcap_EN PAD_HIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(HitOr[2]), .OEN(conf.EN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
     Pulldown_pol_IO_lowcap_EN PAD_HIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(HitOr[3]), .OEN(conf.EN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
 //Diff PADS
-    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR0 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[0]), .SUB(PSUB), .DOUT(~HitOr[0]), .OEN(conf.nEN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR1 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[1]), .SUB(PSUB), .DOUT(~HitOr[1]), .OEN(conf.nEN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[2]), .SUB(PSUB), .DOUT(~HitOr[2]), .OEN(conf.nEN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_PAD[3]), .SUB(PSUB), .DOUT(~HitOr[3]), .OEN(conf.nEN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR0 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_N_PAD[0]), .SUB(PSUB), .DOUT(~HitOr[0]), .OEN(conf.nEN_HITOR_OUT[0]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR1 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_N_PAD[1]), .SUB(PSUB), .DOUT(~HitOr[1]), .OEN(conf.nEN_HITOR_OUT[1]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR2 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_N_PAD[2]), .SUB(PSUB), .DOUT(~HitOr[2]), .OEN(conf.nEN_HITOR_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nHIT_OR3 ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(HIT_OR_N_PAD[3]), .SUB(PSUB), .DOUT(~HitOr[3]), .OEN(conf.nEN_HITOR_OUT[3]) ); //TRANSMITTER (Default=disabled=1)
         
 
     

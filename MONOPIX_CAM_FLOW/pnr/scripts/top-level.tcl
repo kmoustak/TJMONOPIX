@@ -8,7 +8,7 @@
 #                                                     
 #######################################################
 
-set PROJECT_DIR "../../.."
+set PROJECT_DIR "../../"
 
 set TSL_LIB_PATH $::env(TSL_LIB_PATH) 
 set TSL_PDK_PATH $::env(TSL_PDK_PATH) 
@@ -75,11 +75,11 @@ set init_gnd_net {GNDP}
 set init_import_mode {  -keepEmptyModule 1 -treatUndefinedCellAsBbox 0}
 set init_layout_view {layout}
 set init_mmmc_file {../scripts/viewDefinition.tcl}
-set init_oa_ref_lib {tsl18fs120_tech tsl18fs120 TJ_Monopix_01  TJ_Monopix_4bit_DAC  TJ_Monopix_DAC  TJ_Monopix_PADS}
+set init_oa_ref_lib {tsl18fs120_dig tsl18fs120 TJ_Monopix_01  TJ_Monopix_4bit_DAC  TJ_Monopix_DAC  TJ_Monopix_PADS}
 set init_oa_search_lib {}
 set init_pwr_net {VDDP}
 set init_top_cell  "$DESIGN"
-set init_verilog "${PROJECT_DIR}/MONOPIX_CAM_FLOW/syn/out/${DESIGN}_GATE.v"
+set init_verilog "../../../MONOPIX_CAM_FLOW/syn/out/${DESIGN}_GATE.v"
 set lsgOCPGainMult 1.000000
 set pegDefaultResScaleFactor 1.000000
 set pegDetailResScaleFactor 1.000000
@@ -105,7 +105,7 @@ setExtractRCMode -engine preRoute -assumeMetFill .56
 saveNetlist "../out/${DESIGN}_init.v"
 # source the files that operate on the circuit
 source $script/floorplan_vertical.tcl  	;# create the floorplan 
-source $script/powerplan.tcl  	          ;# Placement 
+source $script/powerplan.tcl  	          ;# Placement
 source $script/place.tcl  	          ;# Placement 
 source $script/cts.tcl  	          ;# Placement 
 source $script/route.tcl  	          ;# Placement 

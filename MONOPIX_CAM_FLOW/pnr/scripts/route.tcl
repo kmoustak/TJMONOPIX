@@ -61,9 +61,6 @@ optDesign -postRoute -hold
 
 saveDesign -cellview "$oaLibName $DESIGN  MONOPIX_routed"
 saveNetlist ../out/MONOPIX_routed_prefiller.v
-timeDesign -postRoute       -prefix "${DESIGN}_routed" -outDir $timRep -numPaths 100
-timeDesign -postRoute -hold -prefix "${DESIGN}_routed" -outDir $timRep -numPaths 100
-
 
 puts "--------- Detail routing to fix antennas --------" 
 setNanoRouteMode  -drouteFixAntenna true
@@ -71,6 +68,13 @@ setNanoRouteMode -routeInsertAntennaDiode true
 setNanoRouteMode  -routeAntennaCellName "adiode ndiode"
 routeDesign -detail
 
+setExtractRCMode -coupled true
+setExtractRCMode -lefTechFileMap $script/qrc.layermap
+setAnalysisMode -analysisType onChipVariation -cppr both
+  
+  
+timeDesign -postRoute       -prefix "${DESIGN}_routed" -outDir $timRep -numPaths 100
+timeDesign -postRoute -hold -prefix "${DESIGN}_routed" -outDir $timRep -numPaths 100
 
 timeDesign -postRoute -pathReports -drvReports -slackReports -numPaths 5000 -expandedViews -prefix ${DESIGN}_routed -outDir $timRep 
 
@@ -105,6 +109,10 @@ if { $FILLER } {
 
 saveDesign -cellview "$oaLibName ${DESIGN} routed"
 
+
 puts "-----------Routing done-------------"
+
+timeDesign -signOff -si -prefix "${DESIGN}_signoff" -outDir $signoffRep
+timeDesign -signOff -si -hold -prefix "${DESIGN}_signoff" -outDir $signoffRep
 
 
