@@ -33,7 +33,6 @@ vsim -do ../scripts/vsim.tcl
 ```bash
 export TSL_LIB_PATH= ... /tsl18fs120_Rev_2015.08
 export TSL_PDK_PATH= ... /ts18is_6M1L_5p3
-export TJ_MONOPIX_LIBS= ... /TJMONOPIX/oa
 ```
 
 ### Synthesis & P&R:
@@ -47,6 +46,7 @@ MONOPIX_CAM_FLOW/syn/work/ rc -files ../scripts/rtl.tcl
 ```bash
 cd MONOPIX_CAM_FLOW/pnr/work
 cp ../scripts/cds.lib .
+encounter -init ../scripts/init.tcl
 encounter -init ../scripts/top-level.tcl
 ```
 

@@ -68,8 +68,8 @@ module MONOPIX(
     inout       VDDA_VDAC, // IDAC analog Supply
     inout       GNDA_VDAC, // IDAC Analog Ground
 
-    inout       VDDP,  // Periphery Digital Supply
-    inout       GNDP,  // Periphery Digital Ground
+    //inout       VDDP,  // Periphery Digital Supply
+    //inout       GNDP,  // Periphery Digital Ground
     
     inout       PSUB,   // Die PSUBstrate bias
     inout       PWELL,  // Die PSUBstrate bias under the pixel matrix
@@ -410,7 +410,7 @@ module MONOPIX(
 	.GNDA_IDAC ( GNDA_IDAC ),
 	.GNDA_VDAC ( GNDA_VDAC ),
 	.GNDD ( GNDD ),
-	.GNDP ( GNDP ),
+	//.GNDP ( GNDP ),
 	.HV_DIODE ( HV_DIODE ),
 	.OUTA_MON_L ( OUTA_MON_L ),
 	.OUTA_MON_R ( OUTA_MON_R ),
@@ -424,7 +424,7 @@ module MONOPIX(
 	.VDDA_IDAC ( VDDA_IDAC ),
 	.VDDA_VDAC ( VDDA_VDAC ),
 	.VDDD ( VDDD ),
-	.VDDP ( VDDP ),
+	//.VDDP ( VDDP ),
 	.VPC ( VPC ),
 	.VPCNOSF ( VPCNOSF ),
 	.BcidMtx ( BcidMtx ),
@@ -546,7 +546,9 @@ module MONOPIX(
     assign bcid_gray = (bcid_bin >> 1) ^ bcid_bin;
 
     wire [3:0][335:0] bcid_matrix_type;
-    assign BcidMtx = bcid_matrix_type;
+    
+    always_ff@(posedge ClkBx)
+        BcidMtx <= bcid_matrix_type;
         
     readout readout_PMOS_NOSF
     (

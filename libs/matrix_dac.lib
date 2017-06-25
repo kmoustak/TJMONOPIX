@@ -18,6 +18,9 @@ library(matrix_dac) {
    default_output_pin_cap : 1.0;
    default_input_pin_cap : 1.0;
    default_max_capacitance : 1.1 ;
+   default_max_fanout : 1;
+   default_output_pin_fall_res : float ;
+   default_output_pin_rise_res : float ; 
   
    nom_process      : 1 ;
    nom_temperature  : 25 ;

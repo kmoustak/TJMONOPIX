@@ -24,7 +24,13 @@ library(Pulldown_pol_IO_lowcap_EN) {
    voltage_map(AVSS,  0.0) ;
    voltage_map(DVSS,  1.8) ;
 
-
+   default_fanout_load : 1;
+   default_max_transition : 1.0;
+   default_output_pin_cap : 0.4;
+   default_input_pin_cap : 0.4;
+   default_max_capacitance : 0.5 ;
+   /*default_max_fanout : 1;*/
+  
 
 cell(Pulldown_pol_IO_lowcap_EN) {
 
@@ -40,27 +46,27 @@ cell(Pulldown_pol_IO_lowcap_EN) {
 
    pin(OEN) {
       direction : input ;
-      capacitance : 1;
+      capacitance : 0.4;
    }
 
    pin(DOUT) {
       direction : input ;
-      capacitance : 1;
+      capacitance : 0.4;
       function : "EXT_CMD_CLK"; 
    }
 
    pin(CIN) {
         direction : output;
         function : "PAD";
-        max_capacitance : 0.5;
+        max_capacitance : 0.9;
         timing () {
             related_pin : "PAD" ;
             timing_sense : positive_unate;
             timing_type : combinational;
-            cell_rise(scalar) { values("0");}
-            rise_transition(scalar) { values("0");}
-            cell_fall(scalar) { values("0");}
-            fall_transition(scalar) { values("0");} 
+            cell_rise(scalar) { values("0.5");}
+            rise_transition(scalar) { values("0.2");}
+            cell_fall(scalar) { values("0.5");}
+            fall_transition(scalar) { values("0.2");} 
         }
    }
 

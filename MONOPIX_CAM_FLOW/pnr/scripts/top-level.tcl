@@ -8,7 +8,7 @@
 #                                                     
 #######################################################
 
-set PROJECT_DIR "../../"
+set PROJECT_DIR "../.."
 
 set TSL_LIB_PATH $::env(TSL_LIB_PATH) 
 set TSL_PDK_PATH $::env(TSL_PDK_PATH) 
@@ -75,7 +75,7 @@ set init_gnd_net {GNDP}
 set init_import_mode {  -keepEmptyModule 1 -treatUndefinedCellAsBbox 0}
 set init_layout_view {layout}
 set init_mmmc_file {../scripts/viewDefinition.tcl}
-set init_oa_ref_lib {tsl18fs120_dig tsl18fs120 TJ_Monopix_01  TJ_Monopix_4bit_DAC  TJ_Monopix_DAC  TJ_Monopix_PADS}
+set init_oa_ref_lib {tsl18fs120_dig tsl18fs120 TJ_Monopix_01 TJ_Monopix_PADS}
 set init_oa_search_lib {}
 set init_pwr_net {VDDP}
 set init_top_cell  "$DESIGN"
@@ -110,3 +110,11 @@ source $script/place.tcl  	          ;# Placement
 source $script/cts.tcl  	          ;# Placement 
 source $script/route.tcl  	          ;# Placement 
 #saveDesign -cellview "$oaLibName ${DESIGN} place"
+
+#TODO: add pins
+
+saveNetlist "../out/${DESIGN}_lvs.v" -flat -excludeLeafCell -includePowerGround -includePhysicalCell {feedth9_cap feedth10_cap feedth12_cap feedth14_cap feedth16_cap feedth18_cap feedth20_cap}
+oaOut $oaLibName ${DESIGN} layout -leafViewNames {layout abstract}
+
+
+

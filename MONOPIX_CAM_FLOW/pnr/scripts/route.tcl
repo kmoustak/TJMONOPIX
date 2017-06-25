@@ -12,6 +12,10 @@
 
 setAnalysisMode -analysisType onChipVariation
 
+set_interactive_constraint_modes [all_constraint_modes -active]
+set_propagated_clock [all_clocks]   
+set_clock_uncertainty -setup  0.1 [all_clocks]
+
 ########################################
 # Timing driven routing
 ########################################
