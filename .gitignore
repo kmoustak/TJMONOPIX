@@ -10,6 +10,8 @@ MONOPIX_CAM_FLOW/pnr/work/
 MONOPIX_CAM_FLOW/pnr/report/
 MONOPIX_CAM_FLOW/syn/work/
 MONOPIX_CAM_FLOW/syn/report/
+MONOPIX_CAM_FLOW/pnr/out
+MONOPIX_CAM_FLOW/syn/out
 
 # 
 sim/Top
