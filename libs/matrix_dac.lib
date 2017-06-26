@@ -114,12 +114,12 @@ cell(matrix_dac) {
 
    pg_pin(VDDP) { 
       voltage_name : VDDP ; 
-      pg_type : primary_ground ; 
+      pg_type : primary_power ; 
    }
    
    pg_pin(GNDP) { 
       voltage_name : GNDP ; 
-      pg_type : primary_power ; 
+      pg_type : primary_ground ; 
    }
    
    
