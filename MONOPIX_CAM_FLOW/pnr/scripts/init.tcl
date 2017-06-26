@@ -1,4 +1,3 @@
-set baseDir $::env(RD53_BASE_DIR)
 
 createLib TJ_Monopix_01  -noCompress -attachTech ts018_prim
 createLib TJ_Monopix_PADS  -noCompress -attachTech ts018_prim
