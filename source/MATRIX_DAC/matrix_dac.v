@@ -26,7 +26,7 @@ module mono_pixel
 );
 
 logic HIT;
-assign HIT = ((ANA_HIT | (!Injection & injection_en)) & preamp_en);
+assign HIT = ((ANA_HIT | (Injection & injection_en)) & preamp_en);
 
 assign OUT_MONITOR = HIT & monitor_en;
 

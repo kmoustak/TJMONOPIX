@@ -522,9 +522,9 @@ module MONOPIX(
         DIG_MON_SEL = conf.DIG_MON_SEL;
 
         //Pulsing
-        INJ_IN = {448{Pulse}} | (~conf.COL_PULSE_SEL);
-        INJ_IN_MON_L = Pulse | (~conf.INJ_IN_MON_L);
-        INJ_IN_MON_R = Pulse | (~conf.INJ_IN_MON_R);
+        INJ_IN = {448{Pulse}} & (conf.COL_PULSE_SEL);
+        INJ_IN_MON_L = Pulse & (conf.INJ_IN_MON_L);
+        INJ_IN_MON_R = Pulse & (conf.INJ_IN_MON_R);
     end
     
 

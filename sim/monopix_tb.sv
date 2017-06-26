@@ -206,7 +206,7 @@ module monopix_tb();
         def_conf = 1;
         en_conf_clk = 1;
         ana_hit = 0;
-        inj_pulse = 1;
+        inj_pulse = 0;
         
         repeat($bits(conf_in) + 5) begin
             @(negedge clk_conf)
@@ -228,20 +228,14 @@ module monopix_tb();
             shif_cnt <= shif_cnt +1;
         end
         
-        repeat(64) @(negedge clk_bx);
+        repeat(10) @(negedge clk_conf);
         
         ana_hit[0][0] = 1;
-        #25ns
-        ana_hit[2][447] = 1;
-        #200ns
-        ana_hit[0][0] = 0;
-        #25ns
-        ana_hit[2][447] = 0;
-        
-        #200ns
-        inj_pulse = 0;
-        #100ns
-        inj_pulse = 1;
+        #25ns ana_hit[2][447] = 1;  
+        #200ns ana_hit[0][0] = 0;
+        #25ns ana_hit[2][447] = 0;
+        #200ns inj_pulse = 1;
+        #100ns inj_pulse = 0;
         
     end
 
