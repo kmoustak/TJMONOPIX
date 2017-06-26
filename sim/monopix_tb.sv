@@ -192,7 +192,7 @@ module monopix_tb();
     
     integer shif_cnt;
     
-    logic [447:0][447:0] ana_hit;
+    logic [224:0][447:0] ana_hit;
     assign dut.matrix_dac.ANA_HIT = ana_hit;
     
     initial begin
@@ -228,7 +228,7 @@ module monopix_tb();
             shif_cnt <= shif_cnt +1;
         end
         
-        repeat(10) @(negedge clk_conf);
+        repeat(64) @(negedge clk_bx);
         
         ana_hit[0][0] = 1;
         #25ns
