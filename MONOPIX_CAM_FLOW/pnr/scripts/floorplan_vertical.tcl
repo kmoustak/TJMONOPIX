@@ -10,7 +10,7 @@
 
 setDrawView fplan     ;
 deleteAllFPObjects    ;
-floorPlan -site CoreSite -d 18200 9000 25.0 150 25.0 8505.0
+floorPlan -site CoreSite -d 18200 9000 25.0 150 25.0 8510.0
 win;
 
 ############################k
