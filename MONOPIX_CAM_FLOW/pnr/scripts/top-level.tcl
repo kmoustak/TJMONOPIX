@@ -114,6 +114,7 @@ source $script/route.tcl  	          ;# Placement
 #TODO: add pins
 
 saveNetlist "../out/${DESIGN}_lvs.v" -flat -excludeLeafCell -includePowerGround -includePhysicalCell {feedth9_cap feedth10_cap feedth12_cap feedth14_cap feedth16_cap feedth18_cap feedth20_cap}
+source ../scripts/makeLabels.tcl
 oaOut $oaLibName ${DESIGN} layout -leafViewNames {layout abstract}
 
 report_timing -to [get_pins matrix_dac/BcidMtx*] -unconstrained -nworst 2000 -view AV_TC >> ../report/BcidMtx.timing.AV_TC.log
