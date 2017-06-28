@@ -227,19 +227,20 @@ module monopix_tb();
              
             shif_cnt <= shif_cnt +1;
         end
-        
+
         repeat(10) @(negedge clk_conf);
-        
+	
+	repeat(21) @(negedge clk_bx);
+
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
         #200ns ana_hit[0][0] = 0;
         #25ns ana_hit[2][447] = 0;
         #200ns inj_pulse = 1;
         #100ns inj_pulse = 0;
-        
     end
-
     
+
     initial begin
        reset_bcid = 1;
        repeat (3) @(negedge clk_bx);
