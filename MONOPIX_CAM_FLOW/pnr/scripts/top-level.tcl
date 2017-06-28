@@ -117,7 +117,7 @@ saveNetlist "../out/${DESIGN}_lvs.v" -flat -excludeLeafCell -includePowerGround 
 source ../scripts/makeLabels.tcl
 oaOut $oaLibName ${DESIGN} layout -leafViewNames {layout abstract}
 
-report_timing -to [get_pins matrix_dac/BcidMtx*] -unconstrained -nworst 2000 -view AV_TC >> ../report/BcidMtx.timing.AV_TC.log
-report_timing -to [get_pins matrix_dac/BcidMtx*] -unconstrained -nworst 2000 -view AV_WC >> ../report/BcidMtx.timing.AV_WC.log
-report_timing -to [get_pins matrix_dac/BcidMtx*] -unconstrained -nworst 2000 -view AV_BC >> ../report/BcidMtx.timing.AV_BC.log
+report_timing -to [get_pins MONOPIX_TOP/BcidMtx*] -unconstrained -nworst 2000 -view AV_TC >> ../report/BcidMtx.timing.AV_TC.log
+report_timing -to [get_pins MONOPIX_TOP/BcidMtx*] -unconstrained -nworst 2000 -view AV_WC >> ../report/BcidMtx.timing.AV_WC.log
+report_timing -to [get_pins MONOPIX_TOP/BcidMtx*] -unconstrained -nworst 2000 -view AV_BC >> ../report/BcidMtx.timing.AV_BC.log
 

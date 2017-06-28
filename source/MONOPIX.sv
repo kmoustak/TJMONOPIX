@@ -1,7 +1,7 @@
 `include "DIGITAL/defines.sv"
 `include "DIGITAL/readout.sv"
 `include "DIGITAL/cnfg_reg.v"
-`include "MATRIX_DAC/matrix_dac.v"
+`include "MATRIX_DAC/MONOPIX_TOP.v"
 `include "PADS/PAD_DVDD.v"
 `include "PADS/PAD_DVSS.v"
 `include "PADS/Pulldown_pol_IO_lowcap_EN.v"
@@ -32,27 +32,27 @@ module MONOPIX(
     output [3:0] HIT_OR_PAD, HIT_OR_N_PAD, //IO Pulldown PAD
     
     // Analog -> Analog Pads
-    inout BiasSF,  // Analog Pad IBIAS
-    inout VPC,     // Analog Pad ANALOG
+    inout BiasSF_PAD,  // Analog Pad IBIAS
+    inout VPC_PAD,     // Analog Pad ANALOG
     inout VPCNOSF, // Analog Pad NORES
 
-    inout DACMON_IBIAS, // Analog PAD IANALOG
-    inout DACMON_IDB,   // Analog PAD IANALOG
-    inout DACMON_ITHR,  // Analog PAD IANALOG
-    inout DACMON_IRESET, // Analog PAD IANALOG
-    inout DACMON_ICASN,  // Analog PAD IANALOG
+    inout DACMON_IBIAS_PAD, // Analog PAD IANALOG
+    inout DACMON_IDB_PAD,   // Analog PAD IANALOG
+    inout DACMON_ITHR_PAD,  // Analog PAD IANALOG
+    inout DACMON_IRESET_PAD, // Analog PAD IANALOG
+    inout DACMON_ICASN_PAD,  // Analog PAD IANALOG
 
-    inout DACMON_VRESET_P,  // Analog PAD IANALOG
-    inout DACMON_VL,  // Analog PAD IANALOG
-    inout DACMON_VH,  // Analog PAD IANALOG
-    inout DACMON_VCASN_DAC,  // Analog PAD IANALOG
+    inout DACMON_VRESET_P_PAD,  // Analog PAD IANALOG
+    inout DACMON_VL_PAD,  // Analog PAD IANALOG
+    inout DACMON_VH_PAD,  // Analog PAD IANALOG
+    inout DACMON_VCASN_DAC_PAD,  // Analog PAD IANALOG
     
-    inout [3:0]  OUTA_MON_L, //Analog PAD ANALOG
-    inout [3:0]  OUTA_MON_R, //Analog PAD ANALOG
-    inout VCASN_MON_L,       //Analog PAD ANALOG
-    inout VCASN_DAC_MON_L,   //Analog PAD ANALOG
-    inout VCASN_MON_R,       //Analog PAD ANALOG
-    inout VCASN_DAC_MON_R,   //Analog PAD ANALOG
+    inout [3:0]  OUTA_MON_L_PAD, //Analog PAD ANALOG
+    inout [3:0]  OUTA_MON_R_PAD, //Analog PAD ANALOG
+    inout VCASN_MON_L_PAD,       //Analog PAD ANALOG
+    inout VCASN_DAC_MON_L_PAD,   //Analog PAD ANALOG
+    inout VCASN_MON_R_PAD,       //Analog PAD ANALOG
+    inout VCASN_DAC_MON_R_PAD,   //Analog PAD ANALOG
 
     // Power Nets
     inout       VDDA, // Analog Supply
@@ -61,12 +61,9 @@ module MONOPIX(
     inout       VDDD, // Digital Supply
     inout       GNDD, // Digital Ground
     
-    // DAC power domains will be shorted on the PAD
-    inout       VDDA_IDAC, // IDAC analog Supply
-    inout       GNDA_IDAC, // IDAC Analog Ground
-
-    inout       VDDA_VDAC, // IDAC analog Supply
-    inout       GNDA_VDAC, // IDAC Analog Ground
+    // DAC power
+    inout       VDDA_DAC, // DAC analog Supply
+    inout       GNDA_DAC, // DAC Analog Ground
 
     //inout       VDDP,  // Periphery Digital Supply
     //inout       GNDP,  // Periphery Digital Ground
@@ -300,7 +297,7 @@ module MONOPIX(
          );
 
     //
-    //   MATRIX_DAC
+    //   MONOPIX_TOP
     //
     
     logic SET_IRESET_BIT;
@@ -383,7 +380,7 @@ module MONOPIX(
     logic [1175:0]  Data_HV;
     
 
-    matrix_dac matrix_dac ( 
+    MONOPIX_TOP MONOPIX_TOP ( 
 	.DIG_MON_COMP ( DIG_MON_COMP ),
 	.DIG_MON_HV ( DIG_MON_HV ),
 	.DIG_MON_PMOS ( DIG_MON_PMOS ),
@@ -396,36 +393,34 @@ module MONOPIX(
 	.nTOK_HV ( nTOK_HV ),
 	.nTOK_PMOS ( nTOK_PMOS ),
 	.nTOK_PMOS_NOSF ( nTOK_PMOS_NOSF ),
-	.BiasSF ( BiasSF ),
-	.DACMON_IBIAS ( DACMON_IBIAS ),
-	.DACMON_ICASN ( DACMON_ICASN ),
-	.DACMON_IDB ( DACMON_IDB ),
-	.DACMON_IRESET ( DACMON_IRESET ),
-	.DACMON_ITHR ( DACMON_ITHR ),
-	.DACMON_VCASN_DAC ( DACMON_VCASN_DAC ),
-	.DACMON_VH ( DACMON_VH ),
-	.DACMON_VL ( DACMON_VL ),
-	.DACMON_VRESET_P ( DACMON_VRESET_P ),
+	.BiasSF_PAD ( BiasSF_PAD ),
+	.DACMON_IBIAS_PAD ( DACMON_IBIAS_PAD ),
+	.DACMON_ICASN_PAD ( DACMON_ICASN_PAD ),
+	.DACMON_IDB_PAD ( DACMON_IDB_PAD ),
+	.DACMON_IRESET_PAD ( DACMON_IRESET_PAD ),
+	.DACMON_ITHR_PAD ( DACMON_ITHR_PAD ),
+	.DACMON_VCASN_DAC_PAD ( DACMON_VCASN_DAC_PAD ),
+	.DACMON_VH_PAD ( DACMON_VH_PAD ),
+	.DACMON_VL_PAD ( DACMON_VL_PAD ),
+	.DACMON_VRESET_P_PAD ( DACMON_VRESET_P_PAD ),
 	.GNDA ( GNDA ),
-	.GNDA_IDAC ( GNDA_IDAC ),
-	.GNDA_VDAC ( GNDA_VDAC ),
+	.GNDA_DAC ( GNDA_DAC ),
 	.GNDD ( GNDD ),
 	//.GNDP ( GNDP ),
 	.HV_DIODE ( HV_DIODE ),
-	.OUTA_MON_L ( OUTA_MON_L ),
-	.OUTA_MON_R ( OUTA_MON_R ),
+	.OUTA_MON_L_PAD ( OUTA_MON_L_PAD ),
+	.OUTA_MON_R_PAD ( OUTA_MON_R_PAD ),
 	.PSUB ( PSUB ),
 	.PWELL ( PWELL ),
-	.VCASN_DAC_MON_L ( VCASN_DAC_MON_L ),
-	.VCASN_DAC_MON_R ( VCASN_DAC_MON_R ),
-	.VCASN_MON_L ( VCASN_MON_L ),
-	.VCASN_MON_R ( VCASN_MON_R ),
+	.VCASN_DAC_MON_L_PAD ( VCASN_DAC_MON_L_PAD ),
+	.VCASN_DAC_MON_R_PAD ( VCASN_DAC_MON_R_PAD ),
+	.VCASN_MON_L_PAD ( VCASN_MON_L_PAD ),
+	.VCASN_MON_R_PAD ( VCASN_MON_R_PAD ),
 	.VDDA ( VDDA ),
-	.VDDA_IDAC ( VDDA_IDAC ),
-	.VDDA_VDAC ( VDDA_VDAC ),
+	.VDDA_DAC ( VDDA_DAC ),
 	.VDDD ( VDDD ),
 	//.VDDP ( VDDP ),
-	.VPC ( VPC ),
+	.VPC_PAD ( VPC_PAD ),
 	.VPCNOSF ( VPCNOSF ),
 	.BcidMtx ( BcidMtx ),
 	.DIG_MON_SEL ( DIG_MON_SEL ),

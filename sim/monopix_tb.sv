@@ -193,7 +193,7 @@ module monopix_tb();
     integer shif_cnt;
     
     logic [224:0][447:0] ana_hit;
-    assign dut.matrix_dac.ANA_HIT = ana_hit;
+    assign dut.MONOPIX_TOP.ANA_HIT = ana_hit;
     
     initial begin
         clk_conf = 0;

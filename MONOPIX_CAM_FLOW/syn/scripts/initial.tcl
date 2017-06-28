@@ -31,7 +31,7 @@ set CUSTOM 0
 # Working Library & Operational Conditions
 #####################################################################
 
-set LIBRARY { tsl18fs120_ss_1p62v_125c.lib Pulldown_pol_IO_lowcap_EN.lib matrix_dac.lib} ;
+set LIBRARY { tsl18fs120_ss_1p62v_125c.lib Pulldown_pol_IO_lowcap_EN.lib MONOPIX_TOP.lib} ;
 set OP_COND ss_1p62v_125c
 
 # Target technology library folder

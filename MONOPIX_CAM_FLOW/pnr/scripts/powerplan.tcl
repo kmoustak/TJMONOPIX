@@ -22,7 +22,7 @@ addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -center 1 
 
 #### Matrix Power connection 
 
-sroute -connect { blockPin } -layerChangeRange { M4 TOP_M } -blockPinTarget { nearestTarget } -deleteExistingRoutes -blockPinRouteWithPinWidth -allowJogging 1 -crossoverViaLayerRange { M1 TOP_M } -allowLayerChange 1 -nets { GNDP VDDP } -blockPin useLef -block { matrix_dac } -targetViaLayerRange { M1 TOP_M }
+sroute -connect { blockPin } -layerChangeRange { M4 TOP_M } -blockPinTarget { nearestTarget } -deleteExistingRoutes -blockPinRouteWithPinWidth -allowJogging 1 -crossoverViaLayerRange { M1 TOP_M } -allowLayerChange 1 -nets { GNDP VDDP } -blockPin useLef -block { MONOPIX_TOP } -targetViaLayerRange { M1 TOP_M }
 
 sroute -connect { blockPin } -layerChangeRange { M4 TOP_M } -blockPinTarget { nearestTarget } -blockPinRouteWithPinWidth -blockPinLayerRange { TOP_M TOP_M } -allowJogging 1 -crossoverViaLayerRange { M1 TOP_M } -allowLayerChange 1 -nets { GNDP VDDP } -blockPin { onBoundary topBoundary } -targetViaLayerRange { M1 TOP_M }
 

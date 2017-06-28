@@ -2,10 +2,10 @@
 createLib TJ_Monopix_01  -noCompress -attachTech ts018_prim
 createLib TJ_Monopix_PADS  -noCompress -attachTech ts018_prim
 
-set status [catch {exec lef2oa -lef ../../../libs/matrix_dac.lef -overwrite -lib TJ_Monopix_01 -view abstract} result]
-set status [catch {exec lef2oa -lef ../../../libs/matrix_dac.lef -overwrite -lib TJ_Monopix_01 -view layout} result]
+set status [catch {exec lef2oa -lef ../../../libs/MONOPIX_TOP.lef -overwrite -lib TJ_Monopix_01 -view abstract} result]
+set status [catch {exec lef2oa -lef ../../../libs/MONOPIX_TOP.lef -overwrite -lib TJ_Monopix_01 -view layout} result]
 puts $result
-verilogAnnotate -refLibs TJ_Monopix_01 -verilog ../../../libs/matrix_dac.pins.v
+verilogAnnotate -refLibs TJ_Monopix_01 -verilog ../../../libs/MONOPIX_TOP.pins.v
 
 set status [catch {exec lef2oa -lef ../../../libs/digital_ring.lef -overwrite -lib TJ_Monopix_01 -view abstract} result]
 set status [catch {exec lef2oa -lef ../../../libs/digital_ring.lef -overwrite -lib TJ_Monopix_01 -view layout} result]
