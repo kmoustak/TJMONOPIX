@@ -1,11 +1,11 @@
 create_library_set -name LIB_TYP \
-  -timing  [join [list   "$TSL_LIB_PATH/lib/liberty/tsl18fs120_tt_1p8v_25c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/matrix_dac.lib"]]
+  -timing  [join [list   "$TSL_LIB_PATH/lib/liberty/tsl18fs120_tt_1p8v_25c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/MONOPIX_TOP.lib"]]
 
 create_library_set -name LIB_MIN\
-  -timing  [join [list  "$TSL_LIB_PATH/lib/liberty/tsl18fs120_ff_1p98v_m40c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/matrix_dac.lib"]]
+  -timing  [join [list  "$TSL_LIB_PATH/lib/liberty/tsl18fs120_ff_1p98v_m40c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/MONOPIX_TOP.lib"]]
 
 create_library_set -name LIB_MAX\
-  -timing  [join [list  "$TSL_LIB_PATH/lib/liberty/tsl18fs120_ss_1p62v_125c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/matrix_dac.lib"]] 
+  -timing  [join [list  "$TSL_LIB_PATH/lib/liberty/tsl18fs120_ss_1p62v_125c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/MONOPIX_TOP.lib"]] 
 
 create_rc_corner -name RC_BEST\
    -preRoute_res 1\
