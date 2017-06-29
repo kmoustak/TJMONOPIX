@@ -12,13 +12,16 @@ MACRO PAD_DVDD
     DIRECTION INOUT ;
     USE POWER ;
     PORT
+      LAYER TOP_M ;
+        RECT 55 117 90 120 ;
+    END
+    PORT
+      LAYER TOP_M ;
+        RECT 10 117 45 120 ;
+    END
+    PORT
       LAYER M3 ;
         RECT 0 34 100 64 ;
-      LAYER TOP_M ;
-        RECT 4 4 96 96 ;
-        RECT 25 4 75 120 ;
-      LAYER M5 ;
-        RECT 4 4 96 96 ;
       LAYER M4 ;
         RECT 0 34 100 64 ;
       LAYER TOP_V ;
@@ -10599,6 +10602,8 @@ MACRO PAD_DVDD
         RECT 29.73 53.455 29.99 53.715 ;
         RECT 29.73 52.695 29.99 52.955 ;
         RECT 29.73 51.935 29.99 52.195 ;
+      LAYER M5 ;
+        RECT 4 4 96 96 ;
     END
   END DVDD
   PIN DVSS
