@@ -5,7 +5,7 @@
 
 setDrawView fplan     ;
 deleteAllFPObjects    ;
-floorPlan -site CoreSite -d 18200 9743.565 41.0 150 41.0 8954.0
+floorPlan -site CoreSite -d 18200 9543.565 61.0 150 61.0 9060.0
 win;
 
 ############################k
@@ -364,6 +364,11 @@ foreach topPinPatt $topPinPatts {
          }
     }   
 }
+
+createRouteBlk -box 32 507 18172 511 -layer M1
+createRouteBlk -box 32 132.5 18172 136.5 -layer M1
+createRouteBlk -box 32 132.5 36 511 -layer M1
+createRouteBlk -box 18167 132.5 18172 511 -layer M1
 
 #saveDesign $SAVE_DESIGN_FP_FILE
 #saveFPlan $SAVE_FP_FILE

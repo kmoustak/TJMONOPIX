@@ -17,7 +17,7 @@ globalNetConnect GNDP -type pgpin -pin DVSS -inst *
 
 ### Ring arond the Core
 
-addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -center 1 -stacked_via_top_layer TOP_M -user_defined_region {20 140 20 500 18175 500 18175 140} -type core_rings -around user_defined -jog_distance 0.56 -threshold 0.56 -nets {VDDP GNDP} -follow core -stacked_via_bottom_layer M1 -layer {bottom M4 top M4 right M3 left M3} -width 5 -spacing 1 -offset 0.56 
+addRing -skip_via_on_wire_shape Noshape -skip_via_on_pin Standardcell -center 1 -stacked_via_top_layer TOP_M -user_defined_region {50 140 50 495 18145 495 18145 140} -type core_rings -around user_defined -jog_distance 0.56 -threshold 0.56 -nets {VDDP GNDP} -follow core -stacked_via_bottom_layer M1 -layer {bottom M4 top M4 right M3 left M3} -width 5 -spacing 1 -offset 0.56 
 
 
 #### Matrix Power connection 
