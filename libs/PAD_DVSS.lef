@@ -3624,13 +3624,13 @@ MACRO PAD_DVSS
     USE GROUND ;
     PORT
       LAYER TOP_M ;
-        RECT 52.5 117 96 120 ;
+        RECT 52.5 4 96 120 ;
     END
     PORT
+      LAYER M5 ;
+        RECT 4 4 96 96 ;
       LAYER TOP_M ;
-        RECT 4 117 47.5 120 ;
-    END
-    PORT
+        RECT 5 4 48.5 120 ;
       LAYER M3 ;
         RECT 0 66 100 96 ;
       LAYER M4 ;
@@ -14213,8 +14213,6 @@ MACRO PAD_DVSS
         RECT 29.73 85.93 29.99 86.19 ;
         RECT 29.73 85.17 29.99 85.43 ;
         RECT 29.73 84.41 29.99 84.67 ;
-      LAYER M5 ;
-        RECT 4 4 96 96 ;
     END
   END DVSS
   PIN AVSS
