@@ -113,9 +113,9 @@ endmodule
 typedef struct packed {
     
     logic [5:0] col;
-    logic [8:0] row;
-    logic [5:0] le;
     logic [5:0] te;
+    logic [5:0] le;
+    logic [8:0] row;
     
 } t_data; 
 

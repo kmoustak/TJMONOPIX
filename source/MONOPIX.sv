@@ -135,8 +135,8 @@ module MONOPIX(
     Pulldown_pol_IO_lowcap_EN PAD_TOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_PAD), .SUB(PSUB), .DOUT(TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
     Pulldown_pol_IO_lowcap_EN PAD_OUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_PAD), .SUB(PSUB), .DOUT(OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=enabled=0)
 //Diff PADS
-    Pulldown_pol_IO_lowcap_EN PAD_nTOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_N_PAD), .SUB(PSUB), .DOUT(~TokenCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
-    Pulldown_pol_IO_lowcap_EN PAD_nOUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_N_PAD), .SUB(PSUB), .DOUT(~OutCOMP), .OEN(conf.EN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nTOKEN_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(TOKEN_COMP_N_PAD), .SUB(PSUB), .DOUT(~TokenCOMP), .OEN(conf.nEN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
+    Pulldown_pol_IO_lowcap_EN PAD_nOUT_COMP ( .CIN(), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(OUT_COMP_N_PAD), .SUB(PSUB), .DOUT(~OutCOMP), .OEN(conf.nEN_OUT[2]) ); //TRANSMITTER (Default=disabled=1)
 
 // FLAVOR 4 (HV) I/O   
     Pulldown_pol_IO_lowcap_EN PAD_READ_HV ( .CIN(ReadHV), .AVDD(VDDD), .AVSS(GNDD), .DVDD(VDDP), .DVSS(GNDP), .PAD(READ_HV_PAD), .SUB(PSUB), .DOUT(), .OEN(1'b1) ); //RECEIVER (OEN=1 in the new PAD)

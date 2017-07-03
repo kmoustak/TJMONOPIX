@@ -252,7 +252,7 @@ SWCNTL_VH, SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
             if ( col_i < `TEST_DC ) begin
                 assign token[col_i] = tok_int[448];
                 always@(negedge READ[col_i])
-                    data[col_i] <= {ADDR[col_i], LE[col_i], TE[col_i]};
+                    data[col_i] <= {TE[col_i], LE[col_i], ADDR[col_i]};
                 
                 for (row_i = 0; row_i <448; row_i = row_i + 1) begin: row_gen
                     mono_pixel #(.ADDR(row_i)) pix
