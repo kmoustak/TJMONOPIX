@@ -203,10 +203,10 @@ module MONOPIX(
         //----------TEST PATTERN-------//
         default_conf.EN_TEST_PATTERN = '1;
         //----------READOUT ENABLE-----//
-        default_conf.EN_PMOS_NOSF = '0;
-        default_conf.EN_PMOS = '0;
-        default_conf.EN_COMP = '0;
-        default_conf.EN_HV = '0;
+        default_conf.EN_PMOS_NOSF = '1;
+        default_conf.EN_PMOS = '1;
+        default_conf.EN_COMP = '1;
+        default_conf.EN_HV = '1;
         default_conf.EN_OUT = '0;
         default_conf.nEN_OUT = '1;
         //--------HITOR OUT ENABLE-----//
