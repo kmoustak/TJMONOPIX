@@ -12,6 +12,8 @@ MONOPIX_CAM_FLOW/syn/work/
 MONOPIX_CAM_FLOW/syn/report/
 MONOPIX_CAM_FLOW/pnr/out
 MONOPIX_CAM_FLOW/syn/out
+libs/techfile
+libs/techgen
 tjsetup
 # 
 sim/Top
