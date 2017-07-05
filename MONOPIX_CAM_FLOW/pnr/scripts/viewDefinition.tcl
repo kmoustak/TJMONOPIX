@@ -8,6 +8,7 @@ create_library_set -name LIB_MAX\
   -timing  [join [list  "$TSL_LIB_PATH/lib/liberty/tsl18fs120_ss_1p62v_125c.lib ../../../libs/Pulldown_pol_IO_lowcap_EN.lib ../../../libs/MONOPIX_TOP.lib"]] 
 
 create_rc_corner -name RC_BEST\
+   -cap_table "../../../libs/TSL6ML_BC.CapTbl" \
    -preRoute_res 1\
    -postRoute_res 1\
    -preRoute_cap 1\
@@ -28,6 +29,7 @@ create_rc_corner -name RC_TYP\
    -T 25\
    -qx_tech_file "$TSL_PDK_PATH/HOTCODE/techs/ts18is_6M1L/assura/default_scr/RCE_TS18SL_QRC_6M1L/qrcTechFile" 
 create_rc_corner -name RC_WORST\
+   -cap_table "../../../libs/TSL6ML_WC.CapTbl" \
    -preRoute_res 1\
    -postRoute_res 1\
    -preRoute_cap 1\
