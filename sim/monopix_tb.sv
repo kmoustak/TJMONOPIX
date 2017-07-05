@@ -94,7 +94,7 @@ always@(posedge clk_out)
     ser <= {ser[25:0],data_in};
 
 wire store_data;
-assign store_data = (cnt == 26);
+assign store_data = (cnt == 27);
 
 always@(posedge clk_out)
     if(reset)
@@ -139,10 +139,10 @@ module monopix_tb();
         
         conf_in.SET_IBUFP_L = 4'h5;
         conf_in.EN_PMOS_NOSF[0] = 1;
-        conf_in.EN_PMOS_NOSF[1] = 1;
-        conf_in.EN_PMOS_NOSF[2] = 1;
-        conf_in.EN_PMOS_NOSF[3] = 1;
-        //conf_in.EN_TEST_PATTERN[0] = 1;
+        conf_in.EN_PMOS_NOSF[1] = 0;
+        conf_in.EN_PMOS_NOSF[2] = 0;
+        conf_in.EN_PMOS_NOSF[3] = 0;
+        conf_in.EN_TEST_PATTERN[0] = 1;
         
         
         conf_in.COL_PULSE_SEL[7] = 1;
@@ -188,7 +188,7 @@ module monopix_tb();
     
         
     );
-    assign clk_out = clk_bx;
+    //assign clk_out = clk_bx;
     
     integer shif_cnt;
     
@@ -250,12 +250,22 @@ module monopix_tb();
     initial begin
         rst_n = 0;
         clk_bx = 0;
+        clk_out = 0;
         #1us rst_n = 1;
 
         #1us clk_bx = 0;
+	#1us clk_out = 0;
         
         forever 
             #12.5ns clk_bx = ~clk_bx;
+
+    end
+
+    initial begin
+	#1us clk_out = 0;
+        
+        forever 
+	    #3.125ns clk_out = ~clk_out;
 
     end
     
