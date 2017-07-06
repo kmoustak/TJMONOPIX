@@ -55,8 +55,7 @@ always@(*) begin : set_next_state
     endcase
 end
      
-always@(posedge 
-clk_bx)
+always@(posedge clk_bx)
 if(reset || (next_state == TOKEN_WAIT && state != TOKEN_WAIT) || (next_state == READ && state != READ)  || (next_state == DATA && state != DATA) )
     DelayCnt <= 0;
 else if(DelayCnt != '1)
