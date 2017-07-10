@@ -45,7 +45,7 @@ always@(*) begin : set_next_state
             if(DelayCnt == 1)
                 next_state = DATA;  
         DATA: 
-            if(DelayCnt == 30)
+            if(DelayCnt == 5)
             begin
                 if(token)
                     next_state = TOKEN_WAIT; 

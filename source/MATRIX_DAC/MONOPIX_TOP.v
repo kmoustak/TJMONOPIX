@@ -6,9 +6,11 @@
 
 // synopsys translate_off
 module mono_pixel 
-#(
-    parameter ADDR = 0
-)(
+//#(
+//    parameter ADDR = 0
+//)(
+    (
+    input [8:0] ADDR,
     input ANA_HIT,
     input Injection,
         
@@ -237,7 +239,6 @@ SWCNTL_VH, SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
 `ifndef TEST_DC
     `define TEST_DC 224
 `endif
-    
     generate
         genvar col_i;
         genvar row_i;
@@ -255,8 +256,15 @@ SWCNTL_VH, SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
                     data[col_i] <= {TE[col_i], LE[col_i], ADDR[col_i]};
                 
                 for (row_i = 0; row_i <448; row_i = row_i + 1) begin: row_gen
-                    mono_pixel #(.ADDR(row_i)) pix
+                  logic [8:0] ADDRrow;
+                  logic [8:0] ADDRmap;
+                  assign ADDRrow = (ADDRmap > 223) ? (ADDRmap+32) : ADDRmap;
+                  assign ADDRmap = ((!(row_i % 2))*(row_i/2))+((row_i % 2)*(row_i+223-((row_i-1)/2)));
+                  mono_pixel pix
+                  //mono_pixel #(.ADDR(row_i)) pix
+                  //mono_pixel #(.ADDR(((!(row_i % 2))*(row_i/2))+((row_i % 2)*(row_i+223-((row_i-1)/2))))) pix
                     (
+                        .ADDR(ADDRrow),
                         .ANA_HIT(ANA_HIT[col_i*448+row_i]),
                         .Injection(INJ_IN[2*col_i + (row_i % 2)]),
                         .OUT_MONITOR(monitor_int[(row_i % 2)][row_i/2]),
