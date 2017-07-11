@@ -17,3 +17,4 @@ vcd add /monopix_tb/dut/LD_CONF_PAD
 vcd add /monopix_tb/dut/SI_CONF_PAD
 #vcd dumpports -file SI_CONF2.vcd /monopix_tb/dut/SI_CONF_PAD
 run 35us
+#quit -f

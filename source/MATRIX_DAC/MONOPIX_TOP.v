@@ -282,7 +282,7 @@ SWCNTL_VH, SWCNTL_VL, SWCNTL_VRESET_D, SWCNTL_VRESET_P, nRST );
                         .ROW_SW(ADDR[col_i]),
                         
                         .injection_en(INJ_ROW[row_i/2]),
-                        .preamp_en(MASKH[col_i] & MASKV[row_i]), // MASKD
+                        .preamp_en(MASKH[col_i] | MASKV[row_i]), // MASKD
                         .monitor_en(1'b1) //?
                     );
                 end

@@ -201,11 +201,15 @@ module monopix_tb();
 	conf_in.SWCNTL_VCLIP = 0;
 
 //------------------changes of defconf-------------------//
-        conf_in.COL_PULSE_SEL[7] = 1;
-        conf_in.COL_PULSE_SEL[6] = 1;
-        conf_in.INJ_ROW[0] = 1;
-        conf_in.INJ_ROW[100] = 1;
-        conf_in.INJ_ROW[223] = 1;
+        //conf_in.COL_PULSE_SEL[7] = 1;
+        //conf_in.COL_PULSE_SEL[6] = 1;
+        //conf_in.INJ_ROW[0] = 1;
+        //conf_in.INJ_ROW[100] = 1;
+        //conf_in.INJ_ROW[223] = 1;
+        conf_in.MASKH = '0;
+        conf_in.DIG_MON_SEL[111:0] = '1;
+        conf_in.EN_HITOR_OUT[0] = 0;
+        conf_in.nEN_HITOR_OUT[0] = 0;          
 
     end
    
