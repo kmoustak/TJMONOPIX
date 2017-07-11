@@ -249,7 +249,7 @@ module monopix_tb();
     
     initial begin
         clk_conf = 0;
-        forever #12.5ns clk_conf = ~clk_conf;
+        forever #3.125ns clk_conf = ~clk_conf;
     end
     
     initial begin
@@ -280,9 +280,9 @@ module monopix_tb();
             shif_cnt <= shif_cnt +1;
         end
 
-        repeat(59) @(negedge clk_conf);
+        //repeat(59) @(negedge clk_conf);
 	
-	//repeat(21) @(negedge clk_bx);
+	repeat(63) @(negedge clk_bx);
 
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
@@ -291,8 +291,8 @@ module monopix_tb();
         #200ns inj_pulse = 1;
         #100ns inj_pulse = 0;
 
-        en_conf_clk = 1;
-        #98175ns  en_conf_clk = 0;
+        //en_conf_clk = 1;
+        //#98175ns  en_conf_clk = 0;
     end
     
 
