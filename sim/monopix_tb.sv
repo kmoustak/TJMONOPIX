@@ -132,29 +132,81 @@ module monopix_tb();
     assign conf_reg = conf_in;
     
     initial begin
-        conf_in = '0;
-        //conf_in.COL_PULSE_SEL[447] = 1;
-        conf_in.nEN_HITOR_OUT = 4'b0101;
-        
-        conf_in.SET_IBUFP_L = 4'h5;
-        conf_in.EN_PMOS_NOSF[0] = 1;
-        conf_in.EN_PMOS_NOSF[1] = 1;
-        conf_in.EN_PMOS_NOSF[2] = 1;
-        conf_in.EN_PMOS_NOSF[3] = 1;
-        //conf_in.EN_TEST_PATTERN[0] = 1;
-        
-        
+        //----------TEST PATTERN-------//
+	conf_in.EN_TEST_PATTERN = '0;
+	//----------READOUT ENABLE-----//
+	conf_in.EN_PMOS_NOSF = '1;
+	conf_in.EN_PMOS = '1;
+	conf_in.EN_COMP = '1;
+	conf_in.EN_HV = '1;
+	conf_in.EN_OUT = '0;
+	conf_in.nEN_OUT = '1;
+	//--------HITOR OUT ENABLE-----//
+	conf_in.EN_HITOR_OUT = '1;
+	conf_in.nEN_HITOR_OUT = '1;
+	//----------PULSING------------//
+	conf_in.COL_PULSE_SEL = '0;
+	conf_in.INJ_IN_MON_L = 0;
+	conf_in.INJ_IN_MON_R = 0;
+	conf_in.INJ_ROW = '0;
+	//----------MASKING------------//
+	conf_in.MASKV = '1;
+	conf_in.MASKH = '1;  //(nMASKH=HITOR_SEL_ROW)
+	conf_in.MASKD = '1;
+	//------HIT_OR_COLUMN_ENABLE---//
+	conf_in.DIG_MON_SEL = '0;
+	//---------4-bit DAC-----------//
+	//1st stage
+	conf_in.SET_IBUFP_L = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+	conf_in.SET_IBUFP_R = 4'h5; // (30uA max, 2uA LSB, default=10uA)
+	//2nd stage - Driver
+	conf_in.SET_IBUFN_L = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+	conf_in.SET_IBUFN_R = 4'h9; // (300uA max, 20uA LSB, default=180uA)
+
+	//------------DAC-------------//
+	//SET VOLTAGE DAC - ONE HOT ENCODING
+	conf_in.SET_VRESET_P = 128'h00000000000000000000000000010000; //(LINE #17 default=800mV (245mV+555mV))
+	conf_in.SET_VH = 128'h00000000000080000000000000000000; //(LINE #79 default=1.5V (1.1V+385mV)
+	conf_in.SET_VL = 128'h00000000000000000000100000000000; //(LINE #44 default=1V (620mV+385mV))
+	conf_in.SET_VCASN = 128'h00000000000000000000010000000000; //(LINE #40 default=570mV)
+	//NOT USED IN MONOPIX
+	conf_in.SET_VRESET_D = 128'h00000000000000000000200000000000; //(LINE #45 default=1.19V (645mV+555mV))
+	conf_in.SET_VCLIP = 128'h00000000000000000000000000000000; //(LINE #0 default=0V)
+
+	//SET CURRENT DAC - THERMOMETER ENCODING, START FROM THE MIDDLE
+	//Value = 128/(#lines active)*max current
+	conf_in.SET_IBIAS = {{41{1'b0}},{46{1'b1}},{41{1'b0}}}; // (1.4uA max, 10.9nA LSB, default = 500nA)
+	conf_in.SET_IDB = {{49{1'b0}},{29{1'b1}},{50{1'b0}}}; // (2.24uA max, 17.5nA LSB, default = 500nA)
+	conf_in.SET_ITHR = {{60{1'b0}},{8{1'b1}},{60{1'b0}}}; // (17.5nA max, 137pA LSB, default = 1.1nA)
+	conf_in.SET_IRESET = {{56{1'b0}},{15{1'b1}},{57{1'b0}}}; //4.7// (4.375nA max, 34.2pA LSB, default = 512pA)
+	conf_in.SET_ICASN = {{45{1'b0}},{38{1'b1}},{45{1'b0}}}; // (560nA max, 4.375nA LSB, default = 166nA) VCASN = 572mV
+	//SET IRESET BIT (1= HIGH LEAKAGE MODE, 0=LOW LEAKAGE MODE)
+	conf_in.SET_IRESET_BIT = 1;
+	//MONITOR SWCNTL
+	conf_in.SWCNTL_DACMONI = 0;
+	conf_in.SWCNTL_DACMONV = 0;
+	//SWCNTLxx
+	conf_in.SWCNTL_VRESET_P = 0;
+	conf_in.SWCNTL_VH = 0;
+	conf_in.SWCNTL_VL = 0;
+	conf_in.SWCNTL_VCASN = 0;
+	conf_in.SWCNTL_IREF = 0;
+	conf_in.SWCNTL_IBIAS = 0;
+	conf_in.SWCNTL_IDB = 0;
+	conf_in.SWCNTL_ITHR = 0;
+	conf_in.SWCNTL_IRESET = 0;
+	conf_in.SWCNTL_ICASN = 0;
+	//NOT USED IN MONOPIX
+	conf_in.SWCNTL_VRESET_D = 0;
+	conf_in.SWCNTL_VCLIP = 0;
+
+//------------------changes of defconf-------------------//
         conf_in.COL_PULSE_SEL[7] = 1;
         conf_in.COL_PULSE_SEL[6] = 1;
         conf_in.INJ_ROW[0] = 1;
         conf_in.INJ_ROW[100] = 1;
         conf_in.INJ_ROW[223] = 1;
-        
-        conf_in.MASKV = '1;
-        conf_in.MASKH = '1; 
-        conf_in.MASKD = '1;
-        
-        
+
     end
    
    
@@ -171,6 +223,7 @@ module monopix_tb();
         .CLK_CONF_PAD(clk_conf & en_conf_clk),
         .LD_CONF_PAD(ld_conf),
         .SI_CONF_PAD(si_conf),
+        .SO_CONF_PAD(so_conf),
         
         .RST_N_PAD(rst_n),
         .CLK_BX_PAD(clk_bx), 
@@ -196,7 +249,7 @@ module monopix_tb();
     
     initial begin
         clk_conf = 0;
-        forever #1us clk_conf = ~clk_conf;
+        forever #12.5ns clk_conf = ~clk_conf;
     end
     
     initial begin
@@ -227,9 +280,9 @@ module monopix_tb();
             shif_cnt <= shif_cnt +1;
         end
 
-        repeat(10) @(negedge clk_conf);
+        repeat(59) @(negedge clk_conf);
 	
-	repeat(21) @(negedge clk_bx);
+	//repeat(21) @(negedge clk_bx);
 
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
@@ -237,6 +290,9 @@ module monopix_tb();
         #25ns ana_hit[2][447] = 0;
         #200ns inj_pulse = 1;
         #100ns inj_pulse = 0;
+
+        en_conf_clk = 1;
+        #98175ns  en_conf_clk = 0;
     end
     
 

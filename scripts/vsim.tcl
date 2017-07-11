@@ -10,4 +10,7 @@ add wave -group readout_PMOS_NOSF {sim:/monopix_tb/dut/readout_PMOS_NOSF/*}
 add wave -group readout_PMOS_NOSF_serializer {sim:/monopix_tb/dut/readout_PMOS_NOSF/serializer/*}
 add wave -group eoc_0_0 {sim:/monopix_tb/dut/readout_PMOS_NOSF/col_gen[0]/eoc/*}
 add wave -group control_pmos_nosf {sim:/monopix_tb/control_pmos_nosf/*}
-run 10ms
+#vcd file SI_CONF.vcd
+#vcd add /monopix_tb/dut/SI_CONF_PAD
+#vcd dumpports -file SI_CONF2.vcd /monopix_tb/dut/SI_CONF_PAD
+run 110us
