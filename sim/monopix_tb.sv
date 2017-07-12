@@ -221,6 +221,8 @@ module monopix_tb();
     logic token_pmos_nosf, token_pmos, token_comp, token_hv;
     logic data_pmos_nosf, data_pmos, data_comp, data_hv; 
     logic inj_pulse;
+    logic [3:0] hit_or;
+    logic [3:0] nhit_or;
     
     MONOPIX dut (
         .DEF_CONF_PAD(def_conf),
@@ -240,9 +242,10 @@ module monopix_tb();
         .TOKEN_PMOS_NOSF_PAD(token_pmos_nosf), .TOKEN_PMOS_PAD(token_pmos), .TOKEN_COMP_PAD(token_comp), .TOKEN_HV_PAD(token_hv), 
         .OUT_PMOS_NOSF_PAD(data_pmos_nosf), .OUT_PMOS_PAD(data_pmos), .OUT_COMP_PAD(data_comp), .OUT_HV_PAD(data_hv),
         
-        .PULSE_PAD(inj_pulse)
-    
-        
+        .PULSE_PAD(inj_pulse),
+        .HIT_OR_PAD(hit_or),
+        .HIT_OR_N_PAD(nhit_or)
+  
     );
 //    assign clk_out = clk_bx;
     
@@ -286,7 +289,7 @@ module monopix_tb();
 
         //repeat(59) @(negedge clk_conf);
 	
-	repeat(63) @(negedge clk_bx);
+	//repeat(63) @(negedge clk_bx);
 
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
