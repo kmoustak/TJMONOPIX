@@ -1,4 +1,7 @@
 vlog -sv ../sim/monopix_tb.sv -lint +incdir+../source
+#vlog /faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev_2015.08/lib/verilog/tsl18fs120.v
+#vlog /faust/user/kmoustakas/cadence/Lib/tsl18fs120_Rev_2015.08/lib/verilog/tsl18fs120_udp.v
+#vlog /faust/user/kmoustakas/Designs/TJMONOPIX/tj-monopix/MONOPIX_CAM_FLOW/pnr/out/MONOPIX.v
 vsim monopix_tb -novopt
 add wave -group tb sim:/monopix_tb/*
 add wave -group dut sim:/monopix_tb/dut/*
@@ -16,5 +19,5 @@ add wave -group control_pmos_nosf {sim:/monopix_tb/control_pmos_nosf/*}
 #vcd add /monopix_tb/dut/LD_CONF_PAD
 #vcd add /monopix_tb/dut/SI_CONF_PAD
 #vcd dumpports -file SI_CONF2.vcd /monopix_tb/dut/SI_CONF_PAD
-run 35us
+run 200us
 #quit -f

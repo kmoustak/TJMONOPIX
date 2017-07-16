@@ -117,6 +117,10 @@ saveNetlist "../out/${DESIGN}_lvs.v" -flat -excludeLeafCell -includePowerGround 
 source ../scripts/makeLabels.tcl
 oaOut $oaLibName ${DESIGN} layout -leafViewNames {layout abstract}
 
+saveNetlist "../out/${DESIGN}.v"
+write_sdf -min_view AV_BC -max_view AV_WC -typ_view AV_TC -version 3.0 -edges check_edge  -remashold  -recompute_parallel_arcs ../out/${DESIGN}.sdf
+
+
 report_timing -to [get_pins MONOPIX_TOP/BcidMtx*] -unconstrained -nworst 2000 -view AV_TC >> ../report/BcidMtx.timing.AV_TC.log
 report_timing -to [get_pins MONOPIX_TOP/BcidMtx*] -unconstrained -nworst 2000 -view AV_WC >> ../report/BcidMtx.timing.AV_WC.log
 report_timing -to [get_pins MONOPIX_TOP/BcidMtx*] -unconstrained -nworst 2000 -view AV_BC >> ../report/BcidMtx.timing.AV_BC.log

@@ -45,7 +45,7 @@ always@(*) begin : set_next_state
             if(DelayCnt == 1)
                 next_state = DATA;  
         DATA: 
-            if(DelayCnt == 5)
+            if(DelayCnt == 30)
             begin
                 if(token)
                     next_state = TOKEN_WAIT; 
@@ -78,7 +78,7 @@ always@(posedge clk_out)
 reg load;
 always@(posedge clk_out)
     load <= read_out_dly[0] & !read_out_dly[1];
-    
+
 reg [6:0] cnt;
 always@(posedge clk_out)
     if(reset)
@@ -209,8 +209,13 @@ module monopix_tb();
         conf_in.MASKH = '0;
         conf_in.DIG_MON_SEL[111:0] = '1;
         conf_in.EN_HITOR_OUT[0] = 0;
-        conf_in.nEN_HITOR_OUT[0] = 0;          
-
+        conf_in.nEN_HITOR_OUT[0] = 0;
+        //conf_in.COL_PULSE_SEL[0] = 1;           
+        //conf_in.COL_PULSE_SEL[447] = 1;
+        //conf_in.EN_TEST_PATTERN = '1;
+        conf_in.COL_PULSE_SEL[2] = 1;
+        conf_in.INJ_ROW[10] = 1;
+        conf_in.INJ_IN_MON_L = 1;
     end
    
    
@@ -256,7 +261,7 @@ module monopix_tb();
     
     initial begin
         clk_conf = 0;
-        forever #3.125ns clk_conf = ~clk_conf;
+        forever #12.5ns clk_conf = ~clk_conf;
     end
     
     initial begin
@@ -287,9 +292,9 @@ module monopix_tb();
             shif_cnt <= shif_cnt +1;
         end
 
-        //repeat(59) @(negedge clk_conf);
+        repeat(59) @(negedge clk_conf);
 	
-	//repeat(63) @(negedge clk_bx);
+	repeat(63) @(negedge clk_bx);
 
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
@@ -298,8 +303,8 @@ module monopix_tb();
         #200ns inj_pulse = 1;
         #100ns inj_pulse = 0;
 
-        //en_conf_clk = 1;
-        //#98175ns  en_conf_clk = 0;
+        en_conf_clk = 1;
+        #98150ns  en_conf_clk = 0;
     end
     
 
@@ -326,7 +331,7 @@ module monopix_tb();
 	#1us clk_out = 0;
        
         forever 
-	    #3.125ns clk_out = ~clk_out;
+	    #12.5ns clk_out = ~clk_out;
 
     end
     
