@@ -292,9 +292,9 @@ module monopix_tb();
             shif_cnt <= shif_cnt +1;
         end
 
-        repeat(59) @(negedge clk_conf);
+        //repeat(59) @(negedge clk_conf);
 	
-	repeat(63) @(negedge clk_bx);
+	//repeat(63) @(negedge clk_bx);
 
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
