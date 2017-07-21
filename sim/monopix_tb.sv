@@ -294,7 +294,7 @@ module monopix_tb();
 
         //repeat(59) @(negedge clk_conf);
 	
-	//repeat(63) @(negedge clk_bx);
+	repeat(59) @(negedge clk_bx);
 
         ana_hit[0][0] = 1;
         #25ns ana_hit[2][447] = 1;  
@@ -331,7 +331,7 @@ module monopix_tb();
 	#1us clk_out = 0;
        
         forever 
-	    #12.5ns clk_out = ~clk_out;
+	    #3.125ns clk_out = ~clk_out;
 
     end
     
